@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Knoxy3D</title>
+        <link rel="stylesheet" type="text/css" href="knoxy.css">
+		<style type="text/css">
+            #loadingOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 85;
+            background-color: #000;
+            color: #CCC;
+            font-family: monospace;
+            overflow: hidden;
+        }
+        </style>
+	</head>
+	<body>
+        <div id="loadingOverlay"> <!-- style="display:none" -->
+            <pre>
+KKKKKKKKK    KKKKKKK                                                                              
+K:::::::K    K:::::K                                                                              
+K:::::::K    K:::::K                                                                              
+K:::::::K   K::::::K                                                                              
+KK::::::K  K:::::KKKnnnn  nnnnnnnn       ooooooooooo xxxxxxx      xxxxxxxyyyyyyy           yyyyyyy
+  K:::::K K:::::K   n:::nn::::::::nn   oo:::::::::::oox:::::x    x:::::x  y:::::y         y:::::y 
+  K::::::K:::::K    n::::::::::::::nn o:::::::::::::::ox:::::x  x:::::x    y:::::y       y:::::y  
+  K:::::::::::K     nn:::::::::::::::no:::::ooooo:::::o x:::::xx:::::x      y:::::y     y:::::y   
+  K:::::::::::K       n:::::nnnn:::::no::::o     o::::o  x::::::::::x        y:::::y   y:::::y    
+  K::::::K:::::K      n::::n    n::::no::::o     o::::o   x::::::::x          y:::::y y:::::y     
+  K:::::K K:::::K     n::::n    n::::no::::o     o::::o   x::::::::x           y:::::y:::::y      
+KK::::::K  K:::::KKK  n::::n    n::::no::::o     o::::o  x::::::::::x           y:::::::::y       
+K:::::::K   K::::::K  n::::n    n::::no:::::ooooo:::::o x:::::xx:::::x           y:::::::y        
+K:::::::K    K:::::K  n::::n    n::::no:::::::::::::::ox:::::x  x:::::x           y:::::y         
+K:::::::K    K:::::K  n::::n    n::::n oo:::::::::::oox:::::x    x:::::x         y:::::y          
+KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       y:::::y           
+                                                                               y:::::y            
+                                                                              y:::::y             
+                                                                             y:::::y              
+                                                                            y:::::y               
+                                                                           yyyyyyy
+            </pre>
+            <h1 style="margin-bottom:50px">Portfolio/Showcase: April 2023</h1>
+            <h1 id="init">Initializing...</h1>
+        </div>
+        <div id="wrapper">
+            <canvas id="knoxy"></canvas>
+            <div id="labels"></div>
+            <div id="overlay">
+                <div id="overlayClose">&times;</div>
+                <div id="overlayContent"></div>
+            </div>
+            <div id="contextMenu">
+                <ul id="contextContent"></ul>
+            </div>
+        </div>
+        <iframe id="frame1"></iframe>
+        <iframe id="frame2"></iframe>
+        <script>
+            let Testing = null;
+            window.name = 'KnoxyHQ';
+            window.testing123 = Testing;
+            window.loadedM0 = false;
+            window.loadedM1 = false;
+            window.loadedM2 = false;
+            window.loadedModels = false;
+            let loadingTime = 0;
+            let loading = setInterval(function() {
+                if(loadedM0 && loadedM1 && loadedM2) {
+                    if(!loadedModels) {
+                        //document.getElementById('init').id = 'initLoader2';
+                        let newInit = document.createElement('h1');
+                        newInit.id = 'init';
+                        newInit.innerHTML = 'Loading scene...';
+                        document.getElementById('loadingOverlay').appendChild(newInit);
+                    } else {
+                        clearInterval(loading);
+                        const overlay = document.getElementById('loadingOverlay');
+                        try {
+                            // finished loading world
+                            document.getElementById('init').append('OK!');
+                        } catch(e) {}
+                        
+                        // show welcome message
+                        let loaded = document.createElement('h1');
+                        loaded.innerHTML = 'Welcome to knoxy.tk!<br><br>';
+                        overlay.appendChild(loaded);
+                        overlay.scrollTop = overlay.scrollHeight;
+                        Testing.callAnimate();
+                        setTimeout(loadingComplete, 1000);
+                        function loadingComplete() {
+                            try {
+                                // append loadingOverlay html to #monitor5 in monitor2.html
+                                Testing.scene.monitor2.screenContent.getElementById('monitor5').innerHTML = overlay.innerHTML;
+
+                                // remove loading overlay
+                                overlay.parentNode.removeChild(overlay);
+
+                                // tween to tippyDesk
+                                setTimeout(function() {
+                                    Testing.ui.moveCameraTo('tippyDesk', null, null, () => {
+                                        Testing.tippyDesk.toggleTray();
+                                    });
+                                }, 500);
+                                
+                            } catch(e) {
+                                console.error(e);
+                                setTimeout(loadingComplete, 250);
+                            }
+                        }
+                    }  
+                } else {
+                    if(loadedModels) {
+                        //document.getElementById('init').id = 'initLoader2';
+                        if(!document.getElementById('init')) {
+                            let newInit = document.createElement('h1');
+                            newInit.id = 'init';
+                            newInit.innerHTML = 'Loading scene...';
+                            document.getElementById('loadingOverlay').appendChild(newInit);
+                        }
+                    } else {
+                        try {
+                            document.getElementById('init').append('.');
+                        } catch {
+                            // waiting for models to download
+                        }
+                    }
+                }   
+            }, 250);
+            function initLoader() {
+                try {
+                    const loader = Testing.loader;
+                    loader.manager.onProgress = function(url, loaded, total) {
+                        const overlay = document.getElementById('loadingOverlay');
+                        let loading = 'Loading';
+                        let progElem = document.createElement('h1');
+                        url = url.replace('http://localhost/', '');
+                        if(loader.filesLoaded.includes(url)) {
+                            url = url.replace('models/', 'knoxy/');
+                            url = url.replace('.glb', '');
+                            loading = 'Loaded';
+                        }
+                        progElem.innerHTML = loading+' '+url;
+                        overlay.appendChild(progElem);
+                        overlay.scrollTop = overlay.scrollHeight;
+                        loader.filesLoaded.push(url);
+                    }
+                } catch(err) {
+                    console.error('failed to set loader progress', err);
+                }
+            }
+            document.body.onload = function() {
+                document.getElementById('init').append('OK!');
+                document.getElementById('init').id = 'initLoader1';
+                let newInit = document.createElement('h1');
+                newInit.id = 'initLoader2';
+                newInit.innerHTML = 'Loading world...';
+                document.getElementById('loadingOverlay').appendChild(newInit);
+                loadedM0 = true;
+                initLoader();
+            }
+        </script>
+		<script async type="module" src="js/knoxyEngine.js"></script>
+	</body>
+</html>
