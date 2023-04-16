@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body { margin: 0; }
+
+#ui-bar {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4.25rem;
+    width: 100%;
+    z-index: 50;
+    background-color: #111000;
+    border-top: 2px solid #222333;
+}
+
+#ui-bar p {
+    margin: 14px;
+    font-size: 2rem;
+    color: #CCC;
+}
+
+#ui-bar a {
+    color: lightsteelblue;
+}
+
+#zSomething {
+    color: #5555FF;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.subItem {
+    font-size: 0.6em;
+    color: #CCC000;
+    font-weight: normal;
+    margin-left: 7px;
+}
+
+#wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#knoxy {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#labels {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: white;
+}
+
+#labels>div {
+    white-space: nowrap;
+    text-align: center;
+    position: absolute;
+    left: 0;             
+    top: 0;
+    cursor: pointer;
+    font-size: large;
+    user-select: none;
+    text-shadow:
+        -1px -1px 0 #000,
+        0   -1px 0 #000,
+        1px -1px 0 #000,
+        1px  0   0 #000,
+        1px  1px 0 #000,
+        0    1px 0 #000,
+        -1px  1px 0 #000,
+        -1px  0   0 #000;
+}
+#labels>div:hover { color: red; }
+
+#labels .show { opacity: 1 }
+#labels .hide { 
+    opacity: 0;
+    transition: opacity 400ms;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.75);
+    display: none;
+    z-index: 10;
+    overflow-y: auto;
+}
+#overlayClose {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    color: #FFF;
+    font-size: 6rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+#overlayClose:hover {
+    color: #003c67;
+}
+#overlayContent {
+    position: absolute;
+    width: 66%;
+    background-color: rgba(255, 255, 255, 0.8);
+    min-height: 350px;
+    top: 16.67%;
+    left: 16.67%;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    -webkit-box-shadow: 10px 10px 150px 7px rgba(12,112,227,1);
+    -moz-box-shadow: 10px 10px 150px 7px rgba(12,112,227,1);
+    box-shadow: 10px 10px 150px 7px rgba(12,112,227,1);
+}
+#overlayContent h1 {
+    font-size: 4rem;
+    margin-bottom: 3rem;
+}
+#overlayContent p {
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+#overlayFooter {
+    margin-top: 200px !important;
+    min-height: 15%;
+    width: 100%;
+}
+
+#overlayFooter button {
+    box-shadow: inset 0px 1px 0px 0px #54a3f7;
+    background: linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+    background-color: #007dc1;
+    border-radius: 3px;
+    border: 1px solid  #124d77;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 2.5rem;
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #154682;
+}
+#overlayFooter button:hover {
+    background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
+    background-color:#0061a7;
+}
+#overlayFooter button:active {
+    position:relative;
+    top:1px;
+}
+
+
+
+#contextMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #54a3f7;
+    border: 2px solid #FFF;
+    border-radius: 8px;
+    padding: 5px;
+    min-height: 12px;
+    min-width: 80px;
+    display: none;
+    z-index: 5;
+}
+
+#contextContent {
+    list-style: none;
+    font-size: 1.25rem;
+}
+
+#contextContent li {
+    padding: 5px;
+    cursor: pointer;
+}
+#contextContent li:hover {
+    color: #ffff00;
+}
+
+#contextClose {
+    color: #FFF;
+    display: block;
+    margin-top: 10px;
+}
+#contextClose:hover {
+    font-weight: bold;
+}
+
+iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+#monitorContainer {
+    width: 301px;
+    height: 168px;
+    /* pointer-events: none !important; */
+}
+
+#monitor2Screen {
+    width: 100%;
+}
+
+#monitor2Container {
+    height: 275px;
+    width: 165px; 
+    margin: 0;
+    padding: 0;
+    /* pointer-events: none !important; */
+}
+
+#btnPowerM1,
+#btnPowerM2 {
+    font-size: 2rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+#frame1,
+#frame2 {
+    display: none;
+}
+

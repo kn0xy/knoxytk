@@ -61,18 +61,16 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
         <iframe id="frame1"></iframe>
         <iframe id="frame2"></iframe>
         <script>
-            let Testing = null;
             window.name = 'KnoxyHQ';
-            window.testing123 = Testing;
             window.loadedM0 = false;
             window.loadedM1 = false;
             window.loadedM2 = false;
             window.loadedModels = false;
+            let engine = null;
             let loadingTime = 0;
             let loading = setInterval(function() {
                 if(loadedM0 && loadedM1 && loadedM2) {
                     if(!loadedModels) {
-                        //document.getElementById('init').id = 'initLoader2';
                         let newInit = document.createElement('h1');
                         newInit.id = 'init';
                         newInit.innerHTML = 'Loading scene...';
@@ -90,23 +88,22 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                         loaded.innerHTML = 'Welcome to knoxy.tk!<br><br>';
                         overlay.appendChild(loaded);
                         overlay.scrollTop = overlay.scrollHeight;
-                        Testing.callAnimate();
+                        engine.callAnimate();
                         setTimeout(loadingComplete, 1000);
                         function loadingComplete() {
                             try {
                                 // append loadingOverlay html to #monitor5 in monitor2.html
-                                Testing.scene.monitor2.screenContent.getElementById('monitor5').innerHTML = overlay.innerHTML;
+                                engine.scene.monitor2.screenContent.getElementById('monitor5').innerHTML = overlay.innerHTML;
 
                                 // remove loading overlay
                                 overlay.parentNode.removeChild(overlay);
 
                                 // tween to tippyDesk
                                 setTimeout(function() {
-                                    Testing.ui.moveCameraTo('tippyDesk', null, null, () => {
-                                        Testing.tippyDesk.toggleTray();
+                                    engine.ui.moveCameraTo('tippyDesk', null, null, () => {
+                                        engine.tippyDesk.toggleTray();
                                     });
                                 }, 500);
-                                
                             } catch(e) {
                                 console.error(e);
                                 setTimeout(loadingComplete, 250);
@@ -115,7 +112,6 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                     }  
                 } else {
                     if(loadedModels) {
-                        //document.getElementById('init').id = 'initLoader2';
                         if(!document.getElementById('init')) {
                             let newInit = document.createElement('h1');
                             newInit.id = 'init';
@@ -133,7 +129,7 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
             }, 250);
             function initLoader() {
                 try {
-                    const loader = Testing.loader;
+                    const loader = engine.loader;
                     loader.manager.onProgress = function(url, loaded, total) {
                         const overlay = document.getElementById('loadingOverlay');
                         let loading = 'Loading';

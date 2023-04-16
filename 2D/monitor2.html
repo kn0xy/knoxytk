@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Cool</title>
+		<style>
+			body {
+				color: #FF0000;
+				background-color: #111;
+				padding: 12px;
+				font-size: 1.5rem;
+			}
+			h1 {
+				margin: 0;
+				font-size: 5rem;
+				color: #FFF;
+			}
+			img {
+				max-width: 100%;
+			}
+			.element {
+				width: 120px;
+				height: 160px;
+				box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
+				border: 1px solid rgba(127,255,255,0.25);
+				font-family: Helvetica, sans-serif;
+				text-align: center;
+				line-height: normal;
+				cursor: pointer;
+				margin: 0 20px;
+			}
+
+			.element:hover {
+				box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
+				border: 1px solid rgba(127,255,255,0.75);
+			}
+
+			#monitor5 h1 {
+				font-size: 0.75em;
+				color: #CCC;
+				font-family: monospace;
+			}
+
+			#monitor5 pre {
+				font-size: 0.44em;
+				color: #CCC;
+			}
+
+			#vScroll {
+				position: fixed;
+				right: 0;
+				top: 0;
+				height: 100%;
+				width: 15px;
+				background-color: #CCC;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div id="vScroll">
+			Virtual scrollbar
+		</div> -->
+		<!-- <div id="topBar">
+			<span>KnoxyOS v0.1</span>
+		</div> -->
+		<div id="monitor1" class="monitorSection" style="display:none">
+			<h1>About Me</h1>
+			<h3>Coming Soon</h3>
+
+			<ul>
+				<li>Self Taught</li>
+				<li>Self Motivated</li>
+				<li>Hard Working</li>
+				<li>Excited to learn and challenge myself</li>
+			</ul>
+		</div>
+		<div id="monitor2" class="monitorSection" style="display:none">
+			<h1>Portfolio</h1>
+			<h3>Coming soon</h3>
+		</div>
+		<div id="monitor3" class="monitorSection" style="display:none">
+			<h1>Experience</h1>
+			<h3>Coming soon</h3>
+			
+			<ul>
+				<li>Web Developer - Full Stack</li>
+				<li>I.T. Specialist</li>
+				<li>Small business administration</li>
+				<li>Restaurant management</li>
+				<li>3D Modeling &amp; printing</li>
+			</ul>
+		</div>
+		<div id="monitor4" class="monitorSection" style="display:none">
+			<h3>Resume</h3>
+		</div>
+		<div id="monitor5" class="monitorSection">
+
+		</div>
+		
+		
+		
+		<script>
+			const isKnoxy = (window.parent.name === 'KnoxyHQ');
+			const engine = (isKnoxy ? window.parent.Knoxy : null);
+			async function loadResume() {
+				// Load resume
+				const fetchResume = await fetch('./resume.html');
+				const resumeHtml = await fetchResume.text();
+				document.getElementById('monitor4').innerHTML = resumeHtml;
+			}
+
+			function openNewTab() {
+				var a = document.createElement('a');
+				a.setAttribute('href', 'resume.pdf');
+				a.setAttribute('target', '_blank');
+				a.style.display = 'none';
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+			}
+			
+			if(isKnoxy) {
+				// load images
+				window.addEventListener('load', function() {
+					// preload resume
+					loadResume();
+				});
+
+				let preventDrag = false;
+
+				// handle mouse down
+				document.addEventListener('mousedown', function(e) {
+					
+					
+					setTimeout(() => { if(!engine.mouseDown) engine.mouseDown = true }, 250);
+					setTimeout(() => { 
+						if(engine.mouseDown && !preventDrag) {
+							//console.log('mon2 dragging');
+							//window.addEventListener('pointermove', handleMove);
+							//console.log(engine.scene.monitor2.screenContainer.offsetParent);
+						} else {
+							preventDrag = false;
+							//document.removeEventListener('pointermove', handleMove);
+						}
+					}, 275);
+					if(e.button===2 && e.target.id !== 'knoxy') {
+						e.preventDefault();
+						//console.log(e);
+						engine.scene.monitor2.showContextMenu();
+					}
+				});
+
+				// handle mouse up
+				document.addEventListener('mouseup', function(e) {
+					if(e.button === 2) {
+						preventDrag = true;
+					} else {
+						if(!engine.mouseDown && !engine.paused) {
+							//console.log('mon2 clicked');
+							preventDrag = true;
+							setTimeout(function(){preventDrag=false}, 250);
+
+							// check monitor events
+							const m2ce = engine.scene.monitor2.ceExists(e.target.id);
+							if(m2ce) {
+								m2ce();
+							} else {
+								//console.log(e.target);
+								let kv = engine.view;
+								if(kv !== 'mon2' && kv !== 'mon2zoom') {
+									let dur = (kv==='mon1'||kv==='tippyDesk' ? 750 : 2000)
+									engine.ui.moveCameraTo('mon2', dur);
+								} else {
+									if(kv !== 'mon2zoom') {
+										engine.ui.moveCameraTo('mon2zoom', 500);
+									} else {
+										engine.ui.moveCameraTo('mon2', 500);
+									}
+								}
+							}
+						} else {
+							engine.mouseDown = false;
+						}
+						setTimeout(() => { if(engine.mouseDown) engine.mouseDown = false }, 250);
+					}			
+				});
+
+				// prevent right click
+				document.addEventListener('contextmenu', event => event.preventDefault());
+
+				// pass scroll events
+				document.addEventListener('wheel', (event) => {
+					if(!engine.tweening) {
+						//console.log('wheel', event);
+						let cPos = engine.camera.position;
+						let mPos = engine.scene.monitor2.model.position;
+						let d = cPos.distanceTo(mPos);
+						if(d > 2.5) {
+							if(event.wheelDelta > 0 && engine.view !== 'mon2') {
+								// move to mon2 on upscroll
+								engine.ui.moveCameraTo('mon2', 1250);
+							} else {
+								engine.controls.passWheel(event);
+							}
+						} else {
+							// forward the wheel event directly to the control room
+							engine.controls.passWheel(event);
+						}
+					}
+				});
+
+
+				// listen for external commands
+				document.updateMonitorNum = function(num) {
+					const t = document.getElementById('test');
+					if(num === 1) {
+						t.innerHTML = 'About Me';
+					} else if(num === 2) {
+						t.innerHTML = 'Portfolio';
+					} else if(num === 3) {
+						t.innerHTML = 'Experience';
+					}
+					let sects = document.getElementsByClassName('monitorSection');
+					for(var s=0; s<sects.length; s++) {
+						let sec = sects[s];
+						sec.style.display = 'none';
+					}
+					document.getElementById('monitor'+num).style.display = '';
+				}
+
+
+				document.body.onload = function() {
+					console.log('m2 loaded');
+					window.parent.loadedM2 = true;
+				}
+			}
+			
+		</script>
+	</body>
+</html>
