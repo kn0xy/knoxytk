@@ -132,10 +132,18 @@ class LGMonitor {
                 iframe.src = '../2D/monitor.html';
                 iframe.style.display = '';
                 iframe.onload = (e) => {
-                    const style = document.createElement('style');
-                    style.textContent = 'body { zoom: 0.25 !important; overflow: hidden; }';
-                    e.target.contentDocument.head.appendChild(style);
+                    // const style = document.createElement('style');
+                    // style.textContent = 'body { zoom: 0.25 !important; overflow: hidden; }';
+                    // e.target.contentDocument.head.appendChild(style);
                     pub.screenContent = e.target.contentDocument;
+                    const monHtml = e.target.contentDocument.getElementsByTagName('html')[0];
+                    monHtml.style.transform = 'scale(0.25)';
+                    monHtml.style.position = 'absolute';
+                    monHtml.style.top = '-300px';
+                    monHtml.style.left = '-650px';
+                    monHtml.style.width = '1600px';
+                    monHtml.style.height = '800px';
+                    monHtml.style.overflow = 'hidden';
                 }
             
                 // Add iframe to container

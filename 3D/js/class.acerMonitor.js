@@ -116,10 +116,18 @@ class AcerMonitor {
                 iframe.src = '../2D/monitor2.html';
                 iframe.style.display = '';
                 iframe.onload = (e) => {
-                    const style = document.createElement('style');
-                    style.textContent = 'body { zoom: 0.25 !important; overflow: hidden; }';
-                    e.target.contentDocument.head.appendChild(style);
+                    // const style = document.createElement('style');
+                    // style.textContent = 'body { zoom: 0.25 !important; overflow: hidden; }';
+                    // e.target.contentDocument.head.appendChild(style);
                     pub.screenContent = e.target.contentDocument;
+                    const monHtml = e.target.contentDocument.getElementsByTagName('html')[0];
+                    monHtml.style.transform = 'scale(0.25)';
+                    monHtml.style.position = 'absolute';
+                    monHtml.style.top = '-412px';
+                    monHtml.style.left = '-249px';
+                    monHtml.style.width = '664px';
+                    monHtml.style.height = '1100px';
+                    monHtml.style.overflow = 'hidden';
                 }
         
                 // Add iframe to container
