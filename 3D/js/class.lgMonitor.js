@@ -133,17 +133,10 @@ class LGMonitor {
                 iframe.style.display = '';
                 iframe.onload = (e) => {
                     // const style = document.createElement('style');
-                    // style.textContent = 'body { zoom: 0.25 !important; overflow: hidden; }';
+                    // style.textContent = 'body { position: relative; top: -24px; }';
                     // e.target.contentDocument.head.appendChild(style);
                     pub.screenContent = e.target.contentDocument;
-                    const monHtml = e.target.contentDocument.getElementsByTagName('html')[0];
-                    monHtml.style.transform = 'scale(0.25)';
-                    monHtml.style.position = 'absolute';
-                    monHtml.style.top = '-300px';
-                    monHtml.style.left = '-650px';
-                    monHtml.style.width = '1600px';
-                    monHtml.style.height = '800px';
-                    monHtml.style.overflow = 'hidden';
+
                 }
             
                 // Add iframe to container
@@ -231,7 +224,14 @@ class LGMonitor {
                     if(ms) ms.style.display = 'none';
                 } else {
                     engine.cssScene.visible = true;
-                    if(ms) ms.style.display = '';
+                    if(ms) {
+                        ms.style.display = '';
+                        // if(!ms.style.transform.includes('scale(0.1877)')) {
+                        //     console.log('set scale');
+                        //     ms.style.transform += ' scale(0.1877)';
+                        // }
+                    } 
+                    
                     engine.cssRenderer.render( engine.cssScene, engine.camera );
                 }
             }

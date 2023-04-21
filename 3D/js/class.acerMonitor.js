@@ -116,18 +116,12 @@ class AcerMonitor {
                 iframe.src = '../2D/monitor2.html';
                 iframe.style.display = '';
                 iframe.onload = (e) => {
+                    // let styleTxt = 'body { '
                     // const style = document.createElement('style');
-                    // style.textContent = 'body { zoom: 0.25 !important; overflow: hidden; }';
+                    // style.textContent = 'body { position: relative; top: -24px; }';
                     // e.target.contentDocument.head.appendChild(style);
                     pub.screenContent = e.target.contentDocument;
-                    const monHtml = e.target.contentDocument.getElementsByTagName('html')[0];
-                    monHtml.style.transform = 'scale(0.25)';
-                    monHtml.style.position = 'absolute';
-                    monHtml.style.top = '-412px';
-                    monHtml.style.left = '-249px';
-                    monHtml.style.width = '664px';
-                    monHtml.style.height = '1100px';
-                    monHtml.style.overflow = 'hidden';
+                    
                 }
         
                 // Add iframe to container
@@ -135,8 +129,6 @@ class AcerMonitor {
         
                 // Create CSS object
                 createCssObject(container);
-
-                //iframe.src = iframe.src;
             }
             function createCssObject(element) {
                 // Create CSS3D object
@@ -178,9 +170,9 @@ class AcerMonitor {
         }
         function renderScene() {
             const ms = document.getElementById('monitor2Container');
-            if(ms) {
-                if(!ms.style.transform.includes('rotateZ')) ms.style.transform += 'rotateZ(90deg)';
-            }
+            // if(ms) {
+            //     if(!ms.style.transform.includes('rotateZ')) ms.style.transform += 'rotateZ(90deg)';
+            // }
             
             if(renderCss()) {
                 showCssScene();

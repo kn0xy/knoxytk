@@ -36,7 +36,7 @@
 			}
 
 			#monitor5 h1 {
-				font-size: 0.75em;
+				font-size: 1em;
 				color: #CCC;
 				font-family: monospace;
 			}
@@ -254,8 +254,22 @@
 
 
 				document.body.onload = function() {
+					setMonitorScale();
 					console.log('m2 loaded');
 					window.parent.loadedM2 = true;
+				}
+
+				function setMonitorScale() {
+					const monContainer = engine.scene.monitor2.screenContainer;
+					const scale = 'scale(0.171, 0.183)';
+					if(!monContainer.style.transform.includes(scale)) {
+						monContainer.style.transform += ' '+scale;
+						console.log('yeah boii2');
+					}
+					if(!monContainer.style.transform.includes('rotateZ')) {
+						monContainer.style.transform += ' rotateZ(90deg)';
+						console.log('and 3');
+					} 
 				}
 			}
 			

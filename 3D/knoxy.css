@@ -205,23 +205,23 @@ iframe {
     border: none;
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
 #monitorContainer {
-    width: 301px;
-    height: 168px;
+    width: 1600px;
+    height: 900px;
+    overflow: hidden;
     /* pointer-events: none !important; */
 }
 
-#monitor2Screen {
+/* #monitor2Screen {
     width: 100%;
-}
+} */
 
 #monitor2Container {
-    height: 275px;
-    width: 165px; 
-    margin: 0;
-    padding: 0;
+    height: 1600px;
+    width: 900px; 
     /* pointer-events: none !important; */
 }
 
