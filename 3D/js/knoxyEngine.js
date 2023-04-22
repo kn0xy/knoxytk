@@ -66,13 +66,18 @@ knoxy.intersectables = intersectables;
 
 // Initialize renderer
 const canvas = document.querySelector('#knoxy');
-const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+const renderer = new THREE.WebGLRenderer({ 
+    canvas: canvas, 
+    antialias: true,
+    alpha: true
+});
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.outputEncoding = THREE.sRGBEncoding;
 //renderer.toneMapping = THREE.ACESFilmicToneMapping;
 //renderer.outputEncoding = THREE.BasicDepthPacking;
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor(0x000000, 0.0);
 knoxy.canvas = canvas;
 knoxy.renderer = renderer;
 
@@ -82,7 +87,7 @@ const cssRenderer = new CSS3DRenderer();
 cssRenderer.setSize( window.innerWidth, window.innerHeight );
 cssRenderer.domElement.style.position = 'absolute';
 cssRenderer.domElement.style.top = '0px';
-cssRenderer.domElement.style.pointerEvents = 'none';
+//cssRenderer.domElement.style.pointerEvents = 'none';
 document.getElementById( 'wrapper' ).appendChild( cssRenderer.domElement );
 knoxy.cssRenderer = cssRenderer;
 

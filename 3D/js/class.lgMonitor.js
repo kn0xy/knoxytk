@@ -102,136 +102,73 @@ class LGMonitor {
         this.initDisplay = function() {
             const model = this.model;
             const cssScene = (engine.cssScene ? engine.cssScene : new THREE.Scene());
-            function createIframe() {
-                // Create container
-                const container = document.createElement('div');
-                container.id = 'monitorContainer';
-                pub.screenContainer = container;
-
-                // Create iframe
-                // const iframe = document.createElement('iframe');
-                // iframe.src = './monitor.html';
-                // iframe.style.boxSizing = 'border-box';
-                // iframe.style.opacity = '1';
-                // iframe.id = 'monitorScreen';
-                // iframe.title = 'KnoxyOS';
-                // iframe.onload = (e) => {
-                //     //console.log('iframe loaded', e);
-                //     pub.screenElem = iframe;
-                //     iframe.getDaddy = function() {
-                //         // return iframe.offsetParent;
-                //         return iframe.getBoundingClientRect();
-                //     }
-                //     const style = document.createElement('style');
-                //     style.textContent = 'body { zoom: 0.25 !important; }';
-                //     e.target.contentDocument.head.appendChild(style);
-                //     pub.screenContent = e.target.contentDocument;
-                // }
-                const iframe = document.getElementById('frame1') || document.createElement('iframe');
-                iframe.id = 'monitorScreen';
-                iframe.src = '../2D/monitor.html';
-                iframe.style.display = '';
-                iframe.onload = (e) => {
-                    // const style = document.createElement('style');
-                    // style.textContent = 'body { position: relative; top: -24px; }';
-                    // e.target.contentDocument.head.appendChild(style);
-                    pub.screenContent = e.target.contentDocument;
-
-                }
             
-                // Add iframe to container
-                container.appendChild(iframe);
-        
-                // Create CSS object
-                createCssObject(container);
-            }
-            function createCssObject(element) {
-                // Create CSS3D object
-                const object = new CSS3DObject(element);
-        
-                // copy monitor position and rotation
-                object.scale.set(0.0039, 0.0039, 0.0039);
-                object.position.copy(model.position);
-                object.position.set(object.position.x-0.0075, object.position.y+0.12, object.position.z-0.005);
-                object.rotation.copy(model.rotation);
-        
-                // Add to css scene
-                cssScene.add(object);
-        
-                // Create 3D plane
-                const material = new THREE.MeshBasicMaterial( {color: 0x000000, side: THREE.DoubleSide} );
-                //material.blending = THREE.NoBlending;
-                material.transparent = false;
-        
-                // Create the 3D plane mesh
-                const geometry = new THREE.PlaneGeometry(0.5, 0.5);
-                const mesh = new THREE.Mesh(geometry, material);
-        
-                // Copy the position, rotation and scale of the CSS plane to the 3D plane
-                mesh.position.copy(object.position);
-                mesh.rotation.copy(object.rotation);
-                mesh.scale.set(2.3, 1.29, 1);
-        
-                // Add to gl scene
-                mesh.name = 'MonitorMesh';
-                //mesh.knoxyParent = pub;
-                engine.scene.add(mesh);
-                engine.intersectables.push(mesh);
+            // Create container
+            const container = document.createElement('div');
+            container.id = 'monitorContainer';
+            pub.screenContainer = container;
+
+            // Create iframe
+            const iframe = document.getElementById('frame1') || document.createElement('iframe');
+            iframe.id = 'monitorScreen';
+            iframe.src = '../2D/monitor.html';
+            iframe.style.boxSizing = 'border-box';
+            iframe.style.opacity = '1';
+            iframe.onload = (e) => {
+                pub.screenContent = e.target.contentDocument;
+                let scale = 'scale(0.1877)';
+                if(!container.style.transform.includes(scale)) {
+                    container.style.transform += ' '+scale;
+                }
             }
         
-            createIframe();
+            // Add iframe to container
+            container.appendChild(iframe);
+        
+            // Create CSS3D object and add to cssScene
+            const object = new CSS3DObject(container);
+            object.scale.set(0.0039, 0.0039, 0.0039);
+            object.position.copy(model.position);
+            object.position.set(object.position.x-0.0075, object.position.y+0.12, object.position.z-0.005);
+            object.rotation.copy(model.rotation);
+            cssScene.add(object);
+
+            // Initialize transparent material (to reveal the CSS scene rendered underneath)
+            const material = new THREE.MeshBasicMaterial({
+                blending: THREE.NoBlending,
+                color: 0x000000,
+                opacity: 0,
+                side: THREE.DoubleSide,
+                transparent: true
+            });
+
+            // Create transparent 3D mesh
+            const geometry = new THREE.PlaneGeometry(0.5, 0.5);
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.copy(object.position);
+            mesh.rotation.copy(object.rotation);
+            mesh.scale.set(2.3, 1.29, 1);
+
+            // Add mesh to 3D scene
+            engine.scene.add(mesh);
+            engine.intersectables.push(mesh);
+            mesh.knoxyParent = pub;
+            pub.glMesh = mesh;
             
             return cssScene;
         }
+
+        // Determine whether or not to display the CSS scene
         function renderScene() {
-            const ms = document.getElementById('monitorContainer');
-            if(renderCss()) {
-                showCssScene();
-            }
-            function renderCss() {
-                if(engine.cssScene) {
-                    const mm = engine.scene.getObjectByName('MonitorMesh');
-                    if(scene.monitor1.power==='OFF') {
-                        mm.visible = false;
-                        scene.monitor1.model.add(mm);
-                        if(ms) ms.style.display = 'none';
-                        return false;
-                    } else {
-                        mm.visible = true;
-                        scene.add(mm);
-                        return true;
-                    }
-                }
-                return false;
-            }
-            
-            function showCssScene() {
-                const tv = new THREE.Vector3();
-                const mesh = engine.scene.getObjectByName('MonitorMesh');
-                mesh.updateWorldMatrix(true, false);
-                mesh.getWorldPosition(tv);
-                tv.project(engine.camera);
-                engine.ray.setFromCamera(tv, engine.camera);
-                const io = engine.ray.intersectObjects(engine.intersectables);
-                const show = (io.length ? showScene(io[0].object) : false);
-                function showScene(obj) {
-                    const cz = engine.camera.position.z;
-                    return (obj.name==='MonitorMesh' || obj.name==='Screen' || cz > 1 ? true : false);
-                }
-            
-                if(!show) {
-                    engine.cssScene.visible = false;
-                    if(ms) ms.style.display = 'none';
+            if(engine.cssScene) {
+                const mm = pub.glMesh;
+                if(scene.monitor1.power==='OFF') {
+                    mm.visible = false;
+                    scene.monitor1.model.add(mm);
+                    pub.screenContainer.style.display = 'none';
                 } else {
-                    engine.cssScene.visible = true;
-                    if(ms) {
-                        ms.style.display = '';
-                        // if(!ms.style.transform.includes('scale(0.1877)')) {
-                        //     console.log('set scale');
-                        //     ms.style.transform += ' scale(0.1877)';
-                        // }
-                    } 
-                    
+                    mm.visible = true;
+                    scene.add(mm);
                     engine.cssRenderer.render( engine.cssScene, engine.camera );
                 }
             }
@@ -244,6 +181,16 @@ class LGMonitor {
                 this.screenContainer.style.pointerEvents = '';
             } else {
                 this.screenContainer.style.pointerEvents = 'none';
+            }
+        }
+
+        // set monitor resolution 16:9 and scale to fit mesh
+        // @dev: called by this.screenContent onload handler
+        this.setMonitorScale = () => {
+            const mc = this.screenContainer;
+            const scale = 'scale(0.1877)';
+            if(!mc.style.transform.includes(scale)) {
+                mc.style.transform += ' '+scale;
             }
         }
         
@@ -272,6 +219,7 @@ class LGMonitor {
             document.body.style.cursor = 'crosshair';
             this.mousedOver = true;
             engine.callAnimate();
+            if(obj === this.glMesh) engine.canvas.style.pointerEvents = 'none';
 
             if(engine.controls.getDistance() < 4) {
                 if(tips.includes(obj.name)) {
@@ -285,6 +233,7 @@ class LGMonitor {
         };
 
         this.onMouseout = function() {
+            engine.canvas.style.pointerEvents = '';
             document.body.style.cursor = 'default';
             this.knoxyLabel.style.display = 'none';
             this.knoxyTip.style.display = 'none';
@@ -341,7 +290,7 @@ class LGMonitor {
 
         this.updateAnimations = function() {
             // show label on mouseover
-            if(this.mousedOver && !engine.mouseDown) {
+            if(this.mousedOver && !engine.mouseDown && engine.camera.position.z < 0) {
                 const tv = new THREE.Vector3();
                 const km = this.model;
                 km.updateWorldMatrix(true, true);

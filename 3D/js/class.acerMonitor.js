@@ -22,20 +22,12 @@ class AcerMonitor {
         // init rect light for screen
         function initRectLight() {
             const rectLight = new THREE.RectAreaLight( 0x9cacff , 30, 1, 0.6 );
-            //rectLight.rotateY(2.70613035);
-            //rectLight.rotateZ(1.57079633);
             rectLight.position.set(0.58, 2.249, -0.45);
             rectLight.rotation.set(0, 2.70613035, 1.57079633);
             rectLight.visible = false;
             rectLight.name = 'RectLight2';
             pub.model.add(rectLight);
             pub.screenLight = rectLight;
-            // const rectLight = new THREE.RectAreaLight( 0x9cacff , 30, 1.15, 0.6 );
-            // rectLight.rotateY(3.14159);
-            // rectLight.visible = false;
-            // rectLight.name = 'RectLight1';
-            // pub.model.add(rectLight);
-            // pub.screenLight = rectLight;
         }
 
         // initialize interactive mouseover
@@ -91,143 +83,80 @@ class AcerMonitor {
 
         // initialize display content
         this.initDisplay = function() {
-            const model = this.model;
-            const cssScene2 = (engine.cssScene2 ? engine.cssScene2 : new THREE.Scene());
-            function createIframe() {
-                // Create container
-                const container = document.createElement('div');
-                container.id = 'monitor2Container';
-                pub.screenContainer = container;
-        
-                // Create iframe
-                // const iframe = document.createElement('iframe');
-                // iframe.src = './monitor2.html';
-                // //iframe.src = 'http://localhost/3d/resume.html';
-                // iframe.id = 'monitor2Screen';
-                // iframe.onload = (e) => {
-                //     //console.log('iframe loaded', e);
-                //     const style = document.createElement('style');
-                //     style.textContent = 'body { zoom: 0.25 !important; overflow: hidden; }';
-                //     e.target.contentDocument.head.appendChild(style);
-                //     pub.screenContent = e.target.contentDocument;
-                // }
-                const iframe = document.getElementById('frame2') || document.createElement('iframe');
-                iframe.id = 'monitor2Screen';
-                iframe.src = '../2D/monitor2.html';
-                iframe.style.display = '';
-                iframe.onload = (e) => {
-                    // let styleTxt = 'body { '
-                    // const style = document.createElement('style');
-                    // style.textContent = 'body { position: relative; top: -24px; }';
-                    // e.target.contentDocument.head.appendChild(style);
-                    pub.screenContent = e.target.contentDocument;
-                    
+            //const model = this.model;
+            const cssScene = (engine.cssScene2 ? engine.cssScene2 : new THREE.Scene());
+            
+            // Create container
+            const container = document.createElement('div');
+            container.id = 'monitor2Container';
+            pub.screenContainer = container;
+
+            // Create iframe
+            const iframe = document.getElementById('frame2') || document.createElement('iframe');
+            iframe.id = 'monitor2Screen';
+            iframe.src = '../2D/monitor2.html';
+            iframe.onload = (e) => {
+                pub.screenContent = e.target.contentDocument;
+                let scale = 'scale(0.171, 0.183)';
+                if(!container.style.transform.includes(scale)) {
+                    container.style.transform += ' '+scale;
                 }
-        
-                // Add iframe to container
-                container.appendChild(iframe);
-        
-                // Create CSS object
-                createCssObject(container);
-            }
-            function createCssObject(element) {
-                // Create CSS3D object
-                const object = new CSS3DObject(element);
-                
-                // copy monitor position and rotation
-                //const monitor = model.getObjectByName('Monitor');
-                object.scale.set(0.0039, 0.0039, 0.0039);
-                object.position.set(0.58, 2.249, -0.463);
-                object.rotateZ(1.5708);
-                object.rotateX(-0.43545965);
-
-                // Add to css scene
-                cssScene2.add(object);
-        
-                // Create 3D plane
-                const material = new THREE.MeshBasicMaterial( {color: 0x000000, side: THREE.DoubleSide} );
-                //material.blending = THREE.NoBlending;
-                material.transparent = false;
-        
-                // Create the 3D plane mesh
-                const geometry = new THREE.PlaneGeometry(1, 1);
-                const mesh = new THREE.Mesh(geometry, material);
-        
-                // Copy the position, rotation and scale of the CSS plane to the 3D plane
-                mesh.position.copy(object.position);
-                mesh.rotation.copy(object.rotation);
-                mesh.scale.set(1.065, 0.645, 1);
-
-                // Add to gl scene
-                mesh.name = 'MonitorMesh2';
-                //mesh.knoxyParent = pub;
-                engine.scene.add(mesh);
-                engine.intersectables.push(mesh);
+                if(!container.style.transform.includes('rotateZ')) {
+                    container.style.transform += ' rotateZ(90deg)';
+                } 
             }
         
-            createIframe();
-            return cssScene2;
+            // Add iframe to container
+            container.appendChild(iframe);
+        
+            // Create CSS3D object and add to cssScene
+            const object = new CSS3DObject(container);
+            object.scale.set(0.0039, 0.0039, 0.0039);
+            object.position.set(0.58, 2.249, -0.463);
+            object.rotateZ(1.5708);
+            object.rotateX(-0.43545965);
+            cssScene.add(object);
+
+            // Initialize transparent material (to reveal the CSS scene rendered underneath)
+            const material = new THREE.MeshBasicMaterial({
+                blending: THREE.NoBlending,
+                color: 0x000000,
+                opacity: 0,
+                side: THREE.DoubleSide,
+                transparent: true
+            });
+
+            // Create transparent 3D mesh
+            const geometry = new THREE.PlaneGeometry(1, 1);
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.copy(object.position);
+            mesh.rotation.copy(object.rotation);
+            mesh.scale.set(1.065, 0.642, 1);
+
+            // Add mesh to 3D scene
+            engine.scene.add(mesh);
+            engine.intersectables.push(mesh);
+            mesh.knoxyParent = pub;
+            pub.glMesh = mesh;
+            return cssScene;
         }
+
+        // Determine whether or not to display the CSS scene
         function renderScene() {
-            const ms = document.getElementById('monitor2Container');
-            // if(ms) {
-            //     if(!ms.style.transform.includes('rotateZ')) ms.style.transform += 'rotateZ(90deg)';
-            // }
-            
-            if(renderCss()) {
-                showCssScene();
-            }
-            function renderCss() {
-                if(engine.cssScene2) {
-                    const mm = engine.scene.getObjectByName('MonitorMesh2');
-                    if(scene.monitor2.power==='OFF') {
-                        mm.visible = false;
-                        scene.monitor2.model.add(mm);
-                        if(ms) ms.style.display = 'none';
-                        return false;
-                    } else {
-                        mm.visible = true;
-                        scene.add(mm);
-                        return true;
-                    }
-                }
-                return false;
-            }
-            
-            function showCssScene() {
-                const tv = new THREE.Vector3();
-                const mesh = engine.scene.getObjectByName('MonitorMesh2');
-                mesh.updateWorldMatrix(true, false);
-                mesh.getWorldPosition(tv);
-                tv.project(engine.camera);
-                engine.ray.setFromCamera(tv, engine.camera);
-                const io = engine.ray.intersectObjects(engine.intersectables);
-                const show = (io.length ? showScene(io[0].object) : false);
-                function showScene(obj) {
-                    return (obj.name==='MonitorMesh2' || obj.name==='Screen' ? true : false);
-                }
-                if(!show) {
-                    engine.cssScene2.visible = false;
-                    if(ms) ms.style.display = 'none';
+            if(engine.cssScene2) {
+                const mm = pub.glMesh;
+                if(pub.power==='OFF') {
+                    mm.visible = false;
+                    pub.model.add(mm);
+                    pub.screenContainer.style.display = 'none';
                 } else {
-                    engine.cssScene2.visible = true;
-                    if(ms) ms.style.display = '';
+                    mm.visible = true;
+                    scene.add(mm);
                     engine.cssRenderer.render( engine.cssScene2, engine.camera );
                 }
             }
         }
         engine.renderQueue.push(renderScene);
-
-        
-        this.setInteractive = (b) => {
-            if(b) {
-                this.screenContainer.style.pointerEvents = '';
-            } else {
-                this.screenContainer.style.pointerEvents = 'none';
-            }
-        }
-
-        
 
 
         // load model into scene
@@ -251,14 +180,15 @@ class AcerMonitor {
             document.body.style.cursor = 'crosshair';
             this.mousedOver = true;
             engine.callAnimate();
+            if(obj === this.glMesh) engine.canvas.style.pointerEvents = 'none';
         };
 
         this.onMouseout = function() {
             document.body.style.cursor = 'default';
             this.knoxyLabel.style.display = 'none';
-            
             this.mousedOver = false;
             engine.callAnimate();
+            engine.canvas.style.pointerEvents = '';
         };
 
         this.showContextMenu = function(tf) {
@@ -305,7 +235,7 @@ class AcerMonitor {
 
         this.updateAnimations = function() {
             // show label on mouseover
-            if(this.mousedOver && !engine.mouseDown) {
+            if(this.mousedOver && !engine.mouseDown && engine.camera.position.z < 0.3) {
                 const tv = new THREE.Vector3();
                 const km = this.model;
                 km.updateWorldMatrix(true, true);

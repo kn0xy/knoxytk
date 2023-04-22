@@ -1,20 +1,16 @@
 import * as THREE from './three.module.js';
 import { AideeDesk } from './class.aideeDesk.js';
 import { Lamp } from './class.lamp.js';
-//import { Penguin } from './class.penguin.js';
 import { LGMonitor } from './class.lgMonitor.js';
 import { TippyDesk } from './class.tippyDesk.js';
 import { AcerMonitor } from './class.acerMonitor.js';
 import { OfficeChair } from './class.officeChair.js';
 import { PCTower } from './class.pcTower.js';
-//import { KnoxyObject } from './class.knoxyObject.js';
-//import { RectAreaLightHelper } from './RectAreaLightHelper.js';
 
 function SceneX(knoxy) {
     // create scene
     const scene = new THREE.Scene();
     scene.background = new THREE.Color().setHSL( 0.6, 1, 0.5 );
-    //scene.fog = new THREE.Fog( scene.background, 1, 5000 );
     knoxy.scene = scene;
 
     // add lights
@@ -23,16 +19,6 @@ function SceneX(knoxy) {
     plight.position.set(-2, 5, 3);
     scene.add( plight );
     scene.add( light );
-
-    // const hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
-    // // hemiLight.color.setHSL( 0.6, 1, 0.6 );
-    // hemiLight.color.setHSL( 0, 0, 1 );
-    // hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
-    // hemiLight.position.set( 0, 50, 0 );
-    // scene.add( hemiLight );
-
-    // const hemiLightHelper = new THREE.HemisphereLightHelper( hemiLight, 10 );
-	// 			scene.add( hemiLightHelper );
 
 
     // add floor
