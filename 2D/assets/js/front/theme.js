@@ -23,7 +23,7 @@
   = Magnific Popup
  */
 
-'use strict';
+//'use strict';
 
 window.jQuery(function ($) {
   // ---------------------------------------------------------------------------
