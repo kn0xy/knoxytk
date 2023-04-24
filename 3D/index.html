@@ -81,7 +81,14 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                         try {
                             // finished loading world
                             document.getElementById('init').append('OK!');
-                        } catch(e) {}
+                        } catch(e) {
+                            if(!document.getElementById('init')) {
+                                let newInit = document.createElement('h1');
+                                newInit.id = 'init';
+                                newInit.innerHTML = 'Loading scene...';
+                                document.getElementById('loadingOverlay').appendChild(newInit);
+                            }
+                        }
                         
                         // show welcome message
                         let loaded = document.createElement('h1');
@@ -112,17 +119,40 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                     }  
                 } else {
                     if(loadedModels) {
-                        if(!document.getElementById('init')) {
+                        const oldInit = document.getElementById('init');
+                        if(!oldInit) {
                             let newInit = document.createElement('h1');
                             newInit.id = 'init';
                             newInit.innerHTML = 'Loading scene...';
                             document.getElementById('loadingOverlay').appendChild(newInit);
+                        } else {
+                            // waiting for monitor contents to initialize
+                            if(oldInit.innerHTML.substring(0,13) === 'Loading scene') {
+                                oldInit.append('.');
+                            } else {
+                                // finished loading world
+                                oldInit.append('OK!');
+                                oldInit.id = 'finishedLoadingWorld';
+                                let newInit = document.createElement('h1');
+                                newInit.id = 'init';
+                                newInit.innerHTML = 'Loading scene...';
+                                document.getElementById('loadingOverlay').appendChild(newInit);
+                            }
+                            try {
+                            document.getElementById('init').append('.');
+                            } catch(e) {
+                                
+                                console.error('up high', e);
+                            }
                         }
+                        
                     } else {
                         try {
-                            document.getElementById('init').append('.');
-                        } catch {
                             // waiting for models to download
+                            document.getElementById('initLoader2').append('.');
+                        } catch {
+                            
+                            console.log('???');
                         }
                     }
                 }   

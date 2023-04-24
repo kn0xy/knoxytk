@@ -167,7 +167,6 @@ function SceneX(knoxy) {
             this.toggleSlide();
         }
     });
-    let initChair = false;
     knoxy.officeChair = officeChair;
 
     // Initialize Left Desk
@@ -208,20 +207,22 @@ function SceneX(knoxy) {
         monitor.onClick = function() {
             console.log('monclicked');
             let kv = knoxy.view;
-            if(kv !== 'mon1') {
+            if(kv !== 'mon1' && kv !== 'mon1zoom') {
                 let dur = (kv==='mon2' || kv==='tippyDesk' ? 750 : 2000);
-                knoxy.ui.moveCameraTo('mon1', dur, null, function() {
-                    console.log('move complete');
-                });
+                knoxy.ui.moveCameraTo('mon1', dur);
             } else {
-                if(this.power === 'OFF') {
-                    this.PowerOn(true);
+                // if(this.power === 'OFF') {
+                //     this.PowerOn(true);
+                // } else {
+                //     this.PowerOn(false);
+                // }
+                if(kv === 'mon1') {
+                    knoxy.ui.moveCameraTo('mon1zoom', 500);
                 } else {
-                    this.PowerOn(false);
+                    knoxy.ui.moveCameraTo('mon1', 500);
                 }
             }
         }
-        //monitor.setInteractive(false);
     });
 
     // Initialize Acer Monitor
@@ -243,7 +244,6 @@ function SceneX(knoxy) {
             }
         }
         mon2.clickEvents = initClickHandlersM2(knoxy);
-        //mon2.setInteractive(false);
     });
 
     initCameraToggles(knoxy);
@@ -256,6 +256,11 @@ function initCameraToggles(knoxy) {
             key: 'mon1',
             cam: new THREE.Vector3(-0.4036609339861916, 2.6182838687775716, 1.6773790144749245),
             tar: new THREE.Vector3(-0.34873606375886285, 2.3885330423379787, 0.7296839994928066)
+        },
+        {
+            key: 'mon1zoom',
+            cam: new THREE.Vector3(-0.29573856644784124, 2.2505756564752897, 0.33324486463263425),
+            tar: new THREE.Vector3(-0.3004068190873301, 2.1740293739558565, -0.7461563158601208)
         },
         {
             key: 'mon2',

@@ -44,8 +44,6 @@ loader.manager.onLoad = function() {
 knoxy.loader = loader;
 
 
-
-
 // Initialize camera
 const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100 );
 camera.position.z = 25;
@@ -87,35 +85,20 @@ const cssRenderer = new CSS3DRenderer();
 cssRenderer.setSize( window.innerWidth, window.innerHeight );
 cssRenderer.domElement.style.position = 'absolute';
 cssRenderer.domElement.style.top = '0px';
-//cssRenderer.domElement.style.pointerEvents = 'none';
+cssRenderer.domElement.style.pointerEvents = 'none';
 document.getElementById( 'wrapper' ).appendChild( cssRenderer.domElement );
 knoxy.cssRenderer = cssRenderer;
 
 
 // Initialize controls
-const controls = new OrbitControls(camera, renderer.domElement);
 let controlsInitialized = false;
+const controls = new OrbitControls(camera, renderer.domElement);
 controls.target = new THREE.Vector3(0, 2, 0.75);
 controls.enableDamping = true;
 controls.maxPolarAngle = 1.5;
 //controls.minDistance = 2;
 controls.maxDistance = 8;
-controls.addEventListener('change', function() {
-    if(!controlsInitialized) {
-        controlsInitialized = true;
-    } else {
-        if(knoxy.animating.indexOf('controls') === -1) {
-            let needsRender = (knoxy.animating.length===0 ? true : false);
-            knoxy.animating.push('controls');
-            findPointerIntersections();
-            if(needsRender) render();
-            setTimeout(function() {
-                knoxy.animating.shift();
-            }, 1000);
-        }
-    }
-    knoxy.view = false;
-});
+controls.addEventListener('change', controlsChanged);
 knoxy.controls = controls;
 
 
@@ -297,6 +280,7 @@ function findPointerIntersections(check) {
 }
 knoxy.updateMouseover = findPointerIntersections;
 
+// Render the 3D scene
 function render() {
     try {
         if(knoxy.animating.length > 0 || knoxy.tweening) {
@@ -312,6 +296,7 @@ function render() {
     }
 };
 
+// Public access to call render
 function animate(forceIt) {
     if(!knoxy.animating.length) {
         render();
@@ -321,10 +306,35 @@ function animate(forceIt) {
 }
 knoxy.callAnimate = animate;
 
+// Update all animated objects
 function updateAnimated() {
     for(let i=0; i<knoxy.animated.length; i++) {
         knoxy.animated[i].updateAnimations();
     }
 }
-engine = knoxy;
+
+// Make sure to keep rendering while user is in control
+function controlsChanged() {
+    if(!controlsInitialized) {
+        controlsInitialized = true;
+    } else {
+        if(knoxy.animating.indexOf('controls') === -1) {
+            let needsRender = (knoxy.animating.length===0 ? true : false);
+            knoxy.animating.push('controls');
+            findPointerIntersections();
+            if(needsRender) render();
+            setTimeout(function() {
+                knoxy.animating.shift();
+            }, 1000);
+        }
+    }
+    knoxy.view = false;
+}
+
+// Fire up the engine
+try {
+    engine = knoxy;
+} catch(ee) {
+    console.error('knoxy: failed to set engine', ee);
+}
 window.Knoxy = knoxy;

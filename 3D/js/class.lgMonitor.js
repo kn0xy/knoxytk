@@ -111,15 +111,13 @@ class LGMonitor {
             // Create iframe
             const iframe = document.getElementById('frame1') || document.createElement('iframe');
             iframe.id = 'monitorScreen';
-            iframe.src = '../2D/monitor.html';
+            // iframe.src = '../2D/monitor.html';
+            iframe.src = '../2D/index.html';;
             iframe.style.boxSizing = 'border-box';
             iframe.style.opacity = '1';
             iframe.onload = (e) => {
                 pub.screenContent = e.target.contentDocument;
-                let scale = 'scale(0.1877)';
-                if(!container.style.transform.includes(scale)) {
-                    container.style.transform += ' '+scale;
-                }
+                pub.setMonitorScale();
             }
         
             // Add iframe to container
@@ -127,9 +125,9 @@ class LGMonitor {
         
             // Create CSS3D object and add to cssScene
             const object = new CSS3DObject(container);
-            object.scale.set(0.0039, 0.0039, 0.0039);
+            object.scale.set(0.00392, 0.00392, 0.0039);
             object.position.copy(model.position);
-            object.position.set(object.position.x-0.0075, object.position.y+0.12, object.position.z-0.005);
+            object.position.set(object.position.x-0.0075, object.position.y+0.118, object.position.z-0.005);
             object.rotation.copy(model.rotation);
             cssScene.add(object);
 
@@ -147,7 +145,7 @@ class LGMonitor {
             const mesh = new THREE.Mesh(geometry, material);
             mesh.position.copy(object.position);
             mesh.rotation.copy(object.rotation);
-            mesh.scale.set(2.3, 1.29, 1);
+            mesh.scale.set(2.35, 1.34, 1);
 
             // Add mesh to 3D scene
             engine.scene.add(mesh);
@@ -175,14 +173,6 @@ class LGMonitor {
         }
         engine.renderQueue.push(renderScene);
 
-
-        this.setInteractive = (b) => {
-            if(b) {
-                this.screenContainer.style.pointerEvents = '';
-            } else {
-                this.screenContainer.style.pointerEvents = 'none';
-            }
-        }
 
         // set monitor resolution 16:9 and scale to fit mesh
         // @dev: called by this.screenContent onload handler

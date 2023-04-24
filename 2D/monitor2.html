@@ -125,7 +125,7 @@
 		
 		<script>
 			const isKnoxy = (window.parent.name === 'KnoxyHQ');
-			const engine = (isKnoxy ? window.parent.Knoxy : null);
+			
 			async function loadResume() {
 				// Load resume
 				const fetchResume = await fetch('./resume.html');
@@ -144,6 +144,7 @@
 			}
 			
 			if(isKnoxy) {
+				const engine = window.parent.Knoxy;
 				// load images
 				window.addEventListener('load', function() {
 					// preload resume
@@ -250,6 +251,16 @@
 						sec.style.display = 'none';
 					}
 					document.getElementById('monitor'+num).style.display = '';
+				}
+
+
+				document.showResume = function() {
+					let sects = document.getElementsByClassName('monitorSection');
+					for(var s=0; s<sects.length; s++) {
+						let sec = sects[s];
+						sec.style.display = 'none';
+					}
+					document.getElementById('monitor4').style.display = '';
 				}
 
 
