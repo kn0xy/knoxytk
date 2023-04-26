@@ -59,7 +59,6 @@ a:focus,
 a:hover {
     color: #fff;
     outline: 0;
-    text-decoration: underline
 }
 
 .form-control,
@@ -188,8 +187,30 @@ ul {
 
 ul.list-check li {
     position: relative;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 32px
+}
+
+.about-skills {
+    min-height: 360px;
+    max-height: 720px;
+}
+
+.about-skills ul.list-check li {
+    margin: 20px auto;
+}
+
+@media (min-width: 992px) {
+    .about-skills ul.list-check li {
+        margin: 15px auto;
+    }
+    .about-skills ul.list-check li:first-child {
+        margin-top: 25px;
+    }
+}
+
+.about-skills ul.list-check li i {
+    margin-left: 5px;
 }
 
 .section-padding {
@@ -217,14 +238,11 @@ ul.list-check li {
     width: 113px
 }
 
-@media (max-width :640px) {
-    .tt-fullHeight {
-        height: 560px !important
-    }
+.tt-fullHeight {
+    height: 100vh;
 }
 
 #home {
-    /* background: url(../img/home2.webp) no-repeat center center; */
     background: url(../img/home3-2.jpg) no-repeat center center;
     background-color: #222;
     background-size: cover;
@@ -248,7 +266,8 @@ ul.list-check li {
 .intro {
     position: absolute;
     width: 100%;
-    top: 50%;
+    /* top: 50%; */
+    top: 40%;
     left: 0;
     text-align: center;
     -webkit-transform: translate(0, -50%);
@@ -313,6 +332,27 @@ ul.list-check li {
     float: left;
     background-color: rgba(0, 0, 0, 0.4);
     color: #eee;
+}
+
+@media (max-width:560px) {
+    #home {
+        min-height: 900px;
+    }
+    .intro {
+        top: 50% !important;
+    }
+    .element {
+        margin: 40px auto !important;;
+        float: none !important;
+    }
+}
+
+@media (max-width:850px) {
+    
+    .element:nth-child(3) {
+        clear: both;
+    }
+
 }
 
 .intro .homeNav .element a { color: #eee; }
@@ -2143,7 +2183,7 @@ body {
 
 ul.list-check li i {
     color: #6880c3;
-    margin-right: 5px
+    margin-right: 10px
 }
 
 .scroll-up a {

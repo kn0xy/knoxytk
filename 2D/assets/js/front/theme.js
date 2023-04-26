@@ -1,30 +1,3 @@
-/* jshint unused:false */
-/*!
- * Project:     {{app.name}}
- * File:        assets/js/front/theme.js
- * Copyright(c) 2016-nowdays {{author.name.full}} <{{author.email}}>
- * License:     {{project.license}}
- */
-/*!
- * Theme Name:  IAMX
- * Author:      Trendy Theme
- * Author URL:  http://trendytheme.net
- */
-/*!
-  = Preloader
-  = Animated scrolling / Scroll Up
-  = Full Screen Slider
-  = Sticky Menu
-  = Back To Top
-  = Countup
-  = Progress Bar
-  = More skill
-  = Shuffle
-  = Magnific Popup
- */
-
-//'use strict';
-
 window.jQuery(function ($) {
   // ---------------------------------------------------------------------------
   //  Animated scrolling / Scroll Up
@@ -66,16 +39,7 @@ window.jQuery(function ($) {
     });
   }());
 
-  // ---------------------------------------------------------------------------
-  //  Full Screen Slider
-  // ---------------------------------------------------------------------------
-  (function () {
-    $('.tt-fullHeight').height($(window).height());
 
-    $(window).resize(function () {
-      $('.tt-fullHeight').height($(window).height());
-    });
-  }());
 
   // ---------------------------------------------------------------------------
   //  Sticky Menu

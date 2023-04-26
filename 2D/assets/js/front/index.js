@@ -170,12 +170,16 @@ window.jQuery(function ($) {
   //  Indicators
   // ---------------------------------------------------------------------------
   (function () {
-
-    let Title = `${'{{app.name}}'.toUpperCase()}-v{{app.version}}-b{{cntr}}` ;
-
     $(window).ready(function () {
-      
-      //e.target.contentDocument.children[0].style.overflow = 'hidden';
+      function moveAboutSkills() {
+        if(window.innerWidth < 992) {
+          $('.about-skills').insertAfter('#whatido').css('height', '360px');
+        } else {
+          $('.about-skills').insertAfter('.biography').css('height', '720px');
+        }
+      }
+      $(window).on('resize', moveAboutSkills);
+      moveAboutSkills();
     });
 
     $(document).ready(function () {
@@ -196,9 +200,7 @@ window.jQuery(function ($) {
 
     });
 
-    // $(window).on('load', function () {
-    //   // completely finished loading everything
-    // });
+    
   }());
 
 });
