@@ -790,21 +790,21 @@ ul.list-check li {
     .timeline>li .posted-date {
         position: absolute;
         text-align: center;
-        background-color: #fff
+        background-color: #282828
     }
 
     .timeline>li .timeline-panel {
         float: left;
         width: 43%;
         text-align: left;
-        border: 1px solid #eee;
+        border: 1px solid #3D3D3D;
         position: relative
     }
 
     .timeline-content {
         position: relative;
         padding: 24px;
-        background-color: #fff;
+        background-color: #1a1e23;
         -webkit-transition: all .4s;
         -moz-transition: all .4s;
         -o-transition: all .4s;
@@ -823,8 +823,17 @@ ul.list-check li {
     }
 
     .timeline>li .timeline-content:hover {
-        background: #6880c3;
+        /* background: #6880c3; */
+        background: #3a4149;
         color: #fff
+    }
+
+    .timeline>li .timeline-content:hover .text-success {
+        color: #52A353;
+    }
+
+    .timeline>li .timeline-content:hover .text-success:hover {
+        color: #77BB78;
     }
 
     .timeline>li .timeline-panel::before,
