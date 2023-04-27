@@ -173,7 +173,7 @@ window.jQuery(function ($) {
     $(window).ready(function () {
       function moveAboutSkills() {
         if(window.innerWidth < 992) {
-          $('.about-skills').insertAfter('#whatido').css('height', '360px');
+          $('.about-skills').insertAfter('#askills').css('height', '360px');
         } else {
           $('.about-skills').insertAfter('.biography').css('height', '720px');
         }

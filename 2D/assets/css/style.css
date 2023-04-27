@@ -266,8 +266,7 @@ ul.list-check li {
 .intro {
     position: absolute;
     width: 100%;
-    /* top: 50%; */
-    top: 40%;
+    top: 45%;
     left: 0;
     text-align: center;
     -webkit-transform: translate(0, -50%);
