@@ -32,7 +32,7 @@ window.jQuery(function ($) {
   //  Home Page Navigation
   // ---------------------------------------------------------------------------
   (function() {
-    $('.element').bind('click', function(e) {
+    $('.element').bind('pointerdown', function(e) {
       var me = $(this)[0];
       var a = $(me).children('a')[0];
       a.click();

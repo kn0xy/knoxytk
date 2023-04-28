@@ -250,7 +250,7 @@ ul.list-check li {
     background-attachment: fixed;
     padding: 0;
     position: relative;
-    min-height: 500px;
+    min-height: 700px;
 }
 
 #home:before {
@@ -293,14 +293,15 @@ ul.list-check li {
 }
 
 .intro p {
+    font-size: 16px;
     color: #f7f7f7;
     margin-bottom: 5%;
 }
 
 .intro-sub {
     color: #fff;
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 56px;
+    line-height: 64px;
     font-weight: 700;
     text-transform: uppercase;
     display: block;
@@ -319,7 +320,7 @@ ul.list-check li {
 }
 
 .intro .homeNav .element {
-    width: 150px;
+    width: 180px;
     padding: 0 20px;
     box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
     border: 1px solid rgba(127,255,255,0.25);
@@ -327,7 +328,7 @@ ul.list-check li {
     line-height: 2.5;
     cursor: pointer;
     margin: 20px 15px;
-    font-size: 1.4em;
+    font-size: 1.6em;
     float: left;
     background-color: rgba(0, 0, 0, 0.4);
     color: #eee;
@@ -335,23 +336,27 @@ ul.list-check li {
 
 @media (max-width:560px) {
     #home {
-        min-height: 900px;
+        min-height: 1060px;
     }
     .intro {
-        top: 50% !important;
+        top: 40% !important;
+    }
+    .intro p {
+        font-size: 13.5px;
     }
     .element {
         margin: 40px auto !important;;
         float: none !important;
     }
+    .social-icons {
+        bottom: 225px !important;
+    }
 }
 
-@media (max-width:850px) {
-    
+@media (max-width: 1067px) {
     .element:nth-child(3) {
         clear: both;
     }
-
 }
 
 .intro .homeNav .element a { color: #eee; }
@@ -364,22 +369,19 @@ ul.list-check li {
     color: #fff;
 }
 
-/* .social-icons {
-    margin-top: 20px
-} */
 .social-icons {
     width: 100%;
     display: flex;
     position: absolute;
-    bottom: 40px;
+    bottom: 80px;
     justify-content: center;
 }
 
 .social-icons a i {
     position: relative;
     color: #fff;
-    font-size: 18px;
-    margin: 0 15px;
+    font-size: 36px;
+    margin: 0 30px;
     line-height: 40px;
     text-align: center;
     width: 40px;
@@ -394,10 +396,10 @@ ul.list-check li {
 .social-icons a i::after {
     position: absolute;
     content: "";
-    left: 0;
-    top: 0;
-    width: 40px;
-    height: 40px;
+    left: -15px;
+    top: -15px;
+    width: 70px;
+    height: 70px;
     border: 1px solid #fff;
     border-radius: 3px;
     -webkit-transform: rotate(45deg);
@@ -1427,7 +1429,7 @@ ul.list-check li {
     }
 
     .social-icons a i {
-        margin: 0 5px
+        margin: 0 30px
     }
 
     .mouse-icon {
@@ -1585,8 +1587,12 @@ ul.list-check li {
 
 @media only screen and (min-width:480px) and (max-width:767px) {
     .intro h1 {
-        font-size: 60px;
         line-height: 80px
+    }
+
+    .intro-sub {
+        font-size: 48px;
+        line-height: 24px;
     }
 
     .social-icons ul {
@@ -1598,7 +1604,7 @@ ul.list-check li {
     }
 
     .social-icons a i {
-        margin: 0 7px
+        margin: 0 30px
     }
 
     .mouse-icon {
