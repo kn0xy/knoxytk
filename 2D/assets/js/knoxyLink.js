@@ -38,32 +38,6 @@ if(window.parent.name === 'KnoxyHQ') {
             } else {
                 // left click
                 let movingView = false;
-                if(e.target.id) {
-                    // test elems
-                    if(e.target.id.substring(0,4) === 'test') {
-                        // interact with mon2
-                        // let en = e.target.id.substring(5);
-                        // if(!en) en = 5;
-                        // engine.scene.monitor2.screenContent.updateMonitorNum(en);
-                        // if(engine.view !== 'mon2') {
-                        //     let dur = (engine.view==='mon1'||engine.view==='tippyDesk' ? 750 : 2000);
-                        //     engine.ui.moveCameraTo('mon2', dur);
-                            
-                        // }
-
-                        setTimeout(() => { 
-                            if(engine.mouseDown && !preventDrag) {
-                                //console.log('mon1 dragging');
-                                //window.addEventListener('pointermove', handleMove);
-                                //console.log(engine.scene.monitor2.screenContainer.offsetParent);
-                            } else {
-                                preventDrag = false;
-                                //document.removeEventListener('pointermove', handleMove);
-                            }
-                        }, 275);
-                        return;
-                    }
-                }
 
                 // Prevent camera move on resumeLink click
                 try {

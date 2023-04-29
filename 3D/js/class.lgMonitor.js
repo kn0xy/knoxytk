@@ -255,7 +255,7 @@ class LGMonitor {
                     content: 'Show Info',
                     click: function() {
                         showInfoWindow();
-                        engine.ui.contextMenu.close()
+                        engine.ui.contextMenu.close();
                     }
                 },
                 {
@@ -263,7 +263,16 @@ class LGMonitor {
                     click: function() {engine.ui.contextMenu.close()}
                 },
             ];
-            engine.ui.contextMenu.show('Lamp', menuItems, false);
+            if(pub.power === 'ON') {
+                menuItems.unshift({    
+                    content: 'Open in New Tab',
+                    click: function() {
+                        window.open("https://www.knoxy.tk/2D/index.html", "_blank");
+                        engine.ui.contextMenu.close();
+                    }
+                });
+            }
+            engine.ui.contextMenu.show('LGMonitor', menuItems, false);
         }
         this.showContextMenu = showContextMenu;
 

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Cool</title>
+		<title>Tyler Knox - Resume</title>
 		<style>
 			body {
 				color: #FF0000;
@@ -124,7 +124,7 @@
 		
 		
 		<script>
-			const isKnoxy = (window.parent.name === 'KnoxyHQ');
+			let isKnoxy = (window.parent.name === 'KnoxyHQ');
 			if(!window.parent.Knoxy) isKnoxy = false;
 			
 			async function loadResume() {
@@ -143,15 +143,25 @@
 				a.click();
 				document.body.removeChild(a);
 			}
+
+			// Show the resume page
+			document.showResume = function() {
+				let sects = document.getElementsByClassName('monitorSection');
+				for(var s=0; s<sects.length; s++) {
+					let sec = sects[s];
+					sec.style.display = 'none';
+				}
+				document.getElementById('monitor4').style.display = '';
+				if(isKnoxy) window.parent.Knoxy.scene.monitor2.activePage = 'resume';
+			}
+
+			window.addEventListener('load', function() {
+				// preload resume
+				loadResume();
+			});
 			
 			if(isKnoxy) {
 				const engine = window.parent.Knoxy;
-				// load images
-				window.addEventListener('load', function() {
-					// preload resume
-					loadResume();
-				});
-
 				let preventDrag = false;
 
 				// handle mouse down
@@ -235,41 +245,13 @@
 					}
 				});
 
-
-				// listen for external commands
-				document.updateMonitorNum = function(num) {
-					const t = document.getElementById('test');
-					if(num === 1) {
-						t.innerHTML = 'About Me';
-					} else if(num === 2) {
-						t.innerHTML = 'Portfolio';
-					} else if(num === 3) {
-						t.innerHTML = 'Experience';
-					}
-					let sects = document.getElementsByClassName('monitorSection');
-					for(var s=0; s<sects.length; s++) {
-						let sec = sects[s];
-						sec.style.display = 'none';
-					}
-					document.getElementById('monitor'+num).style.display = '';
-				}
-
-				// Show the resume page
-				document.showResume = function() {
-					let sects = document.getElementsByClassName('monitorSection');
-					for(var s=0; s<sects.length; s++) {
-						let sec = sects[s];
-						sec.style.display = 'none';
-					}
-					document.getElementById('monitor4').style.display = '';
-				}
-
-
+				// ready to rock & roll
 				document.body.onload = function() {
-					// ready to rock & roll
 					console.log('m2 loaded');
 					window.parent.loadedM2 = true;
 				}
+			} else {
+				document.showResume();
 			}
 			
 		</script>

@@ -191,6 +191,8 @@ class AcerMonitor {
             engine.canvas.style.pointerEvents = '';
         };
 
+        this.activePage = 'null';
+
         this.showContextMenu = function(tf) {
             let menuItems = [
                 {
@@ -214,6 +216,15 @@ class AcerMonitor {
                     click: function() {engine.ui.contextMenu.close()}
                 },
             ];
+            if(pub.power === 'ON' && pub.activePage === 'resume') {
+                menuItems.unshift({    
+                    content: 'Open in New Tab',
+                    click: function() {
+                        window.open("https://www.knoxy.tk/2D/monitor2.html", "_blank");
+                        engine.ui.contextMenu.close();
+                    }
+                });
+            }
             engine.ui.contextMenu.show('AcerMonitor', menuItems, tf);
         }
 
