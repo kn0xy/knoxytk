@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <style>
         html {
@@ -630,6 +629,7 @@
     <section id="portfolio" class="portfolio-section section-padding">
         <div class="container">
             <h2 class="section-title wow">Portfolio</h2>
+            
             <p style="color:#EEE;text-align:center;font-size:2em;font-style:italic;margin-bottom:100px">
                 Coming soon!
             </p>
@@ -643,21 +643,28 @@
                 <div class="col-xs-12 col-md-6">
                     <div class="contact-form">
                         <div class="col-12"> <strong>Leave a message</strong> </div>
-                        <form id="contactForm" name="contact-form" action="sendemail.php" method="POST">
+                        <form id="contactForm" name="contact-form" action="contactform.php" method="POST">
                             <div class="form-group">
-                                <label for="name">From</label>
-                                <input id="name" name="name" type="text" class="form-control" autocomplete="name" 
+                                <label for="msgFrom">From</label>
+                                <input id="msgFrom" name="msgFrom" type="text" class="form-control" autocomplete="name" 
                                 placeholder="Your Name" required>
                             </div>
-                            <div class="form-group"> <label for="email">Reply To</label>
-                                <input id="email" name="email" type="email" class="form-control" 
+                            <div class="form-group">
+                                <label for="msgReplyTo">Reply To</label>
+                                <input id="msgReplyTo" name="msgReplyTo" type="email" class="form-control" 
                                 autocomplete="email" placeholder="Your Email" required>
                             </div>
-
-                            <div class="form-group"> <label for="message">Message</label> <textarea id="message"
-                                    name="message" class="form-control" rows="3" required=""></textarea> </div> <button
-                                type="submit" name="submit" class="btn btn-primary">Send</button>
+                            <div class="form-group">
+                                <label for="msgBody">Message</label>
+                                <textarea id="msgBody" name="msgBody" class="form-control" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" name="submit" class="btn btn-primary">Send</button>
                         </form>
+                        <div id="recaptcha" class="g-recaptcha"
+                            data-sitekey="6LfR9colAAAAABxACM1-vKKT0TsqSa9X6gQIut-P"
+                            data-callback="onSubmit"
+                            data-size="invisible">
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
@@ -700,13 +707,17 @@
     <div class="scroll-up">
         <a id="btnScrollUp" href="#home"><i class="fa fa-angle-up"></i></a>
     </div>
-    <script defer="defer" src="assets/js/lib/libs-bundle.js"></script>
-    <script defer="defer" src="assets/js/front/index.js"></script>
-    <script defer="defer" src="assets/js/front/theme.js"></script>
-    <script defer="defer" src="assets/js/knoxyLink.js"></script>
-    <!-- <script src="assets/js/front/gmap.js"></script>
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyACVrotifUNDXuSqPIe_J3wDWd8WWaHfOk&amp;callback=initMap"></script> -->
-</body>
 
+    <script>
+        var onSubmit = function(token) {
+            console.log('success', token);
+            window.gotToken = token;
+        }
+    </script>
+    <script src="assets/js/lib/libs-bundle.js" defer></script>
+    <script src="assets/js/front/index.js" defer></script>
+    <script src="assets/js/front/theme.js" defer ></script>
+    <script src="assets/js/knoxyLink.js" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</body>
 </html>

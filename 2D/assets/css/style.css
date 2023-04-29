@@ -1270,6 +1270,15 @@ ul.list-check li {
     overflow: hidden
 }
 
+#recaptcha {
+    display: none;
+}
+#msgSending {
+    margin-left: 15px;
+    position: relative;
+    top: 10px;
+}
+
 .location-map {
     padding: 4px;
     border: 1px solid #eee;
