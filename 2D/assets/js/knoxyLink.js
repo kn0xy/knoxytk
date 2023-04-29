@@ -38,7 +38,6 @@ if(window.parent.name === 'KnoxyHQ') {
             } else {
                 // left click
                 let movingView = false;
-                console.log(e);
                 if(e.target.id) {
                     // test elems
                     if(e.target.id.substring(0,4) === 'test') {
@@ -54,7 +53,7 @@ if(window.parent.name === 'KnoxyHQ') {
 
                         setTimeout(() => { 
                             if(engine.mouseDown && !preventDrag) {
-                                console.log('mon1 dragging');
+                                //console.log('mon1 dragging');
                                 //window.addEventListener('pointermove', handleMove);
                                 //console.log(engine.scene.monitor2.screenContainer.offsetParent);
                             } else {
@@ -91,7 +90,7 @@ if(window.parent.name === 'KnoxyHQ') {
                 preventDrag = true;
             } else {
                 if(!engine.mouseDown && !engine.paused) {
-                    console.log('mon1 clicked');
+                    //console.log('mon1 clicked');
                     preventDrag = true;
                     setTimeout(function(){preventDrag=false}, 250);
                 } else {
@@ -176,7 +175,6 @@ if(window.parent.name === 'KnoxyHQ') {
           // resumeLink open on 2nd monitor
           document.querySelector('#resumeLink').addEventListener('click', (e) => {
               e.preventDefault();
-              console.log('clicked');
               engine.scene.monitor2.screenContent.showResume();
               if(engine.view === 'mon1' || engine.view === 'mon1zoom') {
                   // quick switch
