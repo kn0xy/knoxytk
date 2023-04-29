@@ -185,17 +185,18 @@ window.jQuery(function ($) {
     $(document).ready(function () {
       $('[name="contact-email"]').prop('href', 'mailto:tyler@knoxy.tk').prop('text', 'tyler@knoxy.tk');
       //console.log(`%c✓ %c${atob('Q09OVEFDVFMgU0VU')}`, 'color:green;font-weight:bold;font-size:16px;', 'color:blue;font-weight:bold;');
-
       if(window.parent.name === 'KnoxyHQ') {
-        // scale content to fit inside monitor
-        window.parent.Knoxy.scene.monitor1.setMonitorScale();
+          if(window.parent.Knoxy) {
+              // scale content to fit inside monitor
+              window.parent.Knoxy.scene.monitor1.setMonitorScale();
 
-        // hide scrollbar until nav clicked
-        document.children[0].style.overflow = 'hidden';
+              // hide scrollbar until nav clicked
+              document.children[0].style.overflow = 'hidden';
 
-        // ready to rock & roll
-        window.parent.loadedM1 = true;
-        console.log('m1 loaded');
+              // ready to rock & roll
+              window.parent.loadedM1 = true;
+              console.log('m1 loaded');
+          }
       }
 
     });
