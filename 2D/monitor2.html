@@ -125,6 +125,7 @@
 		
 		<script>
 			const isKnoxy = (window.parent.name === 'KnoxyHQ');
+			if(!window.parent.Knoxy) isKnoxy = false;
 			
 			async function loadResume() {
 				// Load resume
@@ -253,7 +254,7 @@
 					document.getElementById('monitor'+num).style.display = '';
 				}
 
-
+				// Show the resume page
 				document.showResume = function() {
 					let sects = document.getElementsByClassName('monitorSection');
 					for(var s=0; s<sects.length; s++) {
@@ -265,6 +266,7 @@
 
 
 				document.body.onload = function() {
+					// ready to rock & roll
 					console.log('m2 loaded');
 					window.parent.loadedM2 = true;
 				}

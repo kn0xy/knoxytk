@@ -1,11 +1,3 @@
-/* jshint unused:false */
-/*!
- * Project:     {{app.name}}
- * File:        assets/js/front/index.js
- * Copyright(c) 2016-nowdays {{author.name.full}} <{{author.email}}>
- * License:     {{project.license}}
- */
-
 'use strict';
 
 window.jQuery(function ($) {
@@ -183,25 +175,9 @@ window.jQuery(function ($) {
     });
 
     $(document).ready(function () {
+      // show contact email
       $('[name="contact-email"]').prop('href', 'mailto:tyler@knoxy.tk').prop('text', 'tyler@knoxy.tk');
-      //console.log(`%c✓ %c${atob('Q09OVEFDVFMgU0VU')}`, 'color:green;font-weight:bold;font-size:16px;', 'color:blue;font-weight:bold;');
-      if(window.parent.name === 'KnoxyHQ') {
-          if(window.parent.Knoxy) {
-              // scale content to fit inside monitor
-              window.parent.Knoxy.scene.monitor1.setMonitorScale();
-
-              // hide scrollbar until nav clicked
-              document.children[0].style.overflow = 'hidden';
-
-              // ready to rock & roll
-              window.parent.loadedM1 = true;
-              console.log('m1 loaded');
-          }
-      }
-
     });
-
     
   }());
-
 });

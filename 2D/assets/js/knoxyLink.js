@@ -1,20 +1,17 @@
 // Link this monitor up to knoxyEngine if possible
+let isKnoxy = false;
 if(window.parent.name === 'KnoxyHQ') {
     const engine = window.parent.Knoxy;
+    isKnoxy = true;
     if(engine) {
         const m1 = engine.scene.monitor1;
 
-        function triggerInfoContent() {
-            let infoContent = '<p><strong>God damn I am too fresh</strong></p>';
-            engine.ui.overlay.show('BillyWatson', infoContent);
-        }
-
-
+        // Show/hide the vertical scrollbar
         function showScrollbar(ssb) {
-
             document.children[0].style.overflow = (ssb===false ? 'hidden' : '');
         }
 
+        // Auto scroll to the top
         function scrollToTop() {
             $('#btnScrollUp').click();
             setTimeout(function() { 
@@ -22,7 +19,6 @@ if(window.parent.name === 'KnoxyHQ') {
                 if(!m1.screenContent.children[0].scrollTop) showScrollbar(false);
             }, 1080);
         }
-
 
         // handle mouse down
         let preventDrag = false;
@@ -42,7 +38,7 @@ if(window.parent.name === 'KnoxyHQ') {
             } else {
                 // left click
                 let movingView = false;
-                
+                console.log(e);
                 if(e.target.id) {
                     // test elems
                     if(e.target.id.substring(0,4) === 'test') {
@@ -70,6 +66,14 @@ if(window.parent.name === 'KnoxyHQ') {
                     }
                 }
 
+                // Prevent camera move on resumeLink click
+                try {
+                    if(e.target.parentElement.id === 'resumeLink') {
+                        return;
+                    }
+                } catch {}
+                
+                // Toggle camera
                 if(engine.view !== 'mon1' && engine.view !== 'mon1zoom') {
                     let dur = 2000;
                     if(engine.view==='mon2' || engine.view==='mon2zoom' || engine.view==='tippyDesk') {
@@ -135,9 +139,6 @@ if(window.parent.name === 'KnoxyHQ') {
                             }
                         }
                     }
-
-
-                    
                 }
             }
         });
@@ -153,15 +154,48 @@ if(window.parent.name === 'KnoxyHQ') {
             } else {
                 showScrollbar();
             }
-            if(!engine.scene.monitor2.showingResume) {
-                engine.scene.monitor2.screenContent.showResume();
-            }
         }
         engine.scene.monitor1.scrolling = false;
+
+
+        // handle document ready
+        function ready(fn) {
+            if (document.readyState !== 'loading') {
+              fn();
+            } else {
+              document.addEventListener('DOMContentLoaded', fn);
+            }
+        }
+        ready(function() {
+            // scale content to fit inside monitor
+          engine.scene.monitor1.setMonitorScale();
+
+          // hide scrollbar until nav clicked
+          document.children[0].style.overflow = 'hidden';
+
+          // resumeLink open on 2nd monitor
+          document.querySelector('#resumeLink').addEventListener('click', (e) => {
+              e.preventDefault();
+              console.log('clicked');
+              engine.scene.monitor2.screenContent.showResume();
+              if(engine.view === 'mon1' || engine.view === 'mon1zoom') {
+                  // quick switch
+                  engine.ui.moveCameraTo('mon2', 500);
+              } else {
+                  // slow switch
+                  engine.ui.moveCameraTo('mon2', 1250);
+              }
+          });
+
+          // ready to rock & roll
+          window.parent.loadedM1 = true;
+          console.log('m1 loaded');
+        });
+    } else {
+        isKnoxy = false;
     }
-
-    
-
-    
-    
+}
+if(!isKnoxy) {
+    // resumeLink open in new tab
+    document.querySelector('#resumeLink').target = '_blank';
 }
