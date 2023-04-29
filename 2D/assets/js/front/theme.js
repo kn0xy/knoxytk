@@ -15,7 +15,7 @@ window.jQuery(function ($) {
     });
 
     function letKnoxyKnow() {
-      if(window.parent.name === 'KnoxyHQ') {
+      if(window.parent.Knoxy) {
         const m1 = window.parent.Knoxy.scene.monitor1;
         if(m1.scrolling) {
           return false;
