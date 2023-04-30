@@ -164,8 +164,9 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                         const overlay = document.getElementById('loadingOverlay');
                         let loading = 'Loading';
                         let progElem = document.createElement('h1');
-                        //url = url.replace('http://localhost/', '');
-                        url = url.replace('https://knoxy.tk/', '');
+                        url = url.replace('https://', '');
+                        url = url.replace('www.', '');
+                        url = url.replace('knoxy.tk/', '');
                         if(loader.filesLoaded.includes(url)) {
                             url = url.replace('models/', 'knoxy/');
                             url = url.replace('.glb', '');
