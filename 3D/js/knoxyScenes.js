@@ -26,7 +26,7 @@ function SceneX(knoxy) {
         fm.scale.set(3.25, 1, 3.1);
         fm.position.set(-1.4, 0, 2);
         fm.rotateY(THREE.MathUtils.degToRad(90));
-        fm.receiveShadow = true;
+        //fm.receiveShadow = true;
         scene.add(fm);
     });
 
