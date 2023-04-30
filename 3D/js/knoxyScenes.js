@@ -20,13 +20,15 @@ function SceneX(knoxy) {
     scene.add( plight );
     scene.add( light );
 
-
     // add floor
-    const grid = new THREE.GridHelper( 10, 50, 0x000000, 0x000000 );
-    grid.material.opacity = 0.2;
-    grid.material.transparent = true;
-    grid.receiveShadow = true;
-    scene.add( grid );
+    knoxy.loader.load('models/floor.glb', function(gltf) {
+        const fm = gltf.scene.children[0];
+        fm.scale.set(3.25, 1, 3.1);
+        fm.position.set(-1.4, 0, 2);
+        fm.rotateY(THREE.MathUtils.degToRad(90));
+        fm.receiveShadow = true;
+        scene.add(fm);
+    });
 
 
     // load models
@@ -67,7 +69,6 @@ function SceneX(knoxy) {
                 knoxy.ui.moveCameraTo('tippyDesk', (kv==='mon1'||kv==='mon2' ? 750 : 2000));
             }
         }
-        //const kbTray = model.getObjectByName('KeyboardTray');
     });
     knoxy.tippyDesk = tippyDesk;
 
@@ -143,7 +144,7 @@ function SceneX(knoxy) {
 
     // Initialize Office Chair
     const officeChair = new OfficeChair(knoxy, (model) => {
-        model.position.set(-0.309, 0, 0.75);
+        model.position.set(-0.309, 0.1125, 0.75);
         model.rotation.set(-3.14159265, 0, -3.14159265);
         scene.add(model);
         officeChair.fixAnims();
