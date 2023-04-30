@@ -151,9 +151,10 @@ class OfficeChair {
         this.toggleSlide = toggleSlide;
 
         // load model into scene
-        engine.loader.load('models/officeChair-anim2.glb', function(gltf) {
+        //engine.loader.load('models/officeChair-anim2.glb', function(gltf) {
+        engine.loader.load('models/officeChair2.glb', function(gltf) {
             const model = gltf.scene.children[0];
-            model.scale.set(1.8, 1.8, 1.8);
+            model.scale.set(1.8, 1.6, 1.8);
             model.knoxyParent = pub;
             pub.model = model;
             model.animations = gltf.animations;
