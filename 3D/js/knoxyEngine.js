@@ -83,12 +83,16 @@ knoxy.renderer = renderer;
 // CSS Renderer
 const cssRenderer = new CSS3DRenderer();
 cssRenderer.setSize( window.innerWidth, window.innerHeight );
-cssRenderer.domElement.style.position = 'absolute';
-cssRenderer.domElement.style.top = '0px';
-cssRenderer.domElement.style.pointerEvents = 'none';
+cssRenderer.domElement.id = 'cssLayer';
 document.getElementById( 'wrapper' ).appendChild( cssRenderer.domElement );
 knoxy.cssRenderer = cssRenderer;
 
+// CSS Renderer 2
+const cssRenderer2 = new CSS3DRenderer();
+cssRenderer2.setSize( window.innerWidth, window.innerHeight );
+cssRenderer2.domElement.id = 'cssLayer2';
+document.getElementById( 'wrapper' ).appendChild( cssRenderer2.domElement );
+knoxy.cssRenderer2 = cssRenderer2;
 
 // Initialize controls
 let controlsInitialized = false;
@@ -186,6 +190,7 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     cssRenderer.setSize(window.innerWidth, window.innerHeight);
+    cssRenderer2.setSize(window.innerWidth, window.innerHeight);
     knoxy.ui.contextMenu.close();
     animate();
 }

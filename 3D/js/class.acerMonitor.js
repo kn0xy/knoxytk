@@ -152,7 +152,7 @@ class AcerMonitor {
                 } else {
                     mm.visible = true;
                     scene.add(mm);
-                    engine.cssRenderer.render( engine.cssScene2, engine.camera );
+                    engine.cssRenderer2.render( engine.cssScene2, engine.camera );
                 }
             }
         }

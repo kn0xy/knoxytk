@@ -102,14 +102,12 @@ class CSS3DRenderer {
 		const domElement = parameters.element !== undefined ? parameters.element : document.createElement( 'div' );
 
 		domElement.style.overflow = 'hidden';
-		domElement.id = 'cssLayer';
 
 		this.domElement = domElement;
 
 		const viewElement = document.createElement( 'div' );
 		viewElement.style.transformOrigin = '0 0';
 		viewElement.style.pointerEvents = 'none';
-		viewElement.id = 'cssLayer_outer';
 		domElement.appendChild( viewElement );
 
 		const cameraElement = document.createElement( 'div' );

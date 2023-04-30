@@ -58,6 +58,20 @@ body {
     z-index: 1;
 }
 
+#cssLayer {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    pointer-events: none;
+}
+
+#cssLayer2 {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    pointer-events: none;
+}
+
 #labels {
     position: absolute;
     left: 0;
