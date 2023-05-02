@@ -731,7 +731,7 @@ ul.list-check li {
     left: 20px
 }
 
-.timeline>li .posted-date .month {
+.timeline>li .posted-date .years {
     font-size: 18px;
     line-height: 20px;
     font-weight: 700;
@@ -919,7 +919,7 @@ ul.list-check li {
         margin-top: 28px
     }
 
-    .timeline>li .posted-date .month {
+    .timeline>li .posted-date .years {
         float: none
     }
 }
@@ -1584,7 +1584,7 @@ ul.list-check li {
         line-height: 20px
     }
 
-    .timeline>li .posted-date .month {
+    .timeline>li .posted-date .years {
         font-size: 14px;
         line-height: 1.1
     }
@@ -2307,13 +2307,18 @@ form {
     color: #3b5998
 }
 
+.fa-twitter {
+    color: #1d9bf0;
+}
+
 .fa-facebook-messenger {
     color: #39f
 }
 
 .fa-git,
 .fa-git-square,
-.fa-github {
+.fa-github,
+.fa-linode {
     color: #6cc644
 }
 
