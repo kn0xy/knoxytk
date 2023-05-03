@@ -1,3 +1,7 @@
+// init map image
+document.getElementById('mapImg').src = 'https://maps.googleapis.com/maps/api/staticmap?center=Indianapolis,IN&zoom=10&size=555x392&map_id=a254fb2ff9e5cfdd&key=AIzaSyBBQN-Rwafg9wKZN-XVBzJOlpZ8qiadP5s&signature=WdrDF9elT5DeMjhVrbWmn_mNysM=';
+// https://maps.googleapis.com/maps/api/staticmap?center=Indianapolis,IN&zoom=10&size=555x392&map_id=a254fb2ff9e5cfdd&key=AIzaSyBBQN-Rwafg9wKZN-XVBzJOlpZ8qiadP5s
+
 // Link this monitor up to knoxyEngine if possible
 let isKnoxy = false;
 if(window.parent.name === 'KnoxyHQ') {
