@@ -144,6 +144,7 @@ class LGMonitor {
             const geometry = new THREE.PlaneGeometry(0.5, 0.5);
             const mesh = new THREE.Mesh(geometry, material);
             mesh.position.copy(object.position);
+            mesh.translateZ(0.001);
             mesh.rotation.copy(object.rotation);
             mesh.scale.set(2.35, 1.34, 1);
 
