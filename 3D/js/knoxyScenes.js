@@ -6,11 +6,13 @@ import { TippyDesk } from './class.tippyDesk.js';
 import { AcerMonitor } from './class.acerMonitor.js';
 import { OfficeChair } from './class.officeChair.js';
 import { PCTower } from './class.pcTower.js';
+import { Ender3v2 } from './class.ender3v2.js';
 
 function SceneX(knoxy) {
     // create scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color().setHSL( 0.6, 1, 0.5 );
+    //scene.background = new THREE.Color().setHSL( 0.6, 1, 0.5 );
+    scene.background = new THREE.Color( 0x04328f );
     knoxy.scene = scene;
 
     // add lights
@@ -26,6 +28,11 @@ function SceneX(knoxy) {
         fm.scale.set(3.25, 1, 3.1);
         fm.position.set(-1.4, 0, 2);
         fm.rotateY(THREE.MathUtils.degToRad(90));
+
+        // fm.rotateZ(THREE.MathUtils.degToRad(90));
+        // fm.scale.set(3.25, 1.5, 2);
+        // fm.position.set(-4.45, 1.992, 2);
+
         //fm.receiveShadow = true;
         scene.add(fm);
     });
@@ -34,6 +41,26 @@ function SceneX(knoxy) {
     // load models
     // ******************************************
     // ******************************************
+
+    // Initialize 3D Printer
+    const ender3v2 = new Ender3v2(knoxy, (model) => {
+        model.position.set(-1.8, 1.388, -0.455);
+        scene.add(model);
+        ender3v2.onClick = function() {
+            if(knoxy.view !== 'ender3v2') {
+                let target = knoxy.ui.getCmhCoordsFor('ender3v2').cam;
+                let distance = parseInt(knoxy.camera.position.distanceTo(target));
+                if(distance > 2) {
+                    let time = distance * 400 || 500;
+                    knoxy.ui.moveCameraTo('ender3v2', time);
+                } else {
+                    this.PowerOn((this.power==='OFF' ? true : false));
+                }
+            } else {
+                this.PowerOn((this.power==='OFF' ? true : false));
+            }
+        }
+    });
 
     // Initialize Right Desk
     const tippyDesk = new TippyDesk(knoxy, (model) => {
@@ -212,11 +239,6 @@ function SceneX(knoxy) {
                 let dur = (kv==='mon2' || kv==='tippyDesk' ? 750 : 2000);
                 knoxy.ui.moveCameraTo('mon1', dur);
             } else {
-                // if(this.power === 'OFF') {
-                //     this.PowerOn(true);
-                // } else {
-                //     this.PowerOn(false);
-                // }
                 if(kv === 'mon1') {
                     knoxy.ui.moveCameraTo('mon1zoom', 500);
                 } else {
@@ -292,6 +314,11 @@ function initCameraToggles(knoxy) {
             key: 'PC',
             cam: new THREE.Vector3(2.9467985487561514, 1.3334936357206137, 1.6601909760944724),
             tar: new THREE.Vector3(0.6411900948943258, 0.40490344524389055, -0.8336865110677918)
+        },
+        {
+            key: 'ender3v2',
+            cam: new THREE.Vector3(-2.2965855467777767, 2.7031978321759578, 1.5404571687822501),
+            tar: new THREE.Vector3(-1.491321676367159, 1.4370050953195042, -0.9035094304172777)
         }
     ];
     let toggled = false;
