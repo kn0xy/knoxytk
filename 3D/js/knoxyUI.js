@@ -82,16 +82,27 @@ class KnoxyUI {
             init: false,
             owner: false,
             show: function(newOwner, menuItems, click) {
+                // build menu
                 contextContent.innerHTML = '';
+                contextWrap.style.display = 'block';
                 for(let i=0; i<menuItems.length; i++) {
                     let li = document.createElement('li');
                     li.innerHTML = menuItems[i].content;
                     li.addEventListener('click', menuItems[i].click);
                     contextContent.appendChild(li);
                 }
-                contextWrap.style.top = engine.pointer.ay+'px';
-                contextWrap.style.left = engine.pointer.ax+'px';
-                contextWrap.style.display = 'block';
+                // position menu
+                let cx = engine.pointer.ax;
+                let cy = engine.pointer.ay;
+                let ww = window.innerWidth;
+                let wh = window.innerHeight;
+                let mw = contextWrap.offsetWidth;
+                let mh = contextWrap.offsetHeight;
+                if((ww - cx) < mw) cx = ww - mw; // prevent horizontal overflow
+                if((wh - cy) < mh) cy = wh - mh; // prevent vertical overflow
+                contextWrap.style.top = cy+'px';
+                contextWrap.style.left = cx+'px';
+                // display menu
                 this.ogCursor = document.body.style.cursor;
                 document.body.style.cursor = 'default';
                 if(click) this.init = true;
