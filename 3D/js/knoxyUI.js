@@ -208,6 +208,7 @@ class KnoxyUI {
 
 
         // Panel
+        const uiParent = document.getElementById('ui');
         const uiPanel = document.getElementById('ui-inner');
         const bCursor = document.createElement('p');
         bCursor.classList.add('blinking-cursor');
@@ -234,7 +235,11 @@ class KnoxyUI {
             },
             timer: false,
             init: function() {
-                uiPanel.parentElement.style.display = 'block';
+                uiParent.classList.add('hide');
+                uiParent.style.display = 'block';
+                uiParent.classList.replace('hide', 'show');
+                uiPanel.classList.add('expanded');
+                uiPanel.classList.replace('expanded', 'mini');
                 uiPanel.innerHTML = '';
                 uiPanel.appendChild(bCursor);
                 setTimeout(function() {
@@ -244,52 +249,82 @@ class KnoxyUI {
                     pub.panel.write('Full Stack Web Developer');
                 }, 2400);
                 setTimeout(function() {
-                    pub.panel.write('Local Time: '+pub.panel.getTime());
+                    pub.panel.write('Local Time: '+pub.getTime());
                 }, 4000);
                 setTimeout(function() {
                     pub.panel.hideCursor();
-                    setTimeout(function() {
-                        let pTime = document.querySelector('#ui-inner p:last-of-type');
-                        let uiTime = document.createElement('span');
-                        //uiTime.id = 'ui-time';
-                        uiTime.innerHTML = pub.panel.getTime();
-                        pTime.innerHTML = 'Local Time: '
-                        pTime.appendChild(uiTime);
-                        pub.panel.timer = setInterval(() => {
-                            uiTime.innerHTML = pub.panel.getTime();
-                        }, 1000);
-                    }, 100);
-                    
-                    // add id to the last p elem
-                    // set interval to update the local time
-                }, 5100); //5200
+                    setTimeout(initPanelTime, 100);
+                    setTimeout(initPanelInfo, 250);
+                }, 5100);
                 setTimeout(function() {
-                    // add UI buttons to panel then hide cursor
+                    // attach UI buttons to panel
+
+                    // add mouseover listeners
+                    uiPanel.addEventListener('pointerenter', function() {
+                        uiPanel.classList.replace('mini', 'expanded');
+                        engine.paused = true;
+                    });
+                    uiPanel.addEventListener('pointerleave', function() {
+                        uiPanel.classList.replace('expanded', 'mini');
+                        engine.paused = false;
+                    });
                 }, 5700);
             },
             hideCursor: function() {
                 bCursor.parentNode.removeChild(bCursor);
             },
-            getTime: function() {
-                let localTime = new Date();
-                let lth = localTime.getHours();
-                let ampm = (lth < 12 ? 'AM' : 'PM');
-                if(lth === 0) lth = 12;
-                if(lth > 12) lth -= 12;
-                let ltm = localTime.getMinutes();
-                if(ltm < 10) ltm = '0'+ltm;
-                let lts = localTime.getSeconds();
-                if(lts < 10) lts = '0'+lts;
-                return lth+':'+ltm+':'+lts+' '+ampm;
-            },
             fadeOut: function() {
-                uiPanel.classList.remove('show');
-                uiPanel.classList.add('hide');
+                uiParent.classList.replace('show', 'hide');
+                setTimeout(function(){
+                    uiParent.removeAttribute('style');
+                    if(pub.panel.timer) clearInterval(pub.panel.timer);
+                }, 650);
             },
             fadeIn: function() {
-                uiPanel.classList.replace('hide', 'show');
+                uiParent.style.display = 'block';
+                setTimeout(function() {
+                    uiParent.classList.replace('hide', 'show');
+                    initPanelTime();
+                }, 50);
             }
         };
+
+        function initPanelTime() {
+            if(!document.getElementById('ui-time')) {
+                let pTime = document.querySelector('#ui-inner p:nth-of-type(3)');
+                let uiTime = document.createElement('span');
+                uiTime.id = 'ui-time';
+                uiTime.innerHTML = pub.getTime();
+                pTime.innerHTML = 'Local Time: '
+                pTime.appendChild(uiTime);
+            }
+            pub.panel.timer = setInterval(() => {
+                document.getElementById('ui-time').innerHTML = pub.getTime();
+            }, 1000);
+        }
+
+        function initPanelInfo() {
+            const ghUrl = 'https://www.github.com/kn0xy/knoxytk/';
+            const psUrl = '../2D/index.html';
+            const resUrl = '../2D/resume.pdf';
+            uiPanel.innerHTML += '<br><p><a href="'+ghUrl+'" target="_blank">View Source</a></p>';
+            uiPanel.innerHTML += '<br><p><a href="'+psUrl+'" target="_blank">View 2D Site</a></p>';
+            uiPanel.innerHTML += '<br><p><a href="'+resUrl+'" target="_blank">View My Resume</a></p>';
+            
+        }
+
+        this.getTime = function() {
+            let localTime = new Date();
+            let lth = localTime.getHours();
+            let ampm = (lth < 12 ? 'AM' : 'PM');
+            if(lth === 0) lth = 12;
+            if(lth > 12) lth -= 12;
+            let ltm = localTime.getMinutes();
+            if(ltm < 10) ltm = '0'+ltm;
+            let lts = localTime.getSeconds();
+            if(lts < 10) lts = '0'+lts;
+            return lth+':'+ltm+':'+lts+' '+ampm;
+        }
     }
 }
 export { KnoxyUI }
