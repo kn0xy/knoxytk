@@ -195,7 +195,7 @@ class KnoxyUI {
                     if(destKey !== engine.view) {
                         let oc = function() { 
                             engine.view = destKey;
-                            engine.ui.camView = destKey;
+                            pub.camView = destKey;
                             if(occb && typeof(occb) === 'function') occb();
                         };
                         this.moveCamera(cam, tar, dur, oscb, oc);
@@ -205,6 +205,91 @@ class KnoxyUI {
             return true;
         }
         this.camView = false;
+
+
+        // Panel
+        const uiPanel = document.getElementById('ui-inner');
+        const bCursor = document.createElement('p');
+        bCursor.classList.add('blinking-cursor');
+        this.panel = {
+            write: function(msg) {
+                let msgParts = msg.split('');
+                let uiTxt = document.querySelector('.ui-text');
+                if(!uiTxt) {
+                    uiTxt = document.createElement('p');
+                    uiTxt.classList.add('ui-text');
+                    bCursor.before(uiTxt);
+                }
+                let interval = setInterval(function() {
+                    if(msgParts.length) {
+                        uiTxt.textContent += msgParts[0];
+                        msgParts.shift();
+                    } else {
+                        clearInterval(interval);
+                        let br = document.createElement('br');
+                        uiTxt.after(br);
+                        uiTxt.classList.remove('ui-text');
+                    }
+                }, 50);
+            },
+            timer: false,
+            init: function() {
+                uiPanel.parentElement.style.display = 'block';
+                uiPanel.innerHTML = '';
+                uiPanel.appendChild(bCursor);
+                setTimeout(function() {
+                    pub.panel.write('Tyler Knox');
+                }, 1300);
+                setTimeout(function() {
+                    pub.panel.write('Full Stack Web Developer');
+                }, 2400);
+                setTimeout(function() {
+                    pub.panel.write('Local Time: '+pub.panel.getTime());
+                }, 4000);
+                setTimeout(function() {
+                    pub.panel.hideCursor();
+                    setTimeout(function() {
+                        let pTime = document.querySelector('#ui-inner p:last-of-type');
+                        let uiTime = document.createElement('span');
+                        //uiTime.id = 'ui-time';
+                        uiTime.innerHTML = pub.panel.getTime();
+                        pTime.innerHTML = 'Local Time: '
+                        pTime.appendChild(uiTime);
+                        pub.panel.timer = setInterval(() => {
+                            uiTime.innerHTML = pub.panel.getTime();
+                        }, 1000);
+                    }, 100);
+                    
+                    // add id to the last p elem
+                    // set interval to update the local time
+                }, 5100); //5200
+                setTimeout(function() {
+                    // add UI buttons to panel then hide cursor
+                }, 5700);
+            },
+            hideCursor: function() {
+                bCursor.parentNode.removeChild(bCursor);
+            },
+            getTime: function() {
+                let localTime = new Date();
+                let lth = localTime.getHours();
+                let ampm = (lth < 12 ? 'AM' : 'PM');
+                if(lth === 0) lth = 12;
+                if(lth > 12) lth -= 12;
+                let ltm = localTime.getMinutes();
+                if(ltm < 10) ltm = '0'+ltm;
+                let lts = localTime.getSeconds();
+                if(lts < 10) lts = '0'+lts;
+                return lth+':'+ltm+':'+lts+' '+ampm;
+            },
+            fadeOut: function() {
+                uiPanel.classList.remove('show');
+                uiPanel.classList.add('hide');
+            },
+            fadeIn: function() {
+                uiPanel.classList.replace('hide', 'show');
+            }
+        };
     }
 }
 export { KnoxyUI }

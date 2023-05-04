@@ -57,6 +57,9 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
             <div id="contextMenu">
                 <ul id="contextContent"></ul>
             </div>
+            <div id="ui">
+                <div id="ui-inner"></div>
+            </div>
         </div>
         <iframe id="frame1"></iframe>
         <iframe id="frame2"></iframe>
@@ -108,6 +111,7 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                                 // tween to tippyDesk
                                 setTimeout(function() {
                                     engine.ui.moveCameraTo('tippyDesk', null, null, () => {
+                                        engine.ui.panel.init();
                                         engine.tippyDesk.toggleTray();
                                     });
                                 }, 500);
