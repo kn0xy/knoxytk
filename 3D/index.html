@@ -44,7 +44,7 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                                                                             y:::::y               
                                                                            yyyyyyy
             </pre>
-            <h1 style="margin-bottom:50px">Portfolio/Showcase: April 2023</h1>
+            <h1 style="margin-bottom:50px">Portfolio/Showcase: May 2023</h1>
             <h1 id="init">Initializing...</h1>
         </div>
         <div id="wrapper">
@@ -69,29 +69,48 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
             window.loadedM1 = false;
             window.loadedM2 = false;
             window.loadedModels = false;
+            function loadingSlow() {
+                let lwTxt = 'Loading world';
+                for(var i=0; i<30; i++) lwTxt += '.';
+                lwTxt += loadingPercent+'%';
+                document.getElementById('initLoader2').innerHTML = lwTxt;
+            }
+            function initScene(loaded) {
+                if(!document.getElementById('init')) {
+                    let newInit = document.createElement('h1');
+                    newInit.id = 'init';
+                    newInit.innerHTML = 'Loading scene...' + (loaded ? 'OK!' : '');
+                    document.getElementById('loadingOverlay').appendChild(newInit);
+                } else {
+                    document.getElementById('init').append('OK!');
+                }
+            }
             let engine = null;
             let loadingTime = 0;
+            let loadingPercent = 0;
+            let showPercent = false;
             let loading = setInterval(function() {
                 if(loadedM0 && loadedM1 && loadedM2) {
+                    const il2 = document.getElementById('initLoader2');
                     if(!loadedModels) {
-                        let newInit = document.createElement('h1');
-                        newInit.id = 'init';
-                        newInit.innerHTML = 'Loading scene...';
-                        document.getElementById('loadingOverlay').appendChild(newInit);
+                        // engine + monitors loaded, still waiting on models
+                        if(loadingTime < 30) {
+                            il2.append('.');
+                        } else {
+                            loadingSlow();
+                        }
+                        loadingTime++;
                     } else {
+                        // everything is loaded
                         clearInterval(loading);
                         const overlay = document.getElementById('loadingOverlay');
-                        try {
-                            // finished loading world
-                            document.getElementById('init').append('OK!');
-                        } catch(e) {
-                            if(!document.getElementById('init')) {
-                                let newInit = document.createElement('h1');
-                                newInit.id = 'init';
-                                newInit.innerHTML = 'Loading scene...';
-                                document.getElementById('loadingOverlay').appendChild(newInit);
-                            }
-                        }
+                        
+                        // update loading texts
+                        let lpt = il2.textContent;
+                        let len = lpt.length - 3;
+                        let lps = lpt.substring(0, len);
+                        il2.innerHTML = lps + 'OK!';
+                        initScene(true);
                         
                         // show welcome message
                         let loaded = document.createElement('h1');
@@ -108,10 +127,12 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                                 // remove loading overlay
                                 overlay.parentNode.removeChild(overlay);
 
-                                // tween to tippyDesk
+                                // move camera to tippyDesk
                                 setTimeout(function() {
                                     engine.ui.moveCameraTo('tippyDesk', null, null, () => {
+                                        // initialize UI panel overlay
                                         engine.ui.panel.init();
+                                        // slide out the desk tray
                                         engine.tippyDesk.toggleTray();
                                     });
                                 }, 500);
@@ -125,38 +146,23 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                     if(loadedModels) {
                         const oldInit = document.getElementById('init');
                         if(!oldInit) {
-                            let newInit = document.createElement('h1');
-                            newInit.id = 'init';
-                            newInit.innerHTML = 'Loading scene...';
-                            document.getElementById('loadingOverlay').appendChild(newInit);
+                            initScene();
                         } else {
-                            // waiting for monitor contents to initialize
-                            if(oldInit.innerHTML.substring(0,13) === 'Loading scene') {
-                                oldInit.append('.');
-                            } else {
-                                // finished loading world
-                                oldInit.append('OK!');
-                                oldInit.id = 'finishedLoadingWorld';
-                                let newInit = document.createElement('h1');
-                                newInit.id = 'init';
-                                newInit.innerHTML = 'Loading scene...';
-                                document.getElementById('loadingOverlay').appendChild(newInit);
-                            }
-                            try {
-                            document.getElementById('init').append('.');
-                            } catch(e) {
-                                
-                                console.error('up high', e);
-                            }
+                            // waiting for monitor contents to initialize (loading scene)
+                            oldInit.append('.');
                         }
-                        
                     } else {
                         try {
                             // waiting for models to download
-                            document.getElementById('initLoader2').append('.');
+                            if(loadingTime > 30) {
+                                loadingSlow();
+                            } else {
+                                document.getElementById('initLoader2').append('.');
+                            }
+                            loadingTime++;
                         } catch {
-                            
-                            console.log('???');
+                            // still initializing (body hasn't reached onload)
+                            document.getElementById('init').append('.');
                         }
                     }
                 }   
@@ -168,10 +174,11 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                         const overlay = document.getElementById('loadingOverlay');
                         let loading = 'Loading';
                         let progElem = document.createElement('h1');
-                        url = url.replace('https://', '');
-                        url = url.replace('www.', '');
-                        url = url.replace('knoxy.tk/', '');
-                        if(loader.filesLoaded.includes(url)) {
+                        url = url.replace(window.location.origin+'/', '');
+                        if(url.substring(0,4) === 'blob') {
+                            loading = 'Started thread';
+                            url = url.replace('blob:', '');
+                        } else if(loader.filesLoaded.includes(url)) {
                             url = url.replace('models/', 'knoxy/');
                             url = url.replace('.glb', '');
                             loading = 'Loaded';
@@ -180,6 +187,7 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                         overlay.appendChild(progElem);
                         overlay.scrollTop = overlay.scrollHeight;
                         loader.filesLoaded.push(url);
+                        loadingPercent = parseInt(loaded / total * 100);
                     }
                 } catch(err) {
                     console.error('failed to set loader progress', err);
