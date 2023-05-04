@@ -37,10 +37,25 @@ class Ender3v2 {
         label.style.display = 'none';
         document.querySelector('#labels').appendChild(label);
         this.knoxyLabel = label;
+
+        // initialize info window
         function showInfoWindow() {
-            let infoContent = '<p>Power: '+pub.power+'</p>';
+            let infoContent = '<p>Power: <button id="btnPowerE3">'+pub.power+'</button></p>';
             engine.ui.overlay.show('Ender 3 v2', infoContent);
         }
+        engine.ui.overlay.addClickHandler('btnPowerE3', (e) => {
+            //console.log(e);
+            const elem = document.getElementById('btnPowerE3');
+            if(elem.innerText === 'OFF') {
+                // Power On
+                elem.innerText = 'ON';
+                pub.PowerOn(true);
+            } else {
+                // Power Off
+                elem.innerText = 'OFF';
+                pub.PowerOn(false);
+            }
+        });
 
 
         // initialize materials

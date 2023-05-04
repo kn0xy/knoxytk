@@ -48,10 +48,27 @@ class Lamp {
         label.style.display = 'none';
         document.querySelector('#labels').appendChild(label);
         this.knoxyLabel = label;
+
+
+        // initialize overlay info window
         function showInfoWindow() {
-            let infoContent = '<p>Power: '+pub.power+'</p>';
+            let infoContent = '<p><strong>Power:</strong> &nbsp; <button id="btnPowerLamp">'+pub.power+'</button>';
             engine.ui.overlay.show('Lamp', infoContent);
         }
+        engine.ui.overlay.addClickHandler('btnPowerLamp', (e) => {
+            //console.log(e);
+            const elem = document.getElementById('btnPowerLamp');
+            if(elem.innerText === 'OFF') {
+                // Power On
+                elem.innerText = 'ON';
+                pub.PowerOn(true);
+            } else {
+                // Power Off
+                elem.innerText = 'OFF';
+                pub.PowerOn(false);
+            }
+        });
+        
 
 
         // initialize materials
@@ -188,6 +205,7 @@ class Lamp {
             this.PowerOn(po);
         }
 
+        // context menu
         function showContextMenu() {
             let menuItems = [
                 {
