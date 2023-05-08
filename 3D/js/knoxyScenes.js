@@ -345,14 +345,18 @@ function initCameraToggles(knoxy) {
                     if(knoxy.camera.position.z >= 1.35) {
                         knoxy.ui.moveCameraTo('tippyDesk', 500);
                     } else {
-                        knoxy.ui.moveCameraTo('mon2zoom', 500);
+                        knoxy.ui.moveCameraTo('mon2zoom', 500, () => {
+                            knoxy.ui.panel.fadeOut();
+                        });
                     }
                 }
                 if(knoxy.ui.camView === 'mon2zoom') {
                     toggled = true;
                     setTimeout(function() { toggled = false }, 500);
                     if(knoxy.camera.position.z >= 0.72) {
-                        knoxy.ui.moveCameraTo('mon2', 500);
+                        knoxy.ui.moveCameraTo('mon2', 500, () => {
+                            // knoxy.ui.panel.fadeIn();
+                        });
                     }
                 }
                 if(knoxy.ui.camView === 'chairOut') {
@@ -374,6 +378,9 @@ function initCameraToggles(knoxy) {
                     }
                 }
                 knoxy.ui.camView = false;
+                if(knoxy.ui.panel.isHidden) {
+                    knoxy.ui.panel.fadeIn();
+                }
             }
         }
     });

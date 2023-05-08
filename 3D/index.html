@@ -121,8 +121,8 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                         setTimeout(loadingComplete, 1000);
                         function loadingComplete() {
                             try {
-                                // append loadingOverlay html to #monitor5 in monitor2.html
-                                engine.scene.monitor2.screenContent.getElementById('monitor5').innerHTML = overlay.innerHTML;
+                                // append loadingOverlay html to #loadingSection in monitor2.html
+                                engine.scene.monitor2.screenContent.getElementById('loadingSection').innerHTML = overlay.innerHTML;
 
                                 // remove loading overlay
                                 overlay.parentNode.removeChild(overlay);

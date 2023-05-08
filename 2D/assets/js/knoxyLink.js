@@ -56,7 +56,9 @@ if(window.parent.name === 'KnoxyHQ') {
                     if(engine.view==='mon2' || engine.view==='mon2zoom' || engine.view==='tippyDesk') {
                         dur = 750;
                     }
-                    if(!movingView) engine.ui.moveCameraTo('mon1', dur);
+                    if(!movingView) engine.ui.moveCameraTo('mon1', dur, () => {
+                        if(engine.ui.panel.isHidden) engine.ui.panel.fadeIn();
+                    });
                 }
             }
         });
@@ -113,6 +115,14 @@ if(window.parent.name === 'KnoxyHQ') {
                             } else if(engine.view === 'mon1') {
                                 // forward the wheel event directly to the control room
                                 engine.controls.passWheel(event);
+                            } else if(engine.view === 'mon2') {
+                                engine.ui.moveCameraTo('tippyDesk', 500);
+                            }
+                        } else {
+                            // document has been scrolled
+                            if(engine.view !== 'mon1' && engine.view !== 'mon1zoom') {
+                                // move camera to monitor 1
+                                engine.ui.moveCameraTo('mon1', 500);
                             }
                         }
                     }

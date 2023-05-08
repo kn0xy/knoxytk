@@ -208,30 +208,46 @@ class KnoxyUI {
 
 
         // Panel
+        let panelWriting = false;
+        const panelWriteQueue = [];
         const uiParent = document.getElementById('ui');
         const uiPanel = document.getElementById('ui-inner');
         const bCursor = document.createElement('p');
         bCursor.classList.add('blinking-cursor');
         this.panel = {
             write: function(msg) {
-                let msgParts = msg.split('');
-                let uiTxt = document.querySelector('.ui-text');
-                if(!uiTxt) {
-                    uiTxt = document.createElement('p');
-                    uiTxt.classList.add('ui-text');
-                    bCursor.before(uiTxt);
-                }
-                let interval = setInterval(function() {
-                    if(msgParts.length) {
-                        uiTxt.textContent += msgParts[0];
-                        msgParts.shift();
-                    } else {
-                        clearInterval(interval);
-                        let br = document.createElement('br');
-                        uiTxt.after(br);
-                        uiTxt.classList.remove('ui-text');
+                if(!panelWriting) {
+                    let msgParts = msg.split('');
+                    let uiTxt = document.querySelector('.ui-text');
+                    if(!uiTxt) {
+                        uiTxt = document.createElement('p');
+                        uiTxt.classList.add('ui-text');
+                        bCursor.before(uiTxt);
                     }
-                }, 50);
+                    if(!panelWriteQueue.includes(msg)) panelWriteQueue.push(msg);
+                    panelWriting = true;
+                    let interval = setInterval(function() {
+                        if(msgParts.length) {
+                            uiTxt.textContent += msgParts[0];
+                            msgParts.shift();
+                        } else {
+                            clearInterval(interval);
+                            uiTxt.textContent = msg;
+                            let br = document.createElement('br');
+                            uiTxt.after(br);
+                            uiTxt.classList.remove('ui-text');
+                            panelWriting = false;
+                            panelWriteQueue.shift();
+                            if(panelWriteQueue.length) {
+                                pub.panel.write(panelWriteQueue[0]);
+                            }
+                        }
+                    }, 50);
+                } else {
+                    if(!panelWriteQueue.includes(msg)) {
+                        panelWriteQueue.push(msg);
+                    }
+                }
             },
             timer: false,
             init: function() {
@@ -255,7 +271,7 @@ class KnoxyUI {
                     pub.panel.hideCursor();
                     setTimeout(initPanelTime, 100);
                     setTimeout(initPanelInfo, 250);
-                }, 5100);
+                }, 5200);
                 setTimeout(function() {
                     // attach UI buttons to panel
 
@@ -278,6 +294,7 @@ class KnoxyUI {
                 setTimeout(function(){
                     uiParent.removeAttribute('style');
                     if(pub.panel.timer) clearInterval(pub.panel.timer);
+                    pub.panel.isHidden = true;
                 }, 650);
             },
             fadeIn: function() {
@@ -285,8 +302,10 @@ class KnoxyUI {
                 setTimeout(function() {
                     uiParent.classList.replace('hide', 'show');
                     initPanelTime();
+                    pub.panel.isHidden = false;
                 }, 50);
-            }
+            },
+            isHidden: false
         };
 
         function initPanelTime() {
@@ -299,7 +318,12 @@ class KnoxyUI {
                 pTime.appendChild(uiTime);
             }
             pub.panel.timer = setInterval(() => {
-                document.getElementById('ui-time').innerHTML = pub.getTime();
+                try {
+                    document.getElementById('ui-time').innerHTML = pub.getTime();
+                } catch {
+                    clearInterval(pub.panel.timer);
+                    setTimeout(initPanelTime, 250);
+                } 
             }, 1000);
         }
 
