@@ -113,8 +113,11 @@ class AideeDesk extends THREE.EventDispatcher {
         this.setChairTextures = function(chairModel) {
             const seat = chairModel.getObjectByName('Seat');
             const rivets = chairModel.getObjectByName('Rivets');
+            const legs = chairModel.getObjectByName('Legs');
             seat.material = ogBlackMat;
             rivets.material = ogChromeMat;
+            seat.receiveShadow = true;
+            legs.receiveShadow = true;
         }
 
 
@@ -142,6 +145,7 @@ class AideeDesk extends THREE.EventDispatcher {
             const frame = model.getObjectByName('Frame');
             frame.castShadow = true;
             frame.receiveShadow = true;
+            frame.knoxyParent = pub;
             engine.intersectables = engine.intersectables.concat(frame);
 
             for(let d=0; d<drawers.length; d++) {
@@ -222,28 +226,30 @@ class AideeDesk extends THREE.EventDispatcher {
         
 
         this.onMouseover = function(obj) {
-            //console.log(obj.name);
-            document.body.style.cursor = 'pointer';
+            //console.log('moused over', obj.name);
+            if(obj.name !== 'Frame') {
+                document.body.style.cursor = 'pointer';
 
-            // get parent drawer
-            const drwrs = this.drawers;
-            const indx = drwrs.indexOf(obj.parent);
-            const drawer = drwrs[indx];
+                // get parent drawer
+                const drwrs = this.drawers;
+                const indx = drwrs.indexOf(obj.parent);
+                const drawer = drwrs[indx];
 
-            // set the highlight materials on the parent drawer
-            resetDrawerHighlights();
-            for(let i=0; i<drawer.children.length; i++) {
-                const thisMat = drawer.children[i].material;
-                if(thisMat.name === 'Black') {
-                    drawer.children[i].material = blackMat;
-                } else if(thisMat.name === 'Leather') {
-                    drawer.children[i].material = leatherMat;
-                } else if(thisMat.name === 'Chrome') {
-                    drawer.children[i].material = chromeMat;
+                // set the highlight materials on the parent drawer
+                resetDrawerHighlights();
+                for(let i=0; i<drawer.children.length; i++) {
+                    const thisMat = drawer.children[i].material;
+                    if(thisMat.name === 'Black') {
+                        drawer.children[i].material = blackMat;
+                    } else if(thisMat.name === 'Leather') {
+                        drawer.children[i].material = leatherMat;
+                    } else if(thisMat.name === 'Chrome') {
+                        drawer.children[i].material = chromeMat;
+                    }
                 }
-            }
 
-            engine.callAnimate();
+                engine.callAnimate();
+            }
         };
 
         function resetMouseover() {
@@ -272,17 +278,29 @@ class AideeDesk extends THREE.EventDispatcher {
         this.onMouseout = resetMouseover;
 
         this.onClick = function(obj) {
-            let drawer = 0;
-            if(typeof obj === 'number') {
-                drawer = obj;
+            if(obj.name === 'Frame') {
+                // move camera
+                let cPos = engine.camera.position;
+                let mPos = engine.scene.monitor1.model.position;
+                let d = parseInt(cPos.distanceTo(mPos));
+                if(engine.view !== 'aideeDesk') {
+                    let tf = d * 400;
+                    let dur = (tf < 1500 ? tf : 1500);
+                    engine.ui.moveCameraTo('aideeDesk', dur);
+                }
             } else {
-                // get parent drawer
-                const drwrs = this.drawers;
-                const indx = drwrs.indexOf(obj.parent);
-                drawer = indx+1;
+                // toggle drawer
+                let drawer = 0;
+                if(typeof obj === 'number') {
+                    drawer = obj;
+                } else {
+                    // get parent drawer
+                    const drwrs = this.drawers;
+                    const indx = drwrs.indexOf(obj.parent);
+                    drawer = indx+1;
+                }
+                this.toggleDrawer(drawer); 
             }
-
-            this.toggleDrawer(drawer); 
         }
 
 

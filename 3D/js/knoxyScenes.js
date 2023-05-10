@@ -335,6 +335,11 @@ function initCameraToggles(knoxy) {
             key: 'ender3v2',
             cam: new THREE.Vector3(-2.2965855467777767, 2.7031978321759578, 1.5404571687822501),
             tar: new THREE.Vector3(-1.491321676367159, 1.4370050953195042, -0.9035094304172777)
+        },
+        {
+            key: 'aideeDesk',
+            cam: new THREE.Vector3(-0.830078269053341, 3.3927758217345576, 2.006321612157443),
+            tar: new THREE.Vector3(-2.5447731735959294, 1.3803805100795734, -0.3191077028955683)
         }
     ];
     let toggled = false;
@@ -370,9 +375,7 @@ function initCameraToggles(knoxy) {
                     toggled = true;
                     setTimeout(function() { toggled = false }, 500);
                     if(knoxy.camera.position.z >= 0.72) {
-                        knoxy.ui.moveCameraTo('mon2', 500, () => {
-                            // knoxy.ui.panel.fadeIn();
-                        });
+                        knoxy.ui.moveCameraTo('mon2', 500);
                     }
                 }
                 if(knoxy.ui.camView === 'chairOut') {
@@ -391,6 +394,14 @@ function initCameraToggles(knoxy) {
                             }, 1000);
                         });
                         if(knoxy.officeChair.state === 'OUT') knoxy.officeChair.toggleSlide();
+                    }
+                }
+                if(knoxy.ui.camView === 'aideeDesk') {
+                    toggled = true;
+                    setTimeout(function() { toggled = false }, 500);
+                    if(knoxy.camera.position.y > 3.4) {
+                        // zoomed out, go to overview
+                        knoxy.ui.moveCameraTo('overview', 1000);
                     }
                 }
                 knoxy.ui.camView = false;
