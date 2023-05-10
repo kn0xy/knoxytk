@@ -9,8 +9,8 @@ import { CSS3DRenderer } from './CSS3DRenderer.js';
 
 
 // Define engine globals
-let _width = (window.innerWidth % 2 === 0 ? window.innerWidth : window.innerWidth - 1);
-let _height = (window.innerHeight % 2 === 0 ? window.innerHeight : window.innerHeight - 1);
+let _width = (window.innerWidth % 2 === 0 ? window.innerWidth : window.innerWidth + 1);
+let _height = (window.innerHeight % 2 === 0 ? window.innerHeight : window.innerHeight + 1);
 let knoxy = {
     animated: [],
     animating: [],
@@ -188,15 +188,16 @@ canvas.addEventListener('mousedown', function(e) {
 // -- Window resized
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
-    let wiw = window.innerWidth;
-    let newWidth = (wiw % 2 === 0 ? wiw : wiw - 1);
-    let wih = window.innerHeight;
-    let newHeight = (wih % 2 === 0 ? wih : wih - 1);
-    camera.aspect = newWidth / newHeight;
+    _width = (window.innerWidth % 2 === 0 ? window.innerWidth : window.innerWidth + 1);
+    _height = (window.innerHeight % 2 === 0 ? window.innerHeight : window.innerHeight + 1);
+
+    camera.aspect = _width / _height;
     camera.updateProjectionMatrix();
-    renderer.setSize(newWidth, newHeight);
-    cssRenderer.setSize(newWidth, newHeight);
-    cssRenderer2.setSize(newWidth, newHeight);
+
+    renderer.setSize(_width, _height);
+    cssRenderer.setSize(_width, _height);
+    cssRenderer2.setSize(_width, _height);
+
     knoxy.ui.contextMenu.close();
     animate();
 }
