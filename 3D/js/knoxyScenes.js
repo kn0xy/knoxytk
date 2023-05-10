@@ -223,6 +223,22 @@ function SceneX(knoxy) {
         setTimeout(function() { lamp.PowerOn(false) }, 1000);
     });
 
+    // Initialize picture frame (non-interactable)
+    knoxy.loader.load('models/picture.glb', function(gltf) {
+        const model = gltf.scene.children[0];
+
+        // init glass texture
+        let glassMat = model.getObjectByName('Glass').material;
+        glassMat.blending = 4;
+        glassMat.transparent = true;
+        glassMat.opacity = 0.9;
+
+        // scale & position
+        model.scale.set(0.25, 0.25, 0.25);
+        model.position.set(-3.3, 1.397, -0.8);
+        model.rotation.set(0, THREE.MathUtils.degToRad(200), 0);
+        scene.add(model);
+    });
     
     // Initialize LG Monitor
     const monitor = new LGMonitor(knoxy, (model) => {
