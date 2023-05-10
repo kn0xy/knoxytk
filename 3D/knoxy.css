@@ -46,16 +46,15 @@ body {
 
 #wrapper {
     position: absolute;
-    width: 100%;
-    height: 100%;
     width: 100vw;
     height: 100vh;
 }
 
 #knoxy {
     display: block;
-    position: fixed;
+    position: absolute;
     top: 0;
+    left: 0;
     z-index: 1;
 }
 
@@ -355,17 +354,15 @@ iframe {
     width: 1600px;
     height: 900px;
     overflow: hidden;
-    /* pointer-events: none !important; */
+    background-color: #000;
 }
 
-/* #monitor2Screen {
-    width: 100%;
-} */
 
 #monitor2Container {
     height: 1600px;
-    width: 900px; 
-    /* pointer-events: none !important; */
+    width: 900px;
+    overflow: hidden;
+    background-color: #000; 
 }
 
 #btnPowerM1,

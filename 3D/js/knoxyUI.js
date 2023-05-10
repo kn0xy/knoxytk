@@ -276,11 +276,11 @@ class KnoxyUI {
                     // attach UI buttons to panel
 
                     // add mouseover listeners
-                    uiPanel.addEventListener('pointerenter', function() {
+                    uiPanel.addEventListener('mouseover', function() {
                         uiPanel.classList.replace('mini', 'expanded');
                         engine.paused = true;
                     });
-                    uiPanel.addEventListener('pointerleave', function() {
+                    uiPanel.addEventListener('mouseout', function() {
                         uiPanel.classList.replace('expanded', 'mini');
                         engine.paused = false;
                     });

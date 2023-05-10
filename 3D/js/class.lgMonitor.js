@@ -111,8 +111,7 @@ class LGMonitor {
             // Create iframe
             const iframe = document.getElementById('frame1') || document.createElement('iframe');
             iframe.id = 'monitorScreen';
-            // iframe.src = '../2D/monitor.html';
-            iframe.src = '../2D/index.html';;
+            iframe.src = '../2D/index.html';
             iframe.style.boxSizing = 'border-box';
             iframe.style.opacity = '1';
             iframe.onload = (e) => {

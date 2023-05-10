@@ -9,6 +9,8 @@ import { CSS3DRenderer } from './CSS3DRenderer.js';
 
 
 // Define engine globals
+let _width = (window.innerWidth % 2 === 0 ? window.innerWidth : window.innerWidth - 1);
+let _height = (window.innerHeight % 2 === 0 ? window.innerHeight : window.innerHeight - 1);
 let knoxy = {
     animated: [],
     animating: [],
@@ -45,7 +47,7 @@ knoxy.loader = loader;
 
 
 // Initialize camera
-const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100 );
+const camera = new THREE.PerspectiveCamera( 45, _width / _height, 0.1, 100 );
 camera.position.z = 25;
 camera.position.y = 15;
 camera.position.x = -5;
@@ -74,7 +76,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.outputEncoding = THREE.sRGBEncoding;
 //renderer.toneMapping = THREE.ACESFilmicToneMapping;
 //renderer.outputEncoding = THREE.BasicDepthPacking;
-renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize( _width, _height );
 renderer.setClearColor(0x000000, 0.0);
 knoxy.canvas = canvas;
 knoxy.renderer = renderer;
@@ -82,14 +84,14 @@ knoxy.renderer = renderer;
 
 // CSS Renderer
 const cssRenderer = new CSS3DRenderer();
-cssRenderer.setSize( window.innerWidth, window.innerHeight );
+cssRenderer.setSize( _width, _height );
 cssRenderer.domElement.id = 'cssLayer';
 document.getElementById( 'wrapper' ).appendChild( cssRenderer.domElement );
 knoxy.cssRenderer = cssRenderer;
 
 // CSS Renderer 2
 const cssRenderer2 = new CSS3DRenderer();
-cssRenderer2.setSize( window.innerWidth, window.innerHeight );
+cssRenderer2.setSize( _width, _height );
 cssRenderer2.domElement.id = 'cssLayer2';
 document.getElementById( 'wrapper' ).appendChild( cssRenderer2.domElement );
 knoxy.cssRenderer2 = cssRenderer2;
@@ -119,9 +121,9 @@ document.addEventListener('mousemove', onPointerMove);
 function onPointerMove(event) {
     if(!knoxy.paused) {
         pointer.ax = event.clientX;
-        pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        pointer.x = ( event.clientX / _width ) * 2 - 1;
         pointer.ay = event.clientY;
-        pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+        pointer.y = - ( event.clientY / _height ) * 2 + 1;
         findPointerIntersections();
     }
 }
@@ -186,11 +188,15 @@ canvas.addEventListener('mousedown', function(e) {
 // -- Window resized
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    let wiw = window.innerWidth;
+    let newWidth = (wiw % 2 === 0 ? wiw : wiw - 1);
+    let wih = window.innerHeight;
+    let newHeight = (wih % 2 === 0 ? wih : wih - 1);
+    camera.aspect = newWidth / newHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    cssRenderer.setSize(window.innerWidth, window.innerHeight);
-    cssRenderer2.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(newWidth, newHeight);
+    cssRenderer.setSize(newWidth, newHeight);
+    cssRenderer2.setSize(newWidth, newHeight);
     knoxy.ui.contextMenu.close();
     animate();
 }
