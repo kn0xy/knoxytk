@@ -106,7 +106,9 @@ class CSS3DRenderer {
 		this.domElement = domElement;
 
 		const viewElement = document.createElement( 'div' );
-		viewElement.style.transformOrigin = '0 0';
+		//viewElement.style.transformOrigin = '0 0';
+		let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+		viewElement.style.transformOrigin = (isSafari ? '50% 50%' : '0 0');
 		viewElement.style.pointerEvents = 'none';
 		domElement.appendChild( viewElement );
 
@@ -226,7 +228,7 @@ class CSS3DRenderer {
 				epsilon( elements[ 12 ] ) + ',' +
 				epsilon( - elements[ 13 ] ) + ',' +
 				epsilon( elements[ 14 ] ) + ',' +
-				epsilon( elements[ 15 ] ) +
+				(isSafari ? '10' : epsilon( elements[ 15 ] )) +
 			')';
 
 		}
