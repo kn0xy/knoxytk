@@ -188,7 +188,6 @@ canvas.addEventListener('mousedown', function(e) {
 // -- Window resized
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
-    console.log('resized');
     _width = window.innerWidth;
     _height = window.innerHeight;
 
