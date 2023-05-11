@@ -133,28 +133,28 @@ window.jQuery(function ($) {
     // ---------------------------------------------------------------------------
     //  Portfolio
     // ---------------------------------------------------------------------------
-    // (function () {
-    //   var $grid = $('#og-grid');
-    //   var shuffleInstance = new window.Shuffle($grid, {
-    //     itemSelector: '.portfolio-item'
-    //   });
+    (function () {
+        var $grid = $('#og-grid');
+        var shuffleInstance = new window.Shuffle($grid, {
+            itemSelector: '.portfolio-item'
+        });
+        window.shuffleInstance = shuffleInstance;
 
-    //   /* Reshuffle when user clicks a filter item */
-    //   $('#filter a').click(function (e) {
-    //     e.preventDefault();
+        /* Reshuffle when user clicks a filter item */
+        $('#filter a').click(function (e) {
+            e.preventDefault();
 
-    //     // set active class
-    //     $('#filter a').removeClass('active');
-    //     $(this).addClass('active');
+            // set active class
+            $('#filter a').removeClass('active');
+            $(this).addClass('active');
 
-    //     // Get group name from clicked item
-    //     var groupName = $(this).attr('data-group');
+            // Get group name from clicked item
+            var groupName = $(this).attr('data-group');
 
-    //     // Reshuffle grid
-    //     shuffleInstance.filter(groupName);
-    //   });
-
-    // }());
+            // Reshuffle grid
+            shuffleInstance.filter(groupName);
+        });
+    }());
 
     // ---------------------------------------------------------------------------
     //  Magnific Popup
@@ -191,7 +191,6 @@ window.jQuery(function ($) {
         }).init();
 
     }());
-
     
 
     // ---------------------------------------------------------------------------
@@ -237,6 +236,36 @@ window.jQuery(function ($) {
         $this.append('<span id="msgSending">Sending message...</span>');
         formSubmit($action, $data, $this);
     });
+
+
+
+    // ---------------------------------------------------------------------------
+    //  Window & Document onReady/onLoad
+    // ---------------------------------------------------------------------------
+    (function () {
+        $(window).ready(function () {
+          function moveAboutSkills() {
+            if(window.innerWidth < 992) {
+              $('.about-skills').insertAfter('#askills').css('height', '360px');
+            } else {
+              $('.about-skills').insertAfter('.biography').css('height', '720px');
+            }
+          }
+          $(window).on('resize', moveAboutSkills);
+          moveAboutSkills();
+        });
+
+        $(window).on('load', function() {
+            // init portfolio items
+            shuffleInstance._onResize();
+        });
+    
+        $(document).ready(function () {
+          // show contact email
+          $('[name="contact-email"]').prop('href', 'mailto:tyler@knoxy.tk').prop('text', 'tyler@knoxy.tk');
+        });
+        
+      }());
 
 });
 
