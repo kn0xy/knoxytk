@@ -9,8 +9,6 @@ import { CSS3DRenderer } from './CSS3DRenderer.js';
 
 
 // Define engine globals
-//let _width = (window.innerWidth % 2 === 0 ? window.innerWidth : window.innerWidth - 1);
-//let _height = (window.innerHeight % 2 === 0 ? window.innerHeight : window.innerHeight - 1);
 let _width = window.innerWidth;
 let _height = window.innerHeight;
 let knoxy = {
@@ -191,8 +189,8 @@ canvas.addEventListener('mousedown', function(e) {
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
     console.log('resized');
-    _width = (window.innerWidth % 2 === 0 ? window.innerWidth : window.innerWidth - 1);
-    _height = (window.innerHeight % 2 === 0 ? window.innerHeight : window.innerHeight - 1);
+    _width = window.innerWidth;
+    _height = window.innerHeight;
 
     camera.aspect = _width / _height;
     camera.updateProjectionMatrix();
