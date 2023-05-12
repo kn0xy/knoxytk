@@ -27,37 +27,32 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Tyler Knox - Portfolio and Resume">
     <meta property="og:description" content="Resume and Portfolio Showcase of Tyler Knox aka Knoxy">
-    <meta property="og:image" content="assets/img/Avatar-rhomb-md4.png">
+    <meta property="og:image" content="assets/img/avatar.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:alt" content="Photo of Tyler Knox">
     <meta property="og:image:height" content="358">
     <meta property="og:image:width" content="358">
     <meta property="og:site_name" content="Portfolio and Resume - Tyler Knox">
     <meta property="og:url" content="https://www.knoxy.tk">
-    <meta property="og:updated_time" content="2023-05-01T00:00:00+00:00">
+    <meta property="og:updated_time" content="2023-05-12T00:00:00+00:00">
     <meta property="og:see_also" content="https://github.com/kn0xy">
     <link rel="preload" crossorigin="anonymous" as="font" type="font/woff2" href="assets/webfonts/fa-brands-400.woff2">
     <link rel="preload" crossorigin="anonymous" as="font" type="font/woff2" href="assets/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="image" type="image/png" href="assets/img/home3-2.jpg">
-    <link rel="preload" crossorigin="anonymous" as="style" href="assets/css/bower-bundle.css"
-        onload="this.onload=null;this.rel='stylesheet'" id="css-bower-bundle"> <noscript>
-        <link rel="stylesheet" href="assets/css/bower-bundle.css" id="css-bower-bundle-noscript">
-    </noscript>
+    <link rel="preload" as="image" type="image/webp" href="assets/img/bg.webp">
+    <link rel="preload" crossorigin="anonymous" as="style" href="assets/css/bundle.css"
+        onload="this.onload=null;this.rel='stylesheet'" id="css-bundle">
     <link rel="preload" href="assets/css/style.css" as="style" type="text/css" crossorigin
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="assets/css/style.css" id="css-frontend-bundle-noscript">
+    <link rel="stylesheet" href="assets/css/bundle.css" id="css-bundle-noscript">
+    <link rel="stylesheet" href="assets/css/style.css" id="css-frontend-bundle-noscript">
     </noscript>
-    <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
-    <link type="image/x-icon" href="favicon.png" rel="icon">
-    <link type="image/x-icon" href="favicon.png" rel="shortcut icon"> -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-16x16.png">
 </head>
 
 <body data-spy="scroll" data-target="#navbar-custom" data-env="production">
-    <!-- <div class="release" id="release"><small>v0.1</small></div> -->
     <section id="home" class="tt-fullHeight" data-stellar-vertical-offset="50" data-stellar-background-ratio="0.5">
         <div class="intro">
             <div class="intro-sub wow" data-wow-duration="3.0s" data-wow-delay="0.0s">Tyler Knox</div>
@@ -72,10 +67,10 @@
 
             <div class="homeNav">
                 <div>
-                    <div class="element" id="test-1"><a href="#about">About Me</a></div>
-                    <div class="element" id="test-2"><a href="#skills">Experience</a></div>
-                    <div class="element" id="test-3"><a href="#portfolio">Portfolio</a></div>
-                    <div class="element" id="test-4"><a href="#contact">Contact</a></div>
+                    <div class="element"><a href="#about">About Me</a></div>
+                    <div class="element"><a href="#skills">Experience</a></div>
+                    <div class="element"><a href="#portfolio">Portfolio</a></div>
+                    <div class="element"><a href="#contact">Contact</a></div>
                 </div>
             </div>
         </div>
@@ -103,13 +98,15 @@
     <header class="header" id="navbar-custom">
         <nav class="navbar navbar-custom" role="navigation">
             <div class="container">
-                <div class="navbar-header"> <button type="button" class="navbar-toggle" data-toggle="collapse"
-                        data-target="#custom-collapse">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#custom-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button> <a class="navbar-brand hidden" href="index.html"> </a> </div>
+                    </button>
+                    <a class="navbar-brand hidden" href="index.html"></a>
+                </div>
                 <div class="collapse navbar-collapse" id="custom-collapse">
                     <ul class="nav navbar-nav navbar-right" role="tablist">
                         <li><a href="#home">Home</a></li>
@@ -130,7 +127,9 @@
                     <div class="biography">
                         <div class="myphoto wow" id="avatar" data-wow-duration="1.0s">
                             <picture>
-                                <img src="assets/img/Avatar-rhomb-md4.png" class="media-object" width="358px"
+                                <source type="image/webp" srcset="assets/img/avatar.webp">
+                                <source type="image/png" srcset="assets/img/avatar.png">
+                                <img src="assets/img/avatar.png" class="media-object" width="358px"
                                     height="358px" alt="Tyler Knox">
                             </picture>
                         </div>
@@ -844,12 +843,10 @@
             </ul>
             <div class="row">
                 <div id="og-grid" data-id="og-grid" class="og-grid">
-                    
-                    <!-- Something: Title-->
-                    <div class="portfolio-item col-xs-6 col-sm-4 col-md-3" data-groups='["all", "other"]'>
+                    <!-- Knoxy3D-->
+                    <div class="portfolio-item col-xs-6 col-sm-4 col-md-3" data-groups='["all", "web"]'>
                         <div class="portfolio-bg">
                             <div class="portfolio">
-                                <div class="tt-overlay"></div>
                                 <div class="tt-overlay"></div>
                                 <div class="links">
                                     <a href="https://www.linkedin.com/in/kn0xy" class="image-link" title="Learn More">
@@ -868,13 +865,13 @@
                                     <img src="" alt="Item Image">
                                 </picture>
                                 <div class="portfolio-info">
-                                    <h3>Portfolio Item</h3>
+                                    <h3>Knoxy.tk (3D)</h3>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Something: Title-->
+                    <!-- Knoxy2D-->
                     <div class="portfolio-item col-xs-6 col-sm-4 col-md-3" data-groups='["all", "web"]'>
                         <div class="portfolio-bg">
                             <div class="portfolio">
@@ -1407,8 +1404,6 @@
                     </div>
                 </div>
             </div>
-        
-            
             <p style="color:#EEE;text-align:center;font-size:2em;font-style:italic;margin-bottom:100px">
                 Coming soon!
             </p>
@@ -1486,16 +1481,10 @@
     <div class="scroll-up">
         <a id="btnScrollUp" href="#home"><i class="fa fa-angle-up"></i></a>
     </div>
-
-    <script>
-        var onSubmit = function(token) {
-            console.log('success', token);
-            window.gotToken = token;
-        }
-    </script>
+    <script>var onSubmit = (token) => {window.gotToken = token}</script>
     <script src="assets/js/lib/libs-bundle.js" defer></script>
-    <script src="assets/js/theme.js" defer ></script>
+    <script src="assets/js/theme.js" defer></script>
     <script src="assets/js/knoxyLink.js" defer></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async></script>
 </body>
 </html>
