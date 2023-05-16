@@ -138,12 +138,11 @@ window.jQuery(function ($) {
     class portfolioCache {
         constructor() {
             this.cacheData = [];
-
         }
 
         // check if item exists in cache
         contains(check) {
-            const cd = this.cacheData;
+            let cd = this.cacheData;
             for(var i=0; i<cd.length; i++) {
                 if(cd[i].name === check) {
                     return cd[i].data;
@@ -154,11 +153,7 @@ window.jQuery(function ($) {
 
         // add new item to cache
         add(item) {
-            let cacheItem = {
-                name: item,
-                data: 'test'
-            };
-            this.cacheData.push(cacheItem);
+            this.cacheData.push(item);
         }
 
         // remove item at {index} from cache
@@ -193,11 +188,25 @@ window.jQuery(function ($) {
         $('.portfolio-link').click(function(e) {
             var item = $(this).attr('href').substring(1);
             var cached = cache.contains(item);
-            if(cached) {
-                console.log(cached);
+            if(cached !== false) {
+                console.log('load from cache');
             } else {
-                console.log('add to cache');
-                cache.add(item);
+                // fetch project details
+                $.ajax({
+                    type: 'GET',
+                    url: 'ajax.php?gpd='+item,
+                    dataType: 'json',
+                    success: function(result) {
+                        if(result.success === true) {
+                            cache.add(result.data);
+                        } else {
+                            console.error('Failed to load project details for '+item);
+                        }
+                    },
+                    error: function(err) {
+                        console.error('ajax error');
+                    }
+                });
             }
         });
     }());
