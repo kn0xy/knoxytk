@@ -1030,6 +1030,120 @@ ul.list-check li {
     overflow: hidden
 }
 
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px 30px;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    display: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#overlay .overlay-content {
+    width: 100%;
+    margin-top: 70px;
+}
+
+#overlay .overlay-content p {
+    font-size: 1.2em;
+}
+
+#overlay .overlay-content img {
+    width: auto;
+    max-height: 500px;
+    max-width: 100%;
+}
+
+#overlay .overlay-content h3 {
+    margin-top: 30px;
+}
+
+.closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.closebtn:hover, .closebtn:focus {
+    color: #f1f1f1;
+}
+
+.slideshow-container {
+    width: 100%;
+    /* margin-left: -30px; */
+    position: relative;
+    max-height: 500px;
+}
+  
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+  
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+  
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+  
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+.active:hover {
+    cursor: default;
+}
+
+.slide {
+    display: none;
+    opacity: 1;
+    text-align: center;
+}
+  
+  /* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+  
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
 #filter {
     margin: 0 0 35px;
     text-align: center

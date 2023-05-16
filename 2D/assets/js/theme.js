@@ -145,7 +145,7 @@ window.jQuery(function ($) {
             let cd = this.cacheData;
             for(var i=0; i<cd.length; i++) {
                 if(cd[i].name === check) {
-                    return cd[i].data;
+                    return cd[i];
                 }
             }
             return false;
@@ -163,6 +163,7 @@ window.jQuery(function ($) {
     }
     (function () {
         const cache = new portfolioCache();
+        window.portCache = cache;
         var $grid = $('#og-grid');
         var shuffleInstance = new window.Shuffle($grid, {
             itemSelector: '.portfolio-item'
@@ -189,7 +190,8 @@ window.jQuery(function ($) {
             var item = $(this).attr('href').substring(1);
             var cached = cache.contains(item);
             if(cached !== false) {
-                console.log('load from cache');
+                // load project details from cache
+                portfolioOverlay(cached.title, cached.desc, cached.data);
             } else {
                 // fetch project details
                 $.ajax({
@@ -198,7 +200,9 @@ window.jQuery(function ($) {
                     dataType: 'json',
                     success: function(result) {
                         if(result.success === true) {
-                            cache.add(result.data);
+                            const rd = result.data;
+                            cache.add(rd);
+                            portfolioOverlay(rd.title, rd.desc, rd.data);
                         } else {
                             console.error('Failed to load project details for '+item);
                         }
@@ -207,6 +211,20 @@ window.jQuery(function ($) {
                         console.error('ajax error');
                     }
                 });
+            }
+        });
+
+        $('body').on('click', '.closebtn', function() {
+            document.getElementById('overlay').style.display = '';
+            document.children[0].style.overflow = '';
+        });
+
+        $('.portfolio-bg').on('click', function(e) {
+            if(!$(e.target).hasClass('portfolio-link') && 
+            !$(e.target).parent().parent().hasClass('links')) {
+                // clicked not on a button; default to Learn More
+                $(e.currentTarget).find('.portfolio-link').click();
+                
             }
         });
     }());
@@ -254,6 +272,38 @@ window.jQuery(function ($) {
             ip.after(pic);
         });
     }
+
+    function portfolioOverlay(title, desc, content) {
+        // empty overlay
+        const overlay = document.getElementById('overlay');
+        overlay.innerHTML = '';
+
+        // add project title
+        const h1 = document.createElement('h1');
+        h1.innerHTML = title;
+        overlay.appendChild(h1);
+
+        // add project description
+        const p = document.createElement('p');
+        p.innerHTML = desc;
+        overlay.appendChild(p);
+
+        // add project content
+        const wrap = document.createElement('div');
+        wrap.classList.add('overlay-content');
+        wrap.innerHTML = content;
+        overlay.appendChild(wrap);
+
+        // add close button
+        overlay.innerHTML += '<a href="javascript:void(0)" class="closebtn">&times;</a>';
+        
+        // show overlay
+        overlay.style.display = 'block';
+        document.children[0].style.overflow = 'hidden';
+    }
+
+    
+
     
 
     // ---------------------------------------------------------------------------
@@ -335,3 +385,30 @@ window.jQuery(function ($) {
 });
 
 // ---------------------------------------------------------------------------
+
+// Overlay - Slider
+let slideIndex = 1;
+function moveSlides(fb) {
+    if(fb < 0) {
+        slideIndex--;
+    } else {
+        slideIndex++;
+    }
+    showSlide(slideIndex);
+}
+function showSlide(n) {
+    slideIndex = n;
+    let i;
+    let slides = document.getElementsByClassName("slide");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}    
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+  }
