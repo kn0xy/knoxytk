@@ -6,11 +6,13 @@ window.jQuery(function ($) {
         $('a[href*="#"]').bind('click', function (e) {
             e.preventDefault();
             var anchor = $(this);
-            var okToAnimate = letKnoxyKnow();
-            if (okToAnimate) {
-                $('html, body').stop().animate({
-                    scrollTop: $(anchor.attr('href')).offset().top
-                }, 1000);
+            if(!$(anchor).hasClass('portfolio-link')) {
+                var okToAnimate = letKnoxyKnow();
+                if (okToAnimate) {
+                    $('html, body').stop().animate({
+                        scrollTop: $(anchor.attr('href')).offset().top
+                    }, 1000);
+                }
             }
         });
 
@@ -133,7 +135,39 @@ window.jQuery(function ($) {
     // ---------------------------------------------------------------------------
     //  Portfolio
     // ---------------------------------------------------------------------------
+    class portfolioCache {
+        constructor() {
+            this.cacheData = [];
+
+        }
+
+        // check if item exists in cache
+        contains(check) {
+            const cd = this.cacheData;
+            for(var i=0; i<cd.length; i++) {
+                if(cd[i].name === check) {
+                    return cd[i].data;
+                }
+            }
+            return false;
+        }
+
+        // add new item to cache
+        add(item) {
+            let cacheItem = {
+                name: item,
+                data: 'test'
+            };
+            this.cacheData.push(cacheItem);
+        }
+
+        // remove item at {index} from cache
+        remove(index) {
+
+        }
+    }
     (function () {
+        const cache = new portfolioCache();
         var $grid = $('#og-grid');
         var shuffleInstance = new window.Shuffle($grid, {
             itemSelector: '.portfolio-item'
@@ -154,43 +188,63 @@ window.jQuery(function ($) {
             // Reshuffle grid
             shuffleInstance.filter(groupName);
         });
-    }());
 
-    // ---------------------------------------------------------------------------
-    //  Magnific Popup
-    // ---------------------------------------------------------------------------
-    (function () {
-        $('.image-link').magnificPopup({
-            gallery: {
-                enabled: true
+        /* Open info popup */
+        $('.portfolio-link').click(function(e) {
+            var item = $(this).attr('href').substring(1);
+            var cached = cache.contains(item);
+            if(cached) {
+                console.log(cached);
+            } else {
+                console.log('add to cache');
+                cache.add(item);
             }
-            , removalDelay: 300             // Delay in milliseconds before popup is removed
-            , mainClass: 'mfp-with-zoom' // this class is for CSS animation below
-            , type: 'image'
         });
     }());
 
-    // ---------------------------------------------------------------------------
-    //  WOW JS
-    // ---------------------------------------------------------------------------
-    (function () {
+    function lazyLoadPortfolioThumbs() {
+        const projectThumbs = [
+            'knoxy3d', 'knoxy2d', 'slotmachine', 'bellasite',
+            'bwr', 'bellaDih', 'eptl', 'ncsl',
+            'eoda', 'ividash', 'ddar', 'intime',
+            'tools', 'wow', 'rbbot', 'themundies'
+        ];
+        const prefix = 'assets/img/portfolio/';
+        projectThumbs.forEach((v, i) => {
+            // determine source image path
+            let imgName = v+'-thumb'+(v==='wow' ? '.jpg' : '.png');
+            let wpName = v+'-thumb.webp';
+            let imgPath = prefix + imgName;
+            let wpPath = prefix + wpName;
 
-        new window.WOW({
-            boxClass: 'wow'       //  animated element css class (default is wow)
-            , animateClass: 'animate__animated'  //  animation css class (default is animated)
-            , offset: 0           //  distance to the element when triggering the animation (default is 0)
-            , mobile: true        //  trigger animations on mobile devices (default is true)
-            , live: true        //  act on asynchronously loaded content (default is true)
-            , scrollContainer: null        //  optional scroll container selector, otherwise use window,
-            , resetAnimation: false       //  reset animation on end (default is true)
-            , callback: function (box) {
-                //  the callback is fired every time an animation is started
-                //  the argument that is passed in is the DOM node being animated
-                // console.log(`[WOW] animating box [${box.tagName.toLowerCase()}]: [${box.className}]`, box);
-            }
-        }).init();
+            // create picture element
+            let pic = document.createElement('picture');
 
-    }());
+            // add webp source to picture
+            let srcWebp = document.createElement('source');
+            srcWebp.type = 'image/webp';
+            srcWebp.srcset = wpPath;
+            pic.appendChild(srcWebp);
+
+            // add png/jpg source to picture
+            let srcPng = document.createElement('source');
+            srcPng.type = (v==='wow' ? 'image/jpeg' : 'image/png');
+            srcPng.srcset = imgPath;
+            pic.appendChild(srcPng);
+
+            // add image tag to picture
+            let srcImg = document.createElement('img');
+            srcImg.src = imgPath;
+            pic.appendChild(srcImg);
+
+            // add picture to portfolio-item inner content
+            const elems = document.getElementsByClassName('portfolio-item');
+            const elem = elems[i];
+            const inner = elem.getElementsByClassName('portfolio')[0];
+            const ip = inner.getElementsByClassName('links')[0];
+            ip.after(pic);
+        });
+    }
     
 
     // ---------------------------------------------------------------------------
@@ -257,7 +311,9 @@ window.jQuery(function ($) {
 
         $(window).on('load', function() {
             // init portfolio items
+            lazyLoadPortfolioThumbs();
             shuffleInstance._onResize();
+            
         });
     
         $(document).ready(function () {
