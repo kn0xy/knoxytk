@@ -405,7 +405,10 @@
 					ps.innerHTML = content;
 					ps.style.display = '';
 					engine.scene.monitor2.activePage = 'portfolio';
-					engine.ui.moveCameraTo('mon2', 500);
+					if(engine.view !== 'mon2' && engine.view !== 'mon2zoom') {
+						engine.ui.moveCameraTo('mon2', 500);
+					}
+					
 					document.querySelector('#showHome').style.display = 'block';
 				}
 				// Portfolio Item Details - Image Slider

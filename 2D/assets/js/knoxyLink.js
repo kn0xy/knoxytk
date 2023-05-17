@@ -49,6 +49,17 @@ if(window.parent.name === 'KnoxyHQ') {
                         return;
                     }
                 } catch {}
+
+                // Prevent camera move on portfolioLink click
+                try {
+                    let plc = e.target.parentElement.classList;
+                    //console.log(plc);
+                    if(plc.contains('portfolio-link') || 
+                       plc.contains('portfolio-info') ||
+                       plc.contains('portfolio')) {
+                        return;
+                    }
+                } catch {}
                 
                 // Toggle camera
                 if(engine.view !== 'mon1' && engine.view !== 'mon1zoom') {
@@ -159,27 +170,27 @@ if(window.parent.name === 'KnoxyHQ') {
         }
         ready(function() {
             // scale content to fit inside monitor
-          engine.scene.monitor1.setMonitorScale();
+            engine.scene.monitor1.setMonitorScale();
 
-          // hide scrollbar until nav clicked
-          document.children[0].style.overflow = 'hidden';
+            // hide scrollbar until nav clicked
+            document.children[0].style.overflow = 'hidden';
 
-          // resumeLink open on 2nd monitor
-          document.querySelector('#resumeLink').addEventListener('click', (e) => {
-              e.preventDefault();
-              engine.scene.monitor2.screenContent.showResume();
-              if(engine.view === 'mon1' || engine.view === 'mon1zoom') {
-                  // quick switch
-                  engine.ui.moveCameraTo('mon2', 500);
-              } else {
-                  // slow switch
-                  engine.ui.moveCameraTo('mon2', 1250);
-              }
-          });
+            // resumeLink open on 2nd monitor
+            document.querySelector('#resumeLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                engine.scene.monitor2.screenContent.showResume();
+                if(engine.view === 'mon1' || engine.view === 'mon1zoom') {
+                    // quick switch
+                    engine.ui.moveCameraTo('mon2', 500);
+                } else {
+                    // slow switch
+                    engine.ui.moveCameraTo('mon2', 1250);
+                }
+            });
 
-          // ready to rock & roll
-          window.parent.loadedM1 = true;
-          console.log('m1 loaded');
+            // ready to rock & roll
+            window.parent.loadedM1 = true;
+            console.log('m1 loaded');
         });
     } else {
         isKnoxy = false;
