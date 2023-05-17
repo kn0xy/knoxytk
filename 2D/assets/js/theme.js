@@ -185,7 +185,7 @@ window.jQuery(function ($) {
             shuffleInstance.filter(groupName);
         });
 
-        /* Open info popup */
+        /* Show project details */
         $('.portfolio-link').click(function(e) {
             var item = $(this).attr('href').substring(1);
             var cached = cache.contains(item);
@@ -297,9 +297,14 @@ window.jQuery(function ($) {
         // add close button
         overlay.innerHTML += '<a href="javascript:void(0)" class="closebtn">&times;</a>';
         
-        // show overlay
-        overlay.style.display = 'block';
-        document.children[0].style.overflow = 'hidden';
+        if(window.parent.Knoxy) {
+            // show overlay on monitor 2
+            portfolioLearnMore(overlay.innerHTML);
+        } else {
+            // show overlay
+            overlay.style.display = 'block';
+            document.children[0].style.overflow = 'hidden';
+        }
     }
 
     
@@ -411,4 +416,4 @@ function showSlide(n) {
     }
     slides[slideIndex-1].style.display = "block";  
     dots[slideIndex-1].className += " active";
-  }
+}

@@ -144,6 +144,10 @@ if(window.parent.name === 'KnoxyHQ') {
         }
         engine.scene.monitor1.scrolling = false;
 
+        // Handle Portfolio Item "Learn More" button click
+        function portfolioLearnMore(content) {
+            engine.scene.monitor2.screenContent.showPortfolioDetails(content);
+        }
 
         // handle document ready
         function ready(fn) {
@@ -184,4 +188,10 @@ if(window.parent.name === 'KnoxyHQ') {
 if(!isKnoxy) {
     // resumeLink open in new tab
     document.querySelector('#resumeLink').target = '_blank';
+
+    // hide open new tab button for Knoxy2D portfolio item
+    document.getElementById('aKnoxy2d').style.display = 'none';
+
+    // show open new tab button for Knoxy3D portfolio item
+    document.getElementById('aKnoxy3d').style.display = 'inline';
 }
