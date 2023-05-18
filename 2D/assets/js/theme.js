@@ -232,9 +232,9 @@ window.jQuery(function ($) {
     function lazyLoadPortfolioThumbs() {
         const projectThumbs = [
             'knoxy3d', 'knoxy2d', 'slotmachine', 'bellasite',
-            'bwr', 'bellaDih', 'eptl', 'ncsl',
-            'eoda', 'ividash', 'ddar', 'intime',
-            'tools', 'wow', 'rbbot', 'themundies'
+            'bwr', 'eptl', 'ncsl', 'eoda',
+            'ividash', 'ddar', 'tools', 'tools',
+            'intime', 'wow', 'rbbot', 'themundies'
         ];
         const prefix = 'assets/img/portfolio/';
         projectThumbs.forEach((v, i) => {

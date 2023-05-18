@@ -992,7 +992,6 @@ ul.list-check li {
 }
 
 .portfolio-section {
-    /* background-color: #f7f7f7 */
     background-color: #1a1e23;
 }
 
@@ -1049,8 +1048,13 @@ ul.list-check li {
     margin-top: 70px;
 }
 
-#overlay .overlay-content p {
+#overlay .overlay-content p,
+#overlay .overlay-content ul > li {
     font-size: 1.2em;
+}
+#overlay .overlay-content ul > li > ul > li {
+    margin-left: 25px;
+    font-size: 1em;
 }
 
 #overlay .overlay-content img {
@@ -1079,7 +1083,6 @@ ul.list-check li {
 
 .slideshow-container {
     width: 100%;
-    /* margin-left: -30px; */
     position: relative;
     max-height: 500px;
 }
