@@ -191,7 +191,7 @@ window.jQuery(function ($) {
             var cached = cache.contains(item);
             if(cached !== false) {
                 // load project details from cache
-                portfolioOverlay(cached.title, cached.desc, cached.data);
+                portfolioOverlay(cached);
             } else {
                 // fetch project details
                 $.ajax({
@@ -202,7 +202,7 @@ window.jQuery(function ($) {
                         if(result.success === true) {
                             const rd = result.data;
                             cache.add(rd);
-                            portfolioOverlay(rd.title, rd.desc, rd.data);
+                            portfolioOverlay(rd);
                         } else {
                             console.error('Failed to load project details for '+item);
                         }
@@ -273,7 +273,11 @@ window.jQuery(function ($) {
         });
     }
 
-    function portfolioOverlay(title, desc, content) {
+    function portfolioOverlay(po) {
+        const title = po.title;
+        const desc = po.desc;
+        const content = po.data;
+
         // empty overlay
         const overlay = document.getElementById('overlay');
         overlay.innerHTML = '';
@@ -289,21 +293,45 @@ window.jQuery(function ($) {
         overlay.appendChild(p);
 
         // add project content
-        const wrap = document.createElement('div');
-        wrap.classList.add('overlay-content');
-        wrap.innerHTML = content;
-        overlay.appendChild(wrap);
+        const contentWrap = document.createElement('div');
+        contentWrap.classList.add('overlay-content');
+        contentWrap.innerHTML = content;
+        overlay.appendChild(contentWrap);
+
+        // add bottom links
+        if(po.demo || po.src) {
+            let btmLinks = '<div class="social-icons"><ul class="list-inline">';
+            if(po.demo) {
+                btmLinks += '<li><a href="'+po.demo+'" target="_blank">\
+                <i class="fa fas fa-up-right-from-square" title="View Live Demo"></i><span>Live Demo</span></a></li>';
+            }
+            if(po.src) {
+                if(po.src !== '#') {
+                    btmLinks += '<li><a target="_blank" rel="noopener" href="'+po.src+'">';
+                } else {
+                    btmLinks += '<li><a href="javascript:void(0)" onclick="alert(\'Coming soon!\')">';
+                }
+                btmLinks += '<i class="fab fa-github" title="View Source on Github"></i><span>View Source</span>\
+                </a></li>';
+            }
+            overlay.innerHTML += btmLinks+'</ul></div>';
+        }
 
         // add close button
         overlay.innerHTML += '<a href="javascript:void(0)" class="closebtn">&times;</a>';
         
         if(window.parent.Knoxy) {
             // show overlay on monitor 2
-            portfolioLearnMore(overlay.innerHTML);
+            portfolioLearnMore(po.name, overlay.innerHTML);
         } else {
             // show overlay
             overlay.style.display = 'block';
             document.children[0].style.overflow = 'hidden';
+            if(po.name==='knoxy2d') {
+                // hide demo link
+                let fc = document.querySelector('#overlay .list-inline').firstChild;
+                document.querySelector('#overlay .list-inline').removeChild(fc);
+            }
         }
     }
 

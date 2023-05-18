@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<title>Tyler Knox - Resume</title>
 		<style>
+			@import url(//fonts.googleapis.com/css?family=Lato:300,400,700&display=swap);
 			body {
 				color: #FFF;
 				background-color: #111;
@@ -118,32 +119,47 @@
 
 			#portfolioSection {
 				padding: 20px 30px;
+				font-family: 'Lato', Helvetica, sans-serif;
+				font-size: 18px;
 			}
 
-			#portfolioSection .overlay-content {
-				width: 100%;
-				margin-top: 70px;
+			#portfolioSection h1 {
+				font-size: 40px;
+				line-height: 40px;
+				text-transform: uppercase;
 			}
 
-			#portfolioSection .overlay-content p {
+			#portfolioSection h3 {
+				font-size: 32px;
+				line-height: 32px;
+				text-transform: uppercase;
+				margin-top: 30px;
+				margin-bottom: 10px;
+			}
+
+			#portfolioSection h3:first-of-type {
+				margin-top: 50px;
+			}
+
+			#portfolioSection p,
+			#portfolioSection ul {
 				font-size: 1.2em;
+				margin-top: 0;
+			}
+			#portfolioSection ul > li > ul {
+				font-size: 1em;
 			}
 
-			#portfolioSection .overlay-content img {
+			#portfolioSection img {
 				width: auto;
 				max-height: 500px;
 				max-width: 100%;
-			}
-
-			#portfolioSection .overlay-content h3 {
-				margin-top: 30px;
 			}
 
 			.closebtn { display: none }
 
 			.slideshow-container {
 				width: 100%;
-				/* margin-left: -30px; */
 				position: relative;
 				max-height: 500px;
 			}
@@ -207,15 +223,125 @@
 				from {opacity: .4} 
 				to {opacity: 1}
 			}
+
+			.social-icons {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				position: absolute;
+				bottom: 10px;
+				left: 0;
+			}
+
+			.social-icons a {
+				text-decoration: none;
+			}
+
+			.social-icons a i {
+				position: relative;
+				color: #fff;
+				font-size: 36px;
+				margin: 0 30px;
+				line-height: 40px;
+				text-align: center;
+				width: 40px;
+				height: 40px;
+			}
+			.social-icons a i::before {
+				position: relative;
+				z-index: 1;
+				box-sizing: border-box;
+			}
+			.social-icons a i::after {
+				position: absolute;
+				content: "";
+				left: -15px;
+				top: -15px;
+				width: 70px;
+				height: 70px;
+				border: 1px solid #fff;
+				border-radius: 3px;
+				-webkit-transform: rotate(45deg);
+				-moz-transform: rotate(45deg);
+				-ms-transform: rotate(45deg);
+				-o-transform: rotate(45deg);
+				transform: rotate(45deg);
+				-webkit-transition: all .3s;
+				-moz-transition: all .3s;
+				-o-transition: all .3s;
+				transition: all .3s;
+				box-sizing: border-box;
+			}
+
+			.social-icons a:hover i::after {
+				background: #6880c3;
+				border: 1px solid transparent;
+				z-index: 0
+			}
+
+			.social-icons a span {
+				display: block;
+				margin-top: 35px;
+				text-align: center;
+				font-size: 0.8em;
+				color: #FFF;
+				-webkit-transition: color .3s;
+				-moz-transition: color .3s;
+				-o-transition: color .3s;
+				transition: color .3s;
+			}
+			.social-icons a:hover span {
+				color: #6880c3;
+			}
+
+			.list-inline {
+				padding-left: 0;
+				margin-left: -5px;
+				list-style: none;
+			}
+
+			.list-inline > li {
+				display: inline-block;
+				padding-right: 5px;
+				padding-left: 5px;
+				margin: 0 20px;
+			}
+
+			.list-inline > li > a {
+				-webkit-transition: all 125ms ease-in-out 0s;
+				-moz-transition: all 125ms ease-in-out 0s;
+				-ms-transition: all 125ms ease-in-out 0s;
+				-o-transition: all 125ms ease-in-out 0s;
+				transition: all 125ms ease-in-out 0s
+			}
+
+
 			
 			/* Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com
 			* License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
 			* Copyright 2022 Fonticons, Inc.
 			*/
+			@font-face {
+				font-family: 'Font Awesome 6 Free';
+				font-style: normal;
+				font-weight: 900;
+				font-display: block;
+				src: url("assets/webfonts/fa-solid-900.woff2") format("woff2");
+			}
+			@font-face{
+				font-family: 'Font Awesome 6 Brands';
+				font-style: normal;
+				font-weight: 400;
+				font-display: block;
+				src: url("assets/webfonts/fa-brands-400.woff2") format("woff2")
+			}
 			.fa{font-family:var(--fa-style-family, "Font Awesome 6 Free");font-weight:var(--fa-style,900)}.fa,.fa-brands,.fa-classic,.fa-regular,.fa-sharp,.fa-solid,.fab,.far,.fas{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:var(--fa-display,inline-block);font-style:normal;font-variant:normal;line-height:1;text-rendering:auto}
+			.fab{font-family:'Font Awesome 6 Brands'}
 			.fa-fw{text-align:center;width:1.25em}
 			.fa-home::before{content:"\f015"}
-
+			.fa-arrow-left::before{content:"\f060"}
+			.fa-up-right-from-square::before{content:"\f35d"}
+			.fa-github:before{content:"\f09b"}
 		</style>
 	</head>
 	<body>
@@ -223,7 +349,7 @@
 			<p class="knoxyLabel" style="display:none">KnoxyOS</p>
 			<p id="showHome" style="display:none">
 				<a href="#" onclick="showHome(event)">
-					<i class="fa fa-fw fa-home"></i>
+					<i class="fa fa-fw fa-arrow-left"></i>
 				</a>
 			</p>
 		</div>
@@ -242,8 +368,7 @@
 			
 			<div id="loadingSection" class="monitorSection"></div>
 
-			<div id="portfolioSection" class="monitorSection"></div>
-			
+			<div id="portfolioSection" class="monitorSection"></div>			
 		</div>
 		
 
@@ -395,7 +520,7 @@
 				});
 
 				// handle portfolio item details
-				document.showPortfolioDetails = function(content) {
+				document.showPortfolioDetails = function(project, content) {
 					const ps = document.getElementById('portfolioSection');
 					let sects = document.getElementsByClassName('monitorSection');
 					for(var s=0; s<sects.length; s++) {
@@ -408,8 +533,14 @@
 					if(engine.view !== 'mon2' && engine.view !== 'mon2zoom') {
 						engine.ui.moveCameraTo('mon2', 500);
 					}
-					
+					// show back button
 					document.querySelector('#showHome').style.display = 'block';
+
+					// hide demo link for knoxy3d
+					if(project==='knoxy3d') {
+						let fc = document.querySelector('.list-inline').firstChild;
+						document.querySelector('.list-inline').removeChild(fc);
+					}
 				}
 				// Portfolio Item Details - Image Slider
 				let slideIndex = 1;

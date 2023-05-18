@@ -403,6 +403,21 @@ ul.list-check li {
     z-index: 0
 }
 
+.social-icons a span {
+    display: block;
+    margin-top: 35px;
+    text-align: center;
+    font-size: 0.8em;
+    color: #FFF;
+    -webkit-transition: color .3s;
+    -moz-transition: color .3s;
+    -o-transition: color .3s;
+    transition: color .3s;
+}
+.social-icons a:hover span {
+    color: #6880c3;
+}
+
 .header {
     /* border-bottom: 1px solid #eee; */
     border-bottom: 1px solid #222;
@@ -1065,6 +1080,11 @@ ul.list-check li {
 
 #overlay .overlay-content h3 {
     margin-top: 30px;
+}
+
+#overlay .social-icons {
+    left: 0;
+    bottom: 10px;
 }
 
 .closebtn {
