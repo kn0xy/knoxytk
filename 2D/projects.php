@@ -404,6 +404,45 @@ $allProjects[5] = (object) [
                         <img src="assets/img/portfolio/eptl.png">
                       </picture>
                     </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/eptl2.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/eptl2.png">
+                        <img src="assets/img/portfolio/eptl2.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/eptl3.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/eptl3.png">
+                        <img src="assets/img/portfolio/eptl3.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/eptl4.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/eptl4.png">
+                        <img src="assets/img/portfolio/eptl4.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/eptl5.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/eptl5.png">
+                        <img src="assets/img/portfolio/eptl5.png">
+                      </picture>
+                    </div>
+                    <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="moveSlides(1)">&#10095;</a>
+                </div>
+                <br>
+                <div style="text-align:center">
+                    <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(4)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(5)"></span> 
+                </div>
                 </div>
                 <h3>Background</h3>
                 <p>Coming soon!</p>
@@ -605,11 +644,11 @@ $allProjects[9] = (object) [
     'data' => minify('
                 <div class="slideshow-container">
                     <div class="slide fade" style="display:block">
-                    <picture>
+                      <picture>
                         <source type="image/webp" srcset="assets/img/portfolio/ddar.webp">
                         <source type="image/png" srcset="assets/img/portfolio/ddar.png">
                         <img src="assets/img/portfolio/ddar.png">
-                    </picture>
+                      </picture>
                     </div>
                 </div>
                 <h3>Background</h3>
