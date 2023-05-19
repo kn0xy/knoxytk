@@ -687,13 +687,43 @@ $allProjects[9] = (object) [
                 <br>Created in 2021.',
     'data' => minify('
                 <div class="slideshow-container">
-                    <div class="slide fade" style="display:block">
+                      <div class="slide fade" style="display:block">
                       <picture>
                         <source type="image/webp" srcset="assets/img/portfolio/ddar.webp">
                         <source type="image/png" srcset="assets/img/portfolio/ddar.png">
                         <img src="assets/img/portfolio/ddar.png">
                       </picture>
                     </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/ddar2.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ddar2.png">
+                        <img src="assets/img/portfolio/ddar2.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/ddar3.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ddar3.png">
+                        <img src="assets/img/portfolio/ddar3.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/ddar4.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ddar4.png">
+                        <img src="assets/img/portfolio/ddar4.png">
+                      </picture>
+                    </div>
+                    <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="moveSlides(1)">&#10095;</a>
+                </div>
+                <br>
+                <div style="text-align:center">
+                    <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(4)"></span>
                 </div>
                 <h3>Background</h3>
                 <p>Coming soon!</p>
@@ -717,6 +747,13 @@ $allProjects[9] = (object) [
                   </li>
                   <li>PHP</li>
                   <li>MySQL</li>
+                  <li>Node.js
+                    <ul>
+                      <li>Express</li>
+                      <li>Socket.IO</li>
+                    </ul>
+                  </li>
+                  <li>MacOS</li>
                   <li>Linux (Ubuntu)</li>
                   <li>Apache</li>
                   <li>AWS</li>
@@ -942,6 +979,7 @@ $allProjects[12] = (object) [
                   <li>Node.js
                     <ul>
                       <li>Express</li>
+                      <li>terminal-kit</li>
                     </ul>
                   </li>
                   <li>JavaScript</li>

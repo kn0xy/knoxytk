@@ -217,6 +217,7 @@ window.jQuery(function ($) {
         $('body').on('click', '.closebtn', function() {
             document.getElementById('overlay').style.display = '';
             document.children[0].style.overflow = '';
+            slideIndex = 1;
         });
 
         $('.portfolio-bg').on('click', function(e) {
