@@ -443,7 +443,6 @@ $allProjects[5] = (object) [
                     <span class="dot" onclick="showSlide(4)"></span> &nbsp;
                     <span class="dot" onclick="showSlide(5)"></span> 
                 </div>
-                </div>
                 <h3>Background</h3>
                 <p>Coming soon!</p>
                 <br>
@@ -477,6 +476,51 @@ $allProjects[6] = (object) [
                         <img src="assets/img/portfolio/ncsl.png">
                       </picture>
                     </div>
+                    <div class="slide fade">
+                      <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/ncsl2.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ncsl2.png">
+                        <img src="assets/img/portfolio/ncsl2.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/ncsl3.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ncsl3.png">
+                        <img src="assets/img/portfolio/ncsl3.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/ncsl4.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ncsl4.png">
+                        <img src="assets/img/portfolio/ncsl4.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/ncsl5.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ncsl5.png">
+                        <img src="assets/img/portfolio/ncsl5.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/ncsl6.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ncsl6.png">
+                        <img src="assets/img/portfolio/ncsl6.png">
+                      </picture>
+                    </div>
+                    <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="moveSlides(1)">&#10095;</a>
+                </div>
+                <div style="text-align:center">
+                    <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(4)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(5)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(6)"></span> 
                 </div>
                 <h3>Background</h3>
                 <p>Coming soon!</p>
