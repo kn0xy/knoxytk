@@ -87,7 +87,6 @@ if(window.parent.name === 'KnoxyHQ') {
                 } else {
                     engine.mouseDown = false;
                 }
-                //setTimeout(() => { if(engine.mouseDown) engine.mouseDown = false }, 250);
             }
 
             setTimeout(() => { if(engine.mouseDown) engine.mouseDown = false }, 250);				

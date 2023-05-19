@@ -233,7 +233,7 @@ window.jQuery(function ($) {
         const projectThumbs = [
             'knoxy3d', 'knoxy2d', 'slotmachine', 'bellasite',
             'bwr', 'eptl', 'ncsl', 'eoda',
-            'ividash', 'ddar', 'tools', 'tools',
+            'ividash', 'ddar', 'cmp', 'adradmin',
             'intime', 'wow', 'rbbot', 'themundies'
         ];
         const prefix = 'assets/img/portfolio/';

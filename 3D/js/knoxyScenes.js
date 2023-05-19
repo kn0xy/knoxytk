@@ -249,7 +249,7 @@ function SceneX(knoxy) {
         knoxy.cssScene = monitor.initDisplay();
         scene.monitor1 = monitor;
         monitor.onClick = function() {
-            console.log('monclicked');
+            // move camera
             let kv = knoxy.view;
             if(kv !== 'mon1' && kv !== 'mon1zoom') {
                 let dur = (kv==='mon2' || kv==='tippyDesk' ? 750 : 2000);
@@ -417,9 +417,11 @@ function initClickHandlersM2(knoxy) {
     const events = [
         {
             'id': 'btnNewTab',
-            'cb': () => {
-                console.log('btnNewTab clicked');
-            }
+            'cb': () => {/* prevent controls from changing view */}
+        },
+        {
+            'id': 'aidee',
+            'cb': () => {/* prevent controls from changing view */}
         }
     ];
     return events;

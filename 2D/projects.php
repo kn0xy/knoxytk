@@ -51,26 +51,26 @@ $allProjects[0] = (object) [
                 <br>
                 <h3>Features</h3>
                 <ul>
-                <li>Responsive "free look" 3D scene</li>
-                <li>Original models</li>
-                <li>Custom interactability engine and user interface</li>
+                  <li>Responsive "free look" 3D scene</li>
+                  <li>Original models</li>
+                  <li>Custom interactability engine and user interface</li>
                 </ul>
                 <br>
-                <h3>Skills Used</h3>
+                <h3>Stack / Skills Used</h3>
                 <ul>
-                <li>Fusion 360</li>
-                <li>Blender</li>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript
+                  <li>Fusion 360</li>
+                  <li>Blender</li>
+                  <li>HTML</li>
+                  <li>CSS</li>
+                  <li>JavaScript
                     <ul>
-                    <li>Three.js</li>
+                      <li>Three.js</li>
+                      <li>Tween.js</li>
                     </ul>
                 </li>
-                <li>Apache</li>
-                <li>Nginx</li>
-                <li>Linux (Ubuntu)</li>
-                <li>Docker</li>
+                  <li>Nginx</li>
+                  <li>Linux (Ubuntu)</li>
+                  <li>Docker</li>
                 </ul>
               '),
     'demo' => 'https://www.knoxy.tk/',
@@ -93,10 +93,17 @@ $allProjects[1] = (object) [
                     </div>
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the site was created in the first place.</p>
+                <p>In early 2023, I decided to change career paths and focus on putting my web developer skills to 
+                use. This website was created to be a home for my portfolio and showcase my abilities as a full 
+                stack engineer.</p>
                 <br>
                 <h3>Features</h3>
-                <p>Highlight the various features of the site and why they are useful</p>
+                <ul>
+                  <li>Integrates directly with the 3D site, but also functions independently</li>
+                  <li>Includes links to my resume, GitHub, and LinkedIn profile</li>
+                  <li>Contact form with submissions sent directly to my email</li>
+                  <li>More details coming soon!</li>
+                </ul>
                 <br>
                 <h3>Stack / Skills Used</h3>
                 <ul>
@@ -111,9 +118,15 @@ $allProjects[1] = (object) [
                     <ul>
                       <li>jQuery</li>
                       <li>jQuery.sticky</li>
+                      <li>Google Maps API</li>
+                      <li>Google ReCAPTCHA</li>
                     </ul>
                   </li>
-                  <li>PHP</li>
+                  <li>PHP
+                    <ul>
+                      <li>PHPMailer</li>
+                    </ul>
+                  </li>
                   <li>Apache</li>
                   <li>Nginx</li>
                   <li>Linux (Ubuntu)</li>
@@ -138,12 +151,55 @@ $allProjects[2] = (object) [
                         <img src="assets/img/portfolio/slotmachine.png">
                       </picture>
                     </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/slotmachine2.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/slotmachine2.png">
+                        <img src="assets/img/portfolio/slotmachine2.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/slotmachine3.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/slotmachine3.png">
+                        <img src="assets/img/portfolio/slotmachine3.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/slotmachine4.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/slotmachine4.png">
+                        <img src="assets/img/portfolio/slotmachine4.png">
+                      </picture>
+                    </div>
+                    <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="moveSlides(1)">&#10095;</a>
+                </div>
+                <br>
+                <div style="text-align:center">
+                    <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(4)"></span>
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the site was created in the first place.</p>
+                <p>After a trip to Las Vegas in March of 2022, I was inspired to create a browser-based version of 
+                the ever popular slot machine. The idea was going to be implemented as a bonus/rewards system into 
+                a Web3 project I was working on with a colleague, but the project ended up being scrapped.</p>
                 <br>
                 <h3>Features</h3>
-                <p>Highlight the various features of the site and why they are useful</p>
+                <ul>
+                  <li>Car Parts Theme
+                    <ul>
+                      <li>Turbocharger</li>
+                      <li>Battery</li>
+                      <li>Water Pump</li>
+                      <li>Brake Disc</li>
+                    </ul>
+                  </li>
+                  <li>Minimalist - created with only HTML, CSS, and vanilla JavaScript</li>
+                  <li>See more details and view the source code on GitHub, or check out the live demo!</li>
+                </ul>
                 <br>
                 <h3>Stack / Skills Used</h3>
                 <ul>
@@ -169,30 +225,90 @@ $allProjects[3] = (object) [
     'data' => minify('
                 <div class="slideshow-container">
                     <div class="slide fade" style="display:block">
-                    <picture>
+                      <picture>
                         <source type="image/webp" srcset="assets/img/portfolio/bellasite.webp">
                         <source type="image/png" srcset="assets/img/portfolio/bellasite.png">
                         <img src="assets/img/portfolio/bellasite.png">
-                    </picture>
+                      </picture>
                     </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bellasite2.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bellasite2.png">
+                        <img src="assets/img/portfolio/bellasite2.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bellasite3.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bellasite3.png">
+                        <img src="assets/img/portfolio/bellasite3.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bellasite4.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bellasite4.png">
+                        <img src="assets/img/portfolio/bellasite4.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bellasite5.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bellasite5.png">
+                        <img src="assets/img/portfolio/bellasite5.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bellasite6.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bellasite6.png">
+                        <img src="assets/img/portfolio/bellasite6.png">
+                      </picture>
+                    </div>
+                    <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="moveSlides(1)">&#10095;</a>
+                </div>
+                <br>
+                <div style="text-align:center">
+                    <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(4)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(5)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(6)"></span>
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the site was created in the first place.</p>
+                <p>A quick, simple, and responsive redesign of Bella Pizzeria\'s public-facing website was needed 
+                to improve user experience and click through rate, especially on mobile devices.</p>
                 <br>
                 <h3>Features</h3>
-                <p>Highlight the various features of the site and why they are useful</p>
-                <br>
-                <h3>Skills Used</h3>
                 <ul>
+                  <li>Custom WordPress theme and plugin</li>
+                  <li>Several third-party API integrations</li>
+                  <li>Contact form with submissions sent to user-defined list</li>
+                </ul>
+                <br>
+                <h3>Stack / Skills Used</h3>
+                <ul style="columns:2;-webkit-columns:2;-moz-columns:2">
                   <li>HTML</li>
                   <li>CSS</li>
                   <li>JavaScript</li>
                   <li>PHP</li>
                   <li>MySQL</li>
                   <li>WordPress</li>
+                  <li>Google Maps APIs</li>
+                  <li>Google MyBusiness API</li>
+                  <li>Google Analytics</li>
+                  <li>Google Tag Manager</li>
+                  <li>Google ReCAPTCHA</li>
+                  <li>Facebook APIs</li>
+                  <li>Yelp API</li>
                   <li>Linux (Ubuntu)</li>
                   <li>Apache</li>
                   <li>HostGator</li>
+                  <li>cPanel</li>
+                  <li>Migration to AWS</li>
                 </ul>
               '),
     'demo' => 'https://www.thebellapizza.com/',
@@ -238,13 +354,38 @@ $allProjects[4] = (object) [
                     <span class="dot" onclick="showSlide(3)"></span> 
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the tool suite was created in the first place.</p>
+                <p>Some background information to explain why the tool suite was created in the first place.</p>
                 <br>
                 <h3>Features</h3>
-                <p>Highlight the features: Central dashboard ties everything together</p>
+                <ul>
+                  <li>Central dashboard/hub ties everything together</li>
+                  <li>15 Tools:
+                    <ul>
+                      <li>EPTL Back Filler</li>
+                      <li>EPTL Remote Tablet Manager</li>
+                      <li>EPTL Remote Time Log Manager</li>
+                      <li>Invoice Manager</li>
+                      <li>Remote Print</li>
+                      <li>Payroll Spreadsheet Automator</li>
+                      <li>Credit Card Sales Deposits Generator</li>
+                      <li>Daily Sales Deposits Generator</li>
+                      <li>Weekly Balance/Cash Deposits Generator</li>
+                      <li>Third-Party Deposits Generator</li>
+                      <li>Doordash Drive Orders Importer</li>
+                      <li>Weekly Payroll Importer</li>
+                      <li>Fetch Doordash Orders</li>
+                      <li>Fetch Grubhub Orders</li>
+                      <li>Delco Items History</li>
+                    </ul>
+                  </li>
+                  <li>10+ consolidated reports</li>
+                  <li>Documentation on over 20 technical topics</li>
+                </ul>
                 <br>
-                <h3>Tools</h3>
-                <p>Delco Items History, EPTL Manager, Tablet Manager, PSA, DSDG, CCSDA, WPI, etc.</p>
+                <h3>Stack / Skills Used</h3>
+                <p style="display:inline-block;float:left;margin-left:350px;margin-top:-36px">
+                  Quite a few...coming soon!
+                </p>
               ')
 ];
 
@@ -265,12 +406,12 @@ $allProjects[5] = (object) [
                     </div>
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the app was created in the first place.</p>
+                <p>Coming soon!</p>
                 <br>
                 <h3>Features</h3>
-                <p>Highlight the various features of the app and why they are useful</p>
+                <p>Coming soon!</p>
                 <br>
-                <h3>Skills Used</h3>
+                <h3>Stack / Skills Used</h3>
                 <ul>
                   <li>HTML</li>
                   <li>CSS</li>
@@ -299,12 +440,12 @@ $allProjects[6] = (object) [
                     </div>
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the site was created in the first place.</p>
+                <p>Coming soon!</p>
                 <br>
                 <h3>Features</h3>
-                <p>Highlight the various features of the site and why they are useful</p>
+                <p>Coming soon!</p>
                 <br>
-                <h3>Skills Used</h3>
+                <h3>Stack / Skills Used</h3>
                 <ul>
                   <li>HTML</li>
                   <li>CSS
@@ -350,11 +491,11 @@ $allProjects[7] = (object) [
                 <ul>
                   <li>Simplifies managerial closing duties
                   <li>Eliminates human error</li>
-                  <li>Simple mode &amp; Advanced mode</li>
+                  <li>Simple &amp; Advanced modes</li>
                   <li>Includes closing instructions to assist with training</li>
                 </ul>
                 <br>
-                <h3>Skills Used</h3>
+                <h3>Stack / Skills Used</h3>
                 <ul>
                   <li>HTML</li>
                   <li>CSS</li>
@@ -369,7 +510,9 @@ $allProjects[7] = (object) [
                   <li>MacOS</li>
                   <li>Apache</li>
                   <li>DNS</li>
+                  <li>Programmatic scraping</li>
                 </ul>
+
               ')
 ];
 
@@ -382,20 +525,58 @@ $allProjects[8] = (object) [
     'data' => minify('
                 <div class="slideshow-container">
                     <div class="slide fade" style="display:block">
-                    <picture>
+                      <picture>
                         <source type="image/webp" srcset="assets/img/portfolio/ividash.webp">
                         <source type="image/png" srcset="assets/img/portfolio/ividash.png">
                         <img src="assets/img/portfolio/ividash.png">
-                    </picture>
+                      </picture>
                     </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/ividash2.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ividash2.png">
+                        <img src="assets/img/portfolio/ividash2.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/ividash3.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ividash3.png">
+                        <img src="assets/img/portfolio/ividash3.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/ividash4.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ividash4.png">
+                        <img src="assets/img/portfolio/ividash4.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/ividash5.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/ividash5.png">
+                        <img src="assets/img/portfolio/ividash5.png">
+                      </picture>
+                    </div>
+                    <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="moveSlides(1)">&#10095;</a>
+                </div>
+                <br>
+                <div style="text-align:center">
+                    <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(4)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(5)"></span>
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the app was created in the first place.</p>
+                <p>Coming soon!</p>
                 <br>
                 <h3>Features</h3>
-                <p>Highlight the various features of the app and why they are useful</p>
+                <p>Coming soon!</p>
                 <br>
-                <h3>Skills Used</h3>
+                <h3>Stack / Skills Used</h3>
                 <ul>
                   <li>HTML</li>
                   <li>CSS</li>
@@ -432,12 +613,12 @@ $allProjects[9] = (object) [
                     </div>
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the app was created in the first place.</p>
+                <p>Coming soon!</p>
                 <br>
                 <h3>Features</h3>
-                <p>Highlight the various features of the app and why they are useful</p>
+                <p>Coming soon!</p>
                 <br>
-                <h3>Skills Used</h3>
+                <h3>Stack / Skills Used</h3>
                 <ul>
                   <li>HTML</li>
                   <li>CSS
@@ -465,43 +646,98 @@ $allProjects[9] = (object) [
 // Auto Dealer Results Promos
 $allProjects[10] = (object) [
     'name' => 'promos',
-    'title' => 'Auto Dealer Promos',
+    'title' => 'Auto Dealer Promo Sites',
     'desc' => 'Various promo sites built to drive sales for automotive dealerships.
                 <br>Created in 2013-2014.',
     'data' => minify('
                 <div class="slideshow-container">
-                    <div class="slide fade" style="display:block">
-                      <picture>
-                        <source type="image/webp" srcset="assets/img/portfolio/tools.webp">
-                        <source type="image/png" srcset="assets/img/portfolio/tools.png">
-                        <img src="assets/img/portfolio/tools.png">
-                      </picture>
-                    </div>
-                </div>
-                <h3>Background</h3>
-                <p>Users would be directed to the manufacturer-branded promo website where they could fill out a 
-                form to generate a unique certificate, which could then be redeemed at participating auto dealerships.</p>
-                <br>
-                <h3>Features</h3>
-                <p>Several different manufacturers: Chevrolet, Chrysler, Jeep, Dodge, Ram, Honda</p>
-                <p>Multiple vehicle models, colors, trim features, addon packages, etc. with time-sensitive 
-                incentives from the manufacturer that were unique to each make/model/trim and varied dynamically.</p>
-                <br>
-                <h3>Skills Used</h3>
-                <ul>
-                  <li>HTML</li>
-                  <li>CSS</li>
-                  <li>JavaScript
-                    <ul>
-                      <li>jQuery</li>
-                      <li>AJAX</li>
-                    </ul>
-                  </li>
-                  <li>PHP</li>
-                  <li>MySQL</li>
-                  <li>Linux (centOS)</li>
-                  <li>Domain name &amp; hosting configuration</li>
-                </ul>
+                  <div class="slide fade" style="display:block">
+                    <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/cmp1.webp">
+                      <source type="image/png" srcset="assets/img/portfolio/cmp1.png">
+                      <img src="assets/img/portfolio/cmp1.png">
+                    </picture>
+                  </div>
+                  <div class="slide fade">
+                    <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/cmp2.webp">
+                      <source type="image/png" srcset="assets/img/portfolio/cmp2.png">
+                      <img src="assets/img/portfolio/cmp2.png">
+                    </picture>
+                  </div>
+                  <div class="slide fade">
+                    <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/cmp3.webp">
+                      <source type="image/png" srcset="assets/img/portfolio/cmp3.png">
+                      <img src="assets/img/portfolio/cmp3.png">
+                    </picture>
+                  </div>
+                  <div class="slide fade">
+                    <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/cmp4.webp">
+                      <source type="image/png" srcset="assets/img/portfolio/cmp4.png">
+                      <img src="assets/img/portfolio/cmp4.png">
+                    </picture>
+                  </div>
+                  <div class="slide fade">
+                    <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/cmp5.webp">
+                      <source type="image/png" srcset="assets/img/portfolio/cmp5.png">
+                      <img src="assets/img/portfolio/cmp5.png">
+                    </picture>
+                  </div>
+                  <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+                  <a class="next" onclick="moveSlides(1)">&#10095;</a>
+              </div>
+              <br>
+              <div style="text-align:center">
+                  <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+                  <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+                  <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                  <span class="dot" onclick="showSlide(4)"></span> &nbsp;
+                  <span class="dot" onclick="showSlide(5)"></span>
+              </div>
+              <h3>Background</h3>
+              <p>Users would be directed to the manufacturer-branded promo website where they could browse available 
+              vehicles, then complete a form to generate a unique certificate which could then be redeemed at 
+              participating auto dealerships to receive manufacturer incentives based on their selected make/model.</p>
+              <br>
+              <h3>Features</h3>
+              <ul>
+                <li>Multiple vehicle models, colors, trim features, addon packages, etc. with time-sensitive 
+                  incentives from the manufacturer that were unique to each make/model/trim and varied dynamically
+                </li>
+                <li>3 separate websites for several different manufacturers:
+                  <ul>
+                    <li>Chevrolet</li>
+                    <li>Honda</li>
+                    <li>Chrysler, Jeep, Dodge, Ram</li>
+                  </ul>
+                </li>
+              </ul>
+              <br>
+              <h3>Stack / Skills Used</h3>
+              <ul style="columns:2;-webkit-columns:2;-moz-columns:2;column-fill:auto;height:240px">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript
+                  <ul>
+                    <li>jQuery</li>
+                    <li>AJAX</li>
+                    <li>Google Maps API<br></li>
+                  </ul>
+                </li>
+                <li>PHP
+                  <ul>
+                    <li>PHPMailer</li>
+                  </ul>
+                </li>
+                <li>MySQL</li>
+                <li>Linux (Debian)</li>
+                <li>MediaTemple VPS</li>
+                <li>Plesk</li>
+                <li>cPanel</li>
+              </ul>
               ')
 ];
 
@@ -510,25 +746,73 @@ $allProjects[11] = (object) [
     'name' => 'adrdash',
     'title' => 'Auto Dealer Admin Dashboards',
     'desc' => 'Admin dashboards for the various auto dealer promo sites built for Auto Dealer Results.
-                <br>Created in 2014.',
+                <br>Created in 2014-2015.',
     'data' => minify('
-                <div class="slideshow-container">
-                    <div class="slide fade" style="display:block">
-                      <picture>
-                        <source type="image/webp" srcset="assets/img/portfolio/tools.webp">
-                        <source type="image/png" srcset="assets/img/portfolio/tools.png">
-                        <img src="assets/img/portfolio/tools.png">
-                      </picture>
-                    </div>
-                </div>
+          <div class="slideshow-container">
+                <div class="slide fade" style="display:block">
+                <picture>
+                  <source type="image/webp" srcset="assets/img/portfolio/adradmin1.webp">
+                  <source type="image/png" srcset="assets/img/portfolio/adradmin1.png">
+                  <img src="assets/img/portfolio/adradmin1.png">
+                </picture>
+              </div>
+              <div class="slide fade">
+                <picture>
+                  <source type="image/webp" srcset="assets/img/portfolio/adradmin2.webp">
+                  <source type="image/png" srcset="assets/img/portfolio/adradmin2.png">
+                  <img src="assets/img/portfolio/adradmin2.png">
+                </picture>
+              </div>
+              <div class="slide fade">
+                <picture>
+                  <source type="image/webp" srcset="assets/img/portfolio/adradmin3.webp">
+                  <source type="image/png" srcset="assets/img/portfolio/adradmin3.png">
+                  <img src="assets/img/portfolio/adradmin3.png">
+                </picture>
+              </div>
+              <div class="slide fade">
+                <picture>
+                  <source type="image/webp" srcset="assets/img/portfolio/adradmin4.webp">
+                  <source type="image/png" srcset="assets/img/portfolio/adradmin4.png">
+                  <img src="assets/img/portfolio/adradmin4.png">
+                </picture>
+              </div>
+              <div class="slide fade">
+                <picture>
+                  <source type="image/webp" srcset="assets/img/portfolio/adradmin5.webp">
+                  <source type="image/png" srcset="assets/img/portfolio/adradmin5.png">
+                  <img src="assets/img/portfolio/adradmin5.png">
+                </picture>
+              </div>
+              <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+              <a class="next" onclick="moveSlides(1)">&#10095;</a>
+          </div>
+          <br>
+          <div style="text-align:center">
+              <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+              <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+              <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+              <span class="dot" onclick="showSlide(4)"></span> &nbsp;
+              <span class="dot" onclick="showSlide(5)"></span>
+          </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the project was created in the first place.</p>
+                <p>Admin Dashboards for the three different variations of Auto Dealer Promo Sites which allowed 
+                dealership representatives to manage their generated certificates and prospective leads.</p>
                 <br>
                 <h3>Features</h3>
-                <p>Multiple vehicle models, colors, trim features, addon packages, etc. with unique incentives from 
-                the manufacturer that varied from month to month.</p>
+                <ul>
+                  <li>Provided administrators with the ability to: A, B, C</li>
+                  <li>3 separate dashboards for several different manufacturers:
+                    <ul>
+                      <li>Chevrolet</li>
+                      <li>Honda</li>
+                      <li>Chrysler, Jeep, Dodge, Ram</li>
+                    </ul>
+                  </li>
+                  <li>More info coming soon!</li>
+                </ul>
                 <br>
-                <h3>Skills Used</h3>
+                <h3>Stack / Skills Used</h3>
                 <ul>
                   <li>HTML</li>
                   <li>CSS</li>
@@ -540,8 +824,10 @@ $allProjects[11] = (object) [
                   </li>
                   <li>PHP</li>
                   <li>MySQL</li>
-                  <li>Linux (centOS)</li>
-                  <li>Domain name &amp; hosting configuration</li>
+                  <li>Linux (Debian)</li>
+                  <li>MediaTemple VPS</li>
+                  <li>Plesk</li>
+                  <li>cPanel</li>
                 </ul>
               ')
 ];
@@ -563,11 +849,10 @@ $allProjects[12] = (object) [
                     </div>
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the project was created in the first place.</p>
+                <p>Coming soon!</p>
                 <br>
                 <h3>Features</h3>
-                <p>Multiple vehicle models, colors, trim features, addon packages, etc. with unique incentives from 
-                the manufacturer that varied from month to month.</p>
+                <p>Coming soon!</p>
                 <br>
                 <h3>Stack / Skills Used</h3>
                 <ul>
@@ -582,6 +867,7 @@ $allProjects[12] = (object) [
                       <li>chrome-php</li>
                     </ul>
                   </li>
+                  <li>Google Chrome</li>
                   <li>MacOS</li>
                 </ul>
               ')
@@ -602,15 +888,53 @@ $allProjects[13] = (object) [
                       <img src="assets/img/portfolio/wow.jpg">
                     </picture>
                   </div>
+                  <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/wow2.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/wow2.png">
+                        <img src="assets/img/portfolio/wow2.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/wow3.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/wow3.png">
+                        <img src="assets/img/portfolio/wow3.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/wow4.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/wow4.png">
+                        <img src="assets/img/portfolio/wow4.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/wow5.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/wow5.png">
+                        <img src="assets/img/portfolio/wow5.png">
+                      </picture>
+                    </div>
+                    <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="moveSlides(1)">&#10095;</a>
+                </div>
+                <br>
+                <div style="text-align:center">
+                    <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(4)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(5)"></span> 
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the tool suite was created in the first place.</p>
+                <p>Coming soon!</p>
                 <br>
                 <h3>Features</h3>
-                <p>Highlight the features</p>
+                <p>Coming soon!</p>
                 <br>
                 <h3>Languages Used</h3>
-                <p>LUA &nbsp; &bull; &nbsp; XML</p>
+                <p>LUA &nbsp; &bull; &nbsp; XML &nbsp; &bull; &nbsp; WoW AddOn API</p>
               ')
 ];
 
@@ -618,7 +942,7 @@ $allProjects[13] = (object) [
 $allProjects[14] = (object) [
     'name' => 'rbbot',
     'title' => 'Rock Band Bot',
-    'desc' => 'Designed to play Rock Band guitar on Expert difficulty.
+    'desc' => 'Completes songs on Rock Band 2 guitar on Expert difficulty.
                 <br>Created in 2015.',
     'data' => minify('
                 <div class="slideshow-container">
@@ -636,19 +960,52 @@ $allProjects[14] = (object) [
                         <img src="assets/img/portfolio/rbbot2.jpg">
                     </picture>
                   </div>
+                  <div class="slide fade">
+                    <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/rbbot3.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/rbbot3.jpg">
+                        <img src="assets/img/portfolio/rbbot3.jpg">
+                    </picture>
+                  </div>
+                  <div class="slide fade">
+                    <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/rbbot4.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/rbbot4.jpg">
+                        <img src="assets/img/portfolio/rbbot4.jpg">
+                    </picture>
+                  </div>
+                  <div class="slide fade">
+                    <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/rbbot5.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/rbbot5.png">
+                        <img src="assets/img/portfolio/rbbot5.png">
+                    </picture>
+                  </div>
                   <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
                   <a class="next" onclick="moveSlides(1)">&#10095;</a>
                 </div>
                 <br>
                 <div style="text-align:center">
                     <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
-                    <span class="dot" onclick="showSlide(2)"></span> 
+                    <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(4)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(5)"></span>
                 </div>
                 <h3>Background</h3>
-                <p>Show some background information to explain why the tool suite was created in the first place.</p>
+                <p>Coming soon!</p>
                 <br>
                 <h3>Features</h3>
-                <p>Highlight the features</p>
+                <ul>
+                  <li>Powered by a Raspberry Pi Model A
+                    <ul>
+                      <li>Low profile - No ethernet port</li>
+                      <li>Serial connection to computer/laptop via UART</li>
+                      <li>GPIO pins used to simulate button presses &amp; strums on the guitar controller PCB</li>
+                    </ul>
+                  </li>
+                  <li>More details coming soon!</li>
+                </ul>
                 <br>
                 <h3>Languages Used</h3>
                 <p>C &nbsp; &bull; &nbsp; Bash &nbsp; &bull; &nbsp; VB.NET</p>
@@ -659,7 +1016,7 @@ $allProjects[14] = (object) [
 $allProjects[15] = (object) [
     'name' => 'themundies',
     'title' => 'The Mundies',
-    'desc' => 'Website I designed and built for a local indie band. <br>Created in 2012.',
+    'desc' => 'One of my first websites built for a local indie band.<br>Created in 2012.',
     'data' => minify('
                 <p style="text-align:center">
                     <picture>
@@ -668,10 +1025,13 @@ $allProjects[15] = (object) [
                         <img src="assets/img/portfolio/themundies.png">
                     </picture>
                 </p>
-                <h3>Features</h3>
-                <p>Highlight the features</p>
+                <h3>Background</h3>
+                <p>Coming soon!</p>
                 <br>
-                <h3>Skills Used</h3>
+                <h3>Features</h3>
+                <p>Coming soon!</p>
+                <br>
+                <h3>Stack / Skills Used</h3>
                 <ul>
                   <li>HTML</li>
                   <li>CSS</li>

@@ -123,6 +123,11 @@
 				font-size: 18px;
 			}
 
+			#portfolioSection .overlay-content {
+				margin-top: 50px;
+				max-height: 1410px;
+			}
+
 			#portfolioSection h1 {
 				font-size: 40px;
 				line-height: 40px;
@@ -161,7 +166,7 @@
 			.slideshow-container {
 				width: 100%;
 				position: relative;
-				max-height: 500px;
+				height: 500px;
 			}
 			
 			.prev, .next {
@@ -349,7 +354,7 @@
 			<p class="knoxyLabel" style="display:none">KnoxyOS</p>
 			<p id="showHome" style="display:none">
 				<a href="#" onclick="showHome(event)">
-					<i class="fa fa-fw fa-arrow-left"></i>
+					<i id="aidee" class="fa fa-fw fa-arrow-left"></i>
 				</a>
 			</p>
 		</div>
@@ -388,11 +393,17 @@
 				document.querySelector('#showHome').style.display = 'none';
 
 				// show home screen
-				// document.querySelector('#homeSection').style.display = 'block';
-				if(isKnoxy) window.parent.Knoxy.scene.monitor2.activePage = 'home';
+				// document.querySelector('#homeSection').style.display = 'block';				
 
 				// show loading screen for now
 				document.querySelector('#loadingSection').style.display = 'block';
+				if(isKnoxy) {
+					const knoxy = window.parent.Knoxy;
+					knoxy.scene.monitor2.activePage = 'home';
+					// move camera to monitor 1
+					let m1 = (knoxy.view === 'mon2zoom' ? 'mon1zoom' : 'mon1');
+					knoxy.ui.moveCameraTo(m1, 500);
+				}
 			}
 
 			let isKnoxy = (window.parent.name === 'KnoxyHQ');
@@ -530,11 +541,24 @@
 					ps.innerHTML = content;
 					ps.style.display = '';
 					engine.scene.monitor2.activePage = 'portfolio';
+					// move camera
 					if(engine.view !== 'mon2' && engine.view !== 'mon2zoom') {
-						engine.ui.moveCameraTo('mon2', 500);
+						let dur = (engine.view === 'mon1' || engine.view === 'mon1zoom' ? 500 : 1250);
+						let tar = (engine.view === 'mon1zoom' ? 'mon2zoom' : 'mon2');
+						engine.ui.moveCameraTo(tar, dur);
 					}
 					// show back button
 					document.querySelector('#showHome').style.display = 'block';
+
+					// handle image click
+					var images = document.querySelectorAll('.slideshow-container img');
+					if(images.length > 1) {
+						images.forEach((v, i) => {
+							v.onclick = () => {
+								moveSlides(1);
+							}
+						});
+					}
 
 					// hide demo link for knoxy3d
 					if(project==='knoxy3d') {
