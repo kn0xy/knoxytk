@@ -1139,13 +1139,53 @@ $allProjects[15] = (object) [
     'title' => 'The Mundies',
     'desc' => 'One of my first websites built for a local indie band.<br>Created in 2012.',
     'data' => minify('
-                <p style="text-align:center">
+                  <div class="slideshow-container">
+                  <div class="slide fade" style="display:block">
                     <picture>
-                        <source type="image/webp" srcset="assets/img/portfolio/themundies.webp">
-                        <source type="image/png" srcset="assets/img/portfolio/themundies.png">
-                        <img src="assets/img/portfolio/themundies.png">
+                      <source type="image/webp" srcset="assets/img/portfolio/themundies.webp">
+                      <source type="image/png" srcset="assets/img/portfolio/themundies.png">
+                      <img src="assets/img/portfolio/themundies.png">
+                  </picture>
+                  </div>
+                  <div class="slide fade">
+                    <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/themundies2.webp">
+                      <source type="image/png" srcset="assets/img/portfolio/themundies2.jpg">
+                      <img src="assets/img/portfolio/themundies2.jpg">
                     </picture>
-                </p>
+                  </div>
+                  <div class="slide fade">
+                    <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/themundies3.webp">
+                      <source type="image/png" srcset="assets/img/portfolio/themundies3.jpg">
+                      <img src="assets/img/portfolio/themundies3.jpg">
+                    </picture>
+                  </div>
+                  <div class="slide fade">
+                    <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/themundies4.webp">
+                      <source type="image/png" srcset="assets/img/portfolio/themundies4.jpg">
+                      <img src="assets/img/portfolio/themundies4.jpg">
+                    </picture>
+                  </div>
+                  <div class="slide fade">
+                    <picture>
+                      <source type="image/webp" srcset="assets/img/portfolio/themundies5.webp">
+                      <source type="image/png" srcset="assets/img/portfolio/themundies5.png">
+                      <img src="assets/img/portfolio/themundies5.png">
+                    </picture>
+                  </div>
+                  <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+                  <a class="next" onclick="moveSlides(1)">&#10095;</a>
+                </div>
+                <br>
+                <div style="text-align:center">
+                    <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(2)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(4)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(5)"></span>
+                </div>
                 <h3>Background</h3>
                 <p>Coming soon!</p>
                 <br>
