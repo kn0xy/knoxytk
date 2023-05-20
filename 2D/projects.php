@@ -1102,6 +1102,12 @@ $allProjects[14] = (object) [
                         <img src="assets/img/portfolio/rbbot5.png">
                     </picture>
                   </div>
+                  <div class="slide fade">
+                    <iframe width="800" height="500" src="https://www.youtube.com/embed/vY2W_9WRUNg" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                  <div class="slide fade">
+                    <iframe width="800" height="500" src="https://www.youtube.com/embed/6lDW0XvrApI" frameborder="0" allowfullscreen></iframe>
+                  </div>
                   <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
                   <a class="next" onclick="moveSlides(1)">&#10095;</a>
                 </div>
@@ -1111,7 +1117,9 @@ $allProjects[14] = (object) [
                     <span class="dot" onclick="showSlide(2)"></span> &nbsp;
                     <span class="dot" onclick="showSlide(3)"></span> &nbsp;
                     <span class="dot" onclick="showSlide(4)"></span> &nbsp;
-                    <span class="dot" onclick="showSlide(5)"></span>
+                    <span class="dot" onclick="showSlide(5)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(6)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(7)"></span>
                 </div>
                 <h3>Background</h3>
                 <p>Coming soon!</p>
