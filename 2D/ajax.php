@@ -18,7 +18,7 @@
         if($details !== false) {
             $result = array('success'=>true, 'data'=>$details);
         } else {
-            $result = array('success'=>false);
+            $result = array('success'=>false, 'error'=>'Invalid project key');
         }
         echo json_encode($result);
     }

@@ -1025,18 +1025,10 @@ ul.list-check li {
     min-height: 180px
 }
 
-.portfolio-bg img,
-.portfolio-bg video {
+.portfolio-bg img  {
     max-height: 180px;
     min-height: 180px;
     height: 180px
-}
-
-.portfolio-bg video {
-    display: block;
-    object-fit: fill;
-    object-position: 50% 50%;
-    width: 100%
 }
 
 .portfolio {
@@ -1451,7 +1443,7 @@ ul.list-check li {
 }
 
 @media (min-width: 992px) {
-    #edu-02 .col-xs-3 {
+    .timeline-inverted .col-xs-3 {
         padding-left: 5px;
     }
 
