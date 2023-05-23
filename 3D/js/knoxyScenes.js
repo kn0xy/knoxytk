@@ -256,7 +256,7 @@ function SceneX(knoxy) {
                 knoxy.ui.moveCameraTo('mon1', dur);
             } else {
                 if(kv === 'mon1') {
-                    knoxy.ui.moveCameraTo('mon1zoom', 500);
+                    knoxy.ui.moveCameraTo('mon1zoom', 500, null, ()=>{knoxy.ui.panel.fadeOut()});
                 } else {
                     knoxy.ui.moveCameraTo('mon1', 500);
                 }
@@ -366,9 +366,7 @@ function initCameraToggles(knoxy) {
                     if(knoxy.camera.position.z >= 1.35) {
                         knoxy.ui.moveCameraTo('tippyDesk', 500);
                     } else {
-                        knoxy.ui.moveCameraTo('mon2zoom', 500, () => {
-                            knoxy.ui.panel.fadeOut();
-                        });
+                        knoxy.ui.moveCameraTo('mon2zoom', 500, ()=>{knoxy.ui.panel.fadeOut()});
                     }
                 }
                 if(knoxy.ui.camView === 'mon2zoom') {

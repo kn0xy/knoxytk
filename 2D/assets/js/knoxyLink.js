@@ -114,7 +114,7 @@ if(window.parent.name === 'KnoxyHQ') {
                         // on up scroll
                         if(!st) {
                             // move camera to view "mon1zoom" if document has not been scrolled
-                            engine.ui.moveCameraTo('mon1zoom', 500);
+                            engine.ui.moveCameraTo('mon1zoom', 500, null, ()=>{engine.ui.panel.fadeOut()});
                         }
                     } else {
                         // on down scroll

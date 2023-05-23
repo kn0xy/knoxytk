@@ -199,6 +199,7 @@ class KnoxyUI {
                             if(occb && typeof(occb) === 'function') occb();
                         };
                         this.moveCamera(cam, tar, dur, oscb, oc);
+                        if(pub.panel.isHidden) pub.panel.fadeIn();
                     }
                 }
             }

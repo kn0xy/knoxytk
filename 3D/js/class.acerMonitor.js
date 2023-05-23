@@ -205,6 +205,23 @@ class AcerMonitor {
                     }
                 },
                 {
+                    content: 'Zoom '+(engine.view==='mon2zoom' ? 'Out' : 'In'),
+                    click: function() {
+                        if(engine.view==='mon2zoom') {
+                            // zoom out
+                            engine.ui.moveCameraTo('mon2', 500);
+                        } else {
+                            // zoom in
+                            let target = engine.ui.getCmhCoordsFor('mon2zoom').cam;
+                            let distance = parseInt(engine.camera.position.distanceTo(target));
+                            let duration = distance * 250 || 500;
+                            engine.ui.moveCameraTo('mon2zoom', duration, null, ()=>{engine.ui.panel.fadeOut()});
+                        }
+                        
+                        engine.ui.contextMenu.close();
+                    }
+                },
+                {
                     content: 'Show Info',
                     click: function() {
                         showInfoWindow();
