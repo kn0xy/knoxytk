@@ -206,10 +206,7 @@ $allProjects[2] = (object) [
                   <li>HTML</li>
                   <li>CSS</li>
                   <li>JavaScript</li>
-                  <li>PHP</li>
-                  <li>MySQL</li>
                   <li>Apache</li>
-                  <li>Nginx</li>
                   <li>Linux (Ubuntu)</li>
                 </ul>
               '),
@@ -444,10 +441,23 @@ $allProjects[5] = (object) [
                     <span class="dot" onclick="showSlide(5)"></span> 
                 </div>
                 <h3>Background</h3>
-                <p>Coming soon!</p>
+                <p>Hot and cold holding temperatures limit the growth of organisms that cause food borne 
+                illnesses in potentially hazardous foods. When using time as a public health control, the food must 
+                be discarded within four hours from the point in time when food is removed from temperature control.
+                <br><br>
+                This app enables managers to easily keep the mandatory time control logs as required by the public health 
+                department, and automatically alerts staff when food needs to be discarded.
+                </p>
                 <br>
                 <h3>Features</h3>
-                <p>Coming soon!</p>
+                <ul>
+                  <li>Keeps track of food using Time as a Public Health Control</li>
+                  <li>Alerts users when food needs to be discarded</li>
+                  <li>Configurable user preferences &amp; settings</li>
+                  <li>Automatically syncs with home office server nightly</li>
+                  <li>Custom remote management system (integrated with the Bella Tools Suite)</li>
+                  <li>Available on the Amazon App Store: "Bella EPTL"</li>
+                </ul>
                 <br>
                 <h3>Stack / Skills Used</h3>
                 <ul>
