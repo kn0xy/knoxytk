@@ -301,7 +301,7 @@ window.jQuery(function ($) {
 
         // add bottom links
         if(po.demo || po.src) {
-            let btmLinks = '<div class="social-icons"><ul class="list-inline">';
+            let btmLinks = '<div class="social-icons" id="btmLinks"><ul class="list-inline">';
             if(po.demo) {
                 btmLinks += '<li><a href="'+po.demo+'" target="_blank">\
                 <i class="fa fas fa-up-right-from-square" title="View Live Demo"></i><span>Live Demo</span></a></li>';

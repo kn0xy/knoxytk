@@ -487,7 +487,12 @@
 							if(m2ce) {
 								m2ce();
 							} else {
-								//console.log(e.target);
+								//console.log(e);
+
+								// prevent camera movement on Live Demo / View Source link clicks
+								if(e.target.offsetParent && e.target.offsetParent.id==='btmLinks') return;
+
+								// zoom camera to monitor screen
 								let kv = engine.view;
 								if(kv !== 'mon2' && kv !== 'mon2zoom') {
 									let dur = (kv==='mon1'||kv==='tippyDesk' ? 750 : 2000)
