@@ -62,14 +62,13 @@ if(window.parent.name === 'KnoxyHQ') {
                 } catch {}
                 
                 // Toggle camera
-                if(engine.view !== 'mon1' && engine.view !== 'mon1zoom') {
-                    let dur = 2000;
-                    if(engine.view==='mon2' || engine.view==='mon2zoom' || engine.view==='tippyDesk') {
-                        dur = 750;
-                    }
-                    if(!movingView) engine.ui.moveCameraTo('mon1', dur, () => {
-                        if(engine.ui.panel.isHidden) engine.ui.panel.fadeIn();
-                    });
+                if(engine.view !== 'mon1zoom') {
+                    // if(engine.view === 'mon2zoom') {
+                    //     engine.ui.zoomTo('mon1zoom');
+                    // } else {
+                    //     engine.ui.zoomTo('mon1');
+                    // }
+                    engine.ui.zoomTo(engine.view === 'mon2zoom' ? 'mon1zoom' : 'mon1')
                 }
             }
         });
@@ -92,6 +91,15 @@ if(window.parent.name === 'KnoxyHQ') {
             setTimeout(() => { if(engine.mouseDown) engine.mouseDown = false }, 250);				
         });
 
+        // handle double click
+        document.addEventListener('dblclick', (event) => {
+            if(engine.view !== 'mon1zoom') {
+                engine.ui.zoomTo('mon1zoom');
+            } else {
+                engine.ui.zoomTo('mon1');
+            }
+        });
+
         // prevent right click
         document.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -100,13 +108,14 @@ if(window.parent.name === 'KnoxyHQ') {
         document.addEventListener('wheel', (event) => {
             if(!engine.tweening) {
                 //console.log('wheel', event);
-                let cPos = engine.camera.position;
-                let mPos = engine.scene.monitor1.model.position;
-                let d = cPos.distanceTo(mPos);
+                //let cPos = engine.camera.position;
+                //let mPos = engine.scene.monitor1.model.position;
+                //let d = cPos.distanceTo(mPos);
+                let d = engine.ui.distanceTo('mon1');
                 // auto zoom in/out
                 if(d > 2.5) {
                     // move camera to view "mon1" on scroll from further than 2.5 units away
-                    engine.ui.moveCameraTo('mon1', 1250);
+                    engine.ui.zoomTo('mon1');
                 } else {
                     // we are close
                     const st = document.children[0].scrollTop;
@@ -114,25 +123,25 @@ if(window.parent.name === 'KnoxyHQ') {
                         // on up scroll
                         if(!st) {
                             // move camera to view "mon1zoom" if document has not been scrolled
-                            engine.ui.moveCameraTo('mon1zoom', 500, null, ()=>{engine.ui.panel.fadeOut()});
+                            engine.ui.zoomTo('mon1zoom', ()=>{engine.ui.panel.fadeOut()});
                         }
                     } else {
                         // on down scroll
                         if(!st) {
                             // zoom out to "mon1" if document has not been scrolled
                             if(engine.view === 'mon1zoom') {
-                                engine.ui.moveCameraTo('mon1', 500);
+                                engine.ui.zoomTo('mon1');
                             } else if(engine.view === 'mon1') {
                                 // forward the wheel event directly to the control room
                                 engine.controls.passWheel(event);
                             } else if(engine.view === 'mon2') {
-                                engine.ui.moveCameraTo('tippyDesk', 500);
+                                engine.ui.zoomTo('tippyDesk');
                             }
                         } else {
                             // document has been scrolled
                             if(engine.view !== 'mon1' && engine.view !== 'mon1zoom') {
                                 // move camera to monitor 1
-                                engine.ui.moveCameraTo('mon1', 500);
+                                engine.ui.zoomTo('mon1');
                             }
                         }
                     }
@@ -178,13 +187,7 @@ if(window.parent.name === 'KnoxyHQ') {
             document.querySelector('#resumeLink').addEventListener('click', (e) => {
                 e.preventDefault();
                 engine.scene.monitor2.screenContent.showResume();
-                if(engine.view === 'mon1' || engine.view === 'mon1zoom') {
-                    // quick switch
-                    engine.ui.moveCameraTo('mon2', 500);
-                } else {
-                    // slow switch
-                    engine.ui.moveCameraTo('mon2', 1250);
-                }
+                engine.ui.zoomTo(engine.view === 'mon1zoom' ? 'mon2zoom' : 'mon2');
             });
 
             // ready to rock & roll

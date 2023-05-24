@@ -401,8 +401,7 @@
 					const knoxy = window.parent.Knoxy;
 					knoxy.scene.monitor2.activePage = 'home';
 					// move camera to monitor 1
-					let m1 = (knoxy.view === 'mon2zoom' ? 'mon1zoom' : 'mon1');
-					knoxy.ui.moveCameraTo(m1, 500);
+					knoxy.ui.zoomTo(knoxy.view === 'mon2zoom' ? 'mon1zoom' : 'mon1');
 					slideIndex = 1;
 				}
 			}
@@ -495,13 +494,10 @@
 								// zoom camera to monitor screen
 								let kv = engine.view;
 								if(kv !== 'mon2' && kv !== 'mon2zoom') {
-									let dur = (kv==='mon1'||kv==='tippyDesk' ? 750 : 2000)
-									engine.ui.moveCameraTo('mon2', dur);
+									engine.ui.zoomTo(kv === 'mon1zoom' ? 'mon2zoom' : 'mon2');
 								} else {
 									if(kv !== 'mon2zoom') {
-										engine.ui.moveCameraTo('mon2zoom', 500, () => {
-											engine.ui.panel.fadeOut();
-										});
+										engine.ui.zoomTo('mon2zoom', ()=>{engine.ui.panel.fadeOut()});
 									}
 								}
 							}
@@ -511,6 +507,9 @@
 						setTimeout(() => { if(engine.mouseDown) engine.mouseDown = false }, 250);
 					}			
 				});
+
+				// handle double click
+				document.addEventListener('dblclick', event=>{engine.ui.zoomTo('mon2')});
 
 				// prevent right click
 				document.addEventListener('contextmenu', event => event.preventDefault());
@@ -525,7 +524,7 @@
 						if(d > 2.5) {
 							if(event.wheelDelta > 0 && engine.view !== 'mon2') {
 								// move to mon2 on upscroll
-								engine.ui.moveCameraTo('mon2', 1250);
+								engine.ui.zoomTo('mon2');
 							} else {
 								engine.controls.passWheel(event);
 							}
@@ -549,9 +548,7 @@
 					engine.scene.monitor2.activePage = 'portfolio';
 					// move camera
 					if(engine.view !== 'mon2' && engine.view !== 'mon2zoom') {
-						let dur = (engine.view === 'mon1' || engine.view === 'mon1zoom' ? 500 : 1250);
-						let tar = (engine.view === 'mon1zoom' ? 'mon2zoom' : 'mon2');
-						engine.ui.moveCameraTo(tar, dur);
+						engine.ui.zoomTo(engine.view === 'mon1zoom' ? 'mon2zoom' : 'mon2');
 					}
 					// show back button
 					document.querySelector('#showHome').style.display = 'block';

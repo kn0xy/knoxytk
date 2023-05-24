@@ -205,6 +205,31 @@ class KnoxyUI {
             }
             return true;
         }
+
+        this._zoomTo = function(destination) {
+            if(destination !== engine.view && !engine.tweening && !engine.paused) {
+                return new Promise(resolve => {
+                    let target = pub.getCmhCoordsFor(destination).cam;
+                    let distance = parseInt(engine.camera.position.distanceTo(target));
+                    let duration = distance * 250 || 500;
+                    pub.moveCameraTo(destination, duration, null, function() {
+                        resolve(true);
+                    });
+                });
+            } else {
+                return Promise.resolve(false);
+            }
+            
+        }
+        this.zoomTo = async function(dest, cb) {
+            await pub._zoomTo(dest).then(cb);
+        }
+
+        this.distanceTo = function(destination) {
+            let target = engine.ui.getCmhCoordsFor(destination).cam;
+            return engine.camera.position.distanceTo(target);
+        }
+
         this.camView = false;
 
 

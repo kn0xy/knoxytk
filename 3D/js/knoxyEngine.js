@@ -148,8 +148,10 @@ document.addEventListener('mousedown', function(e) {
 // -- MouseUp
 document.addEventListener('mouseup', function() {
     knoxy.moving = false;
+    knoxy.preventMoving = true;
     setTimeout(()=>{
         knoxy.mouseDown = false;
+        knoxy.preventMoving = false;
         if(!knoxy.paused) findPointerIntersections();
     }, 250);
 });
@@ -336,7 +338,7 @@ function controlsChanged() {
         if(knoxy.animating.indexOf('controls') === -1) {
             let needsRender = (knoxy.animating.length===0 ? true : false);
             knoxy.animating.push('controls');
-            knoxy.moving = true;
+            if(!knoxy.preventMoving) knoxy.moving = true;
             if(needsRender) render();
             setTimeout(function() {
                 knoxy.animating.shift();

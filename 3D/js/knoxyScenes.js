@@ -47,15 +47,9 @@ function SceneX(knoxy) {
         model.position.set(-1.8, 1.388, -0.455);
         scene.add(model);
         ender3v2.onClick = function() {
-            if(knoxy.view !== 'ender3v2') {
-                let target = knoxy.ui.getCmhCoordsFor('ender3v2').cam;
-                let distance = parseInt(knoxy.camera.position.distanceTo(target));
-                if(distance > 2) {
-                    let time = distance * 400 || 500;
-                    knoxy.ui.moveCameraTo('ender3v2', time);
-                } else {
-                    this.PowerOn((this.power==='OFF' ? true : false));
-                }
+            let distance = knoxy.ui.distanceTo('ender3v2');
+            if(distance > 2) {
+                knoxy.ui.zoomTo('ender3v2', ()=>{this.PowerOn(true)});
             } else {
                 this.PowerOn((this.power==='OFF' ? true : false));
             }

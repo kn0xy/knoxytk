@@ -280,14 +280,7 @@ class AideeDesk extends THREE.EventDispatcher {
         this.onClick = function(obj) {
             if(obj.name === 'Frame') {
                 // move camera
-                let cPos = engine.camera.position;
-                let mPos = engine.scene.monitor1.model.position;
-                let d = parseInt(cPos.distanceTo(mPos));
-                if(engine.view !== 'aideeDesk') {
-                    let tf = d * 400;
-                    let dur = (tf < 1500 ? tf : 1500);
-                    engine.ui.moveCameraTo('aideeDesk', dur);
-                }
+                engine.ui.zoomTo('aideeDesk');
             } else {
                 // toggle drawer
                 let drawer = 0;

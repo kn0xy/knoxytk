@@ -256,13 +256,10 @@ class LGMonitor {
                     click: function() {
                         if(engine.view==='mon1zoom') {
                             // zoom out
-                            engine.ui.moveCameraTo('mon1', 500);
+                            engine.ui.zoomTo('mon1');
                         } else {
                             // zoom in
-                            let target = engine.ui.getCmhCoordsFor('mon1zoom').cam;
-                            let distance = parseInt(engine.camera.position.distanceTo(target));
-                            let duration = distance * 250 || 500;
-                            engine.ui.moveCameraTo('mon1zoom', duration, null, ()=>{engine.ui.panel.fadeOut()});
+                            engine.ui.zoomTo('mon1zoom', ()=>{engine.ui.panel.fadeOut()});
                         }
                         
                         engine.ui.contextMenu.close();

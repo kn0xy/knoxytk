@@ -10,7 +10,10 @@ html {
 }
 
 body {
-    font-display: swap
+    font-display: swap;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 /*!  - - - - - - - - - - - -   Customizations   - - - - - - - - - - - - - - - */
