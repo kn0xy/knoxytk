@@ -341,6 +341,62 @@ $allProjects[4] = (object) [
                         <img src="assets/img/portfolio/bellaDih.png">
                       </picture>
                     </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bwr-dih2.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bwr-dih2.png">
+                        <img src="assets/img/portfolio/bwr-dih2.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bwr-dms.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bwr-dms.png">
+                        <img src="assets/img/portfolio/bwr-dms.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bwr-dsdg.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bwr-dsdg.png">
+                        <img src="assets/img/portfolio/bwr-dsdg.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bwr-eptl.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bwr-eptl.png">
+                        <img src="assets/img/portfolio/bwr-eptl.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bwr-eptlbf.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bwr-eptlbf.png">
+                        <img src="assets/img/portfolio/bwr-eptlbf.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bwr-ime.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bwr-ime.png">
+                        <img src="assets/img/portfolio/bwr-ime.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bwr-rp.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bwr-rp.png">
+                        <img src="assets/img/portfolio/bwr-rp.png">
+                      </picture>
+                    </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/bwrx.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/bwrx.png">
+                        <img src="assets/img/portfolio/bwrx.png">
+                      </picture>
+                    </div>
                     <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
                     <a class="next" onclick="moveSlides(1)">&#10095;</a>
                 </div>
@@ -348,7 +404,15 @@ $allProjects[4] = (object) [
                 <div style="text-align:center">
                     <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
                     <span class="dot" onclick="showSlide(2)"></span> &nbsp;
-                    <span class="dot" onclick="showSlide(3)"></span> 
+                    <span class="dot" onclick="showSlide(3)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(4)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(5)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(6)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(7)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(8)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(9)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(10)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(11)"></span> 
                 </div>
                 <h3>Background</h3>
                 <p>Some background information to explain why the tool suite was created in the first place.</p>
@@ -576,6 +640,20 @@ $allProjects[7] = (object) [
                         <img src="assets/img/portfolio/eoda.png">
                       </picture>
                     </div>
+                    <div class="slide fade">
+                      <picture>
+                        <source type="image/webp" srcset="assets/img/portfolio/eoda-report.webp">
+                        <source type="image/png" srcset="assets/img/portfolio/eoda-report.png">
+                        <img src="assets/img/portfolio/eoda-report.png">
+                      </picture>
+                    </div>
+                    <a class="prev" onclick="moveSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="moveSlides(1)">&#10095;</a>
+                </div>
+                <br>
+                <div style="text-align:center">
+                    <span class="dot active" onclick="showSlide(1)"></span> &nbsp;
+                    <span class="dot" onclick="showSlide(2)"></span>
                 </div>
                 <h3>Background</h3>
                 <p>Show some background information to explain why the app was created in the first place.</p>
