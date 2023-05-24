@@ -15,6 +15,7 @@ let knoxy = {
     animated: [],
     animating: [],
     kp: null,
+    moving: false,
     objects: [],
     paused: false,
     ui: null,
@@ -146,6 +147,7 @@ document.addEventListener('mousedown', function(e) {
 
 // -- MouseUp
 document.addEventListener('mouseup', function() {
+    knoxy.moving = false;
     setTimeout(()=>{
         knoxy.mouseDown = false;
         if(!knoxy.paused) findPointerIntersections();
@@ -205,6 +207,7 @@ function onWindowResize() {
 
 
 function findPointerIntersections(check) {
+    if(knoxy.moving) return;
     raycaster.setFromCamera( pointer, camera );
     const intersects = raycaster.intersectObjects( knoxy.intersectables, false );
     if ( intersects.length > 0 ) {
@@ -333,10 +336,11 @@ function controlsChanged() {
         if(knoxy.animating.indexOf('controls') === -1) {
             let needsRender = (knoxy.animating.length===0 ? true : false);
             knoxy.animating.push('controls');
-            findPointerIntersections();
+            knoxy.moving = true;
             if(needsRender) render();
             setTimeout(function() {
                 knoxy.animating.shift();
+                knoxy.moving = false;
             }, 1000);
         }
     }
