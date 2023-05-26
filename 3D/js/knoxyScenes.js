@@ -72,12 +72,12 @@ function visibleWalls(knoxy) {
 function SceneX(knoxy) {
     // create scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0x1337cc );
-    //scene.background = new THREE.Color( 0x0c0c0c );
+    //scene.background = new THREE.Color( 0x1337cc );
+    scene.background = new THREE.Color( 0x1c1c1c );
     knoxy.scene = scene;
 
     // add lights
-    const light = new THREE.AmbientLight( 0xFFFFFF, 1);
+    const light = new THREE.AmbientLight( 0xFFFFFF, 0.01);
     const plight = new THREE.PointLight( 0xFFFFFF, 1 );
     plight.position.set(-2, 5, 3);
     scene.add( plight );
@@ -87,7 +87,7 @@ function SceneX(knoxy) {
     knoxy.loader.load('models/floor2.glb', function(gltf) {
         const fm = gltf.scene.children[0];
         //fm.scale.set(3.25, 1, 3.1);   // no walls (floor.glb)
-        fm.scale.set(1.6, 1.6, 1.6);
+        fm.scale.set(1.6, 2.15, 1.6);
         // fm.position.set(-1.4, 0, 2);     // no walls (floor.glb)
         fm.position.set(-1.4, 0, 2.05);
         fm.rotateY(THREE.MathUtils.degToRad(-90));
@@ -209,6 +209,15 @@ function SceneX(knoxy) {
         scene.add(speaker2);
     });
 
+    // Load notepad
+    knoxy.loader.load('models/notepad.glb', function(gltf) {
+        const notepad = gltf.scene.children[0];
+        notepad.scale.set(1.6, 1.6, 1.6);
+        notepad.rotation.set(0, THREE.MathUtils.degToRad(82.41), 0);
+        notepad.position.set(0.803, 1.467, -0.12);
+        scene.add(notepad);
+    });
+
     // Load PC Tower
     const pcTower = new PCTower(knoxy, (model) => {
         model.position.set(1.101, 0.077, -0.386);
@@ -296,8 +305,7 @@ function SceneX(knoxy) {
     const monitor = new LGMonitor(knoxy, (model) => {
         model.position.set(-0.3, 2.111, -0.63);
         scene.add(model);
-        monitor.screenLight.position.set(-0.31, 2.216, -0.62);
-        monitor.screenLight.visible = true;
+        monitor.screenLight.position.set(-0.31, 2.216, -0.46);
         knoxy.cssScene = monitor.initDisplay();
         scene.monitor1 = monitor;
         monitor.onClick = function() {
