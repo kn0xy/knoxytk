@@ -21,8 +21,9 @@ class AcerMonitor {
 
         // init rect light for screen
         function initRectLight() {
-            const rectLight = new THREE.RectAreaLight( 0x9cacff , 30, 1, 0.6 );
-            rectLight.position.set(0.58, 2.249, -0.45);
+            const rectLight = new THREE.RectAreaLight( 0x9cacff , 20, 1, 0.6 );
+            // rectLight.position.set(0.58, 2.249, -0.45);
+            rectLight.position.set(0.244, 1.863, 1.154);
             rectLight.rotation.set(0, 2.70613035, 1.57079633);
             rectLight.visible = false;
             rectLight.name = 'RectLight2';

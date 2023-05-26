@@ -89,10 +89,8 @@ class LGMonitor {
 
         // init rect light for screen
         function initRectLight() {
-            const rectLight = new THREE.RectAreaLight( 0x9cacff , 30, 1.15, 0.6 );
+            const rectLight = new THREE.RectAreaLight( 0x9cacff , 20, 1.15, 0.6 );
             rectLight.rotateY(3.14159);
-            rectLight.visible = false;
-            rectLight.name = 'RectLight1';
             pub.model.add(rectLight);
             pub.screenLight = rectLight;
         }
