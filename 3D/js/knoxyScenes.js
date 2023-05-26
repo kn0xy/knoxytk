@@ -8,11 +8,72 @@ import { OfficeChair } from './class.officeChair.js';
 import { PCTower } from './class.pcTower.js';
 import { Ender3v2 } from './class.ender3v2.js';
 
+function initWalls(knoxy, model) {
+    knoxy.scene.walls = {
+        N: model.getObjectByName('Wall_N'),
+        E: model.getObjectByName('Wall_E'),
+        W: model.getObjectByName('Wall_W'),
+        S: model.getObjectByName('Wall_S'),
+        show: function(wall) {
+            if(!wall) {
+                // show all
+                ['N','E','W','S'].forEach((v) => {
+                    this[v].visible = true;
+                });
+            } else {
+                this[wall].visible = true;
+            }
+        },
+        hide: function(wall) {
+            if(!wall) {
+                // hide all
+                ['N','E','W','S'].forEach((v) => {
+                    this[v].visible = false;
+                });
+            } else {
+                this[wall].visible = false;
+                
+            }
+        },
+    }
+    knoxy.renderQueue.push(function(){visibleWalls(knoxy)});
+}
+
+// Show/hide walls on render
+function visibleWalls(knoxy) {
+    const camera = knoxy.camera;
+    const scene = knoxy.scene;
+
+    if(camera.position.x > 1.67) {
+        if(scene.walls.N.visible) scene.walls.hide('N');
+    } else {
+        if(!scene.walls.N.visible) scene.walls.show('N');
+    }
+
+    if(camera.position.z > 5.15) {
+        if(scene.walls.E.visible) scene.walls.hide('E');
+    } else {
+        if(!scene.walls.E.visible) scene.walls.show('E');
+    }
+
+    if(camera.position.z < -1.23) {
+        if(scene.walls.W.visible) scene.walls.hide('W');
+    } else {
+        if(!scene.walls.W.visible) scene.walls.show('W');
+    }
+
+    if(camera.position.x < -4.59) {
+        if(scene.walls.S.visible) scene.walls.hide('S');
+    } else {
+        if(!scene.walls.S.visible) scene.walls.show('S');
+    }
+}
+
 function SceneX(knoxy) {
     // create scene
     const scene = new THREE.Scene();
-    //scene.background = new THREE.Color().setHSL( 0.6, 1, 0.5 );
-    scene.background = new THREE.Color( 0x04328f );
+    scene.background = new THREE.Color( 0x1337cc );
+    //scene.background = new THREE.Color( 0x0c0c0c );
     knoxy.scene = scene;
 
     // add lights
@@ -23,17 +84,14 @@ function SceneX(knoxy) {
     scene.add( light );
 
     // add floor
-    knoxy.loader.load('models/floor.glb', function(gltf) {
+    knoxy.loader.load('models/floor2.glb', function(gltf) {
         const fm = gltf.scene.children[0];
-        fm.scale.set(3.25, 1, 3.1);
-        fm.position.set(-1.4, 0, 2);
-        fm.rotateY(THREE.MathUtils.degToRad(90));
-
-        // fm.rotateZ(THREE.MathUtils.degToRad(90));
-        // fm.scale.set(3.25, 1.5, 2);
-        // fm.position.set(-4.45, 1.992, 2);
-
-        //fm.receiveShadow = true;
+        //fm.scale.set(3.25, 1, 3.1);   // no walls (floor.glb)
+        fm.scale.set(1.6, 1.6, 1.6);
+        // fm.position.set(-1.4, 0, 2);     // no walls (floor.glb)
+        fm.position.set(-1.4, 0, 2.05);
+        fm.rotateY(THREE.MathUtils.degToRad(-90));
+        initWalls(knoxy, fm);
         scene.add(fm);
     });
 
