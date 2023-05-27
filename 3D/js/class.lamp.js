@@ -28,7 +28,7 @@ class Lamp {
                 this.power = 'ON';
             } else {
                 this.light.visible = false;
-                glassMat.opacity = 1;
+                glassMat.opacity = 0.95;
                 fillyMat.opacity = 0.1;
                 bulbMat.opacity = 1;
                 this.power = 'OFF';
@@ -136,7 +136,7 @@ class Lamp {
             }
             if(pub.power === 'OFF') {
                 fillyMat.opacity = 0.25;
-                glassMat.opacity = 0.98;
+                glassMat.opacity = 0.9;
             }
         }
         function resetHighlights() {
@@ -151,7 +151,7 @@ class Lamp {
             }
             if(pub.power === 'OFF') {
                 fillyMat.opacity = 0.1;
-                glassMat.opacity = 1;
+                glassMat.opacity = 0.95;
             }
         }
 

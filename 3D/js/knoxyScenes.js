@@ -77,7 +77,7 @@ function SceneX(knoxy) {
     knoxy.scene = scene;
 
     // add lights
-    const light = new THREE.AmbientLight( 0xFFFFFF, 0.01);
+    const light = new THREE.AmbientLight( 0xFFFFFF, 0.1);
     const plight = new THREE.PointLight( 0xFFFFFF, 1 );
     plight.position.set(-2, 5, 3);
     scene.add( plight );
