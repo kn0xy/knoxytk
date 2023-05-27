@@ -415,7 +415,8 @@ $allProjects[4] = (object) [
                     <span class="dot" onclick="showSlide(11)"></span> 
                 </div>
                 <h3>Background</h3>
-                <p>Some background information to explain why the tool suite was created in the first place.</p>
+                <p>Collection of browser-based internal automation tools that I created on a LAMP stack while 
+                working for Bella Pizzeria.</p>
                 <br>
                 <h3>Features</h3>
                 <ul>
@@ -597,10 +598,21 @@ $allProjects[6] = (object) [
                     <span class="dot" onclick="showSlide(6)"></span> 
                 </div>
                 <h3>Background</h3>
-                <p>Coming soon!</p>
+                <p>I was approached by the leader of a church-sponsored softball league on the north side of Indianapolis 
+                to build a custom website that would allow players to log in and digitally sign the required waiver, as well as 
+                provide functionality for coaches &amp; league administrators to manage the league\'s games, teams, 
+                players, and basic site content.
+                </p>
                 <br>
                 <h3>Features</h3>
-                <p>Coming soon!</p>
+                <ul>
+                  <li>Custom AJAX site built from the ground up</li>
+                  <li>Includes custom back-end dashboard/CMS</li>
+                  <li>Keeps track of team points standings, game history, and run differential</li>
+                  <li>Team Coaches &amp; Players can digitally sign required waiver</li>
+                  <li>Coaches can manage their team\'s games, players, and site content</li>
+                  <li>League administrators can manage everything from one simple dashboard</li>  
+                </ul>
                 <br>
                 <h3>Stack / Skills Used</h3>
                 <ul>
@@ -622,7 +634,9 @@ $allProjects[6] = (object) [
                   <li>Apache</li>
                   <li>1 &amp; 1 Hosting</li>
                 </ul>
-              ')
+              '),
+    'demo' => 'https://www.knoxy.tk/portfolio/ncsl/',
+    'src' => 'https://www.github.com/kn0xy/ncsl'
 ];
 
 // Bella EODA
