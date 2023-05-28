@@ -533,7 +533,9 @@ $allProjects[5] = (object) [
                   <li>Android SDK</li>
                   <li>Amazon FireOS</li>
                 </ul>
-              ')
+              '),
+    'demo' => 'https://www.knoxy.tk/portfolio/eptl/',
+    'src' => 'https://www.github.com/kn0xy/bella-eptl'
 ];
 
 // Northside Christian Softball League
