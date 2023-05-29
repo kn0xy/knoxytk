@@ -1078,6 +1078,7 @@ ul.list-check li {
 }
 
 #overlay .social-icons {
+    position: relative;
     left: 0;
     bottom: 10px;
 }

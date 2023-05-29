@@ -2,75 +2,73 @@ window.jQuery(function ($) {
     // ---------------------------------------------------------------------------
     //  Animated scrolling / Scroll Up
     // ---------------------------------------------------------------------------
-    (function () {
-        $('a[href*="#"]').bind('click', function (e) {
-            e.preventDefault();
-            var anchor = $(this);
-            if(!$(anchor).hasClass('portfolio-link')) {
-                var okToAnimate = letKnoxyKnow();
-                if (okToAnimate) {
-                    $('html, body').stop().animate({
-                        scrollTop: $(anchor.attr('href')).offset().top
-                    }, 1000);
-                }
-            }
-        });
 
-        function letKnoxyKnow() {
-            if (window.parent.Knoxy) {
-                const m1 = window.parent.Knoxy.scene.monitor1;
-                if (m1.scrolling) {
-                    return false;
-                } else {
-                    m1.scrolling = true;
-                    setTimeout(function () { m1.scrolling = false }, 1080);
-                }
+    $('a[href*="#"]').bind('click', function (e) {
+        e.preventDefault();
+        var anchor = $(this);
+        if(!$(anchor).hasClass('portfolio-link')) {
+            var okToAnimate = letKnoxyKnow();
+            if (okToAnimate) {
+                $('html, body').stop().animate({
+                    scrollTop: $(anchor.attr('href')).offset().top
+                }, 1000);
             }
-            return true;
+        } else {
+            portfolioLinkClick(e);
         }
-    }());
+    });
+
+    function letKnoxyKnow() {
+        if (window.parent.Knoxy) {
+            const m1 = window.parent.Knoxy.scene.monitor1;
+            if (m1.scrolling) {
+                return false;
+            } else {
+                m1.scrolling = true;
+                setTimeout(function () { m1.scrolling = false }, 1080);
+            }
+        }
+        return true;
+    }
+
 
     // ---------------------------------------------------------------------------
     //  Home Page Navigation
     // ---------------------------------------------------------------------------
-    (function () {
-        $('.element').bind('pointerdown', function (e) {
-            var me = $(this)[0];
-            var a = $(me).children('a')[0];
-            a.click();
-        });
-    }());
+    $('.element').bind('pointerdown', function (e) {
+        var me = $(this)[0];
+        var a = $(me).children('a')[0];
+        a.click();
+    });
+
 
 
 
     // ---------------------------------------------------------------------------
     //  Sticky Menu
     // ---------------------------------------------------------------------------
-    (function () {
+    $('.header').sticky({
+        topSpacing: 0
+    });
 
-        $('.header').sticky({
-            topSpacing: 0
-        });
+    $('body').scrollspy({
+        target: '#navbar-custom'
+        , offset: 70
+    });
 
-        $('body').scrollspy({
-            target: '#navbar-custom'
-            , offset: 70
-        });
 
-    }());
 
     // ---------------------------------------------------------------------------
     //  Back To Top
     // ---------------------------------------------------------------------------
-    (function () {
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 100) {
-                $('.scroll-up').fadeIn();
-            } else {
-                $('.scroll-up').fadeOut();
-            }
-        });
-    }());
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            $('.scroll-up').fadeIn();
+        } else {
+            $('.scroll-up').fadeOut();
+        }
+    });
+
 
     // ---------------------------------------------------------------------------
     //  Countup
@@ -161,74 +159,73 @@ window.jQuery(function ($) {
 
         }
     }
-    (function () {
-        const cache = new portfolioCache();
-        window.portCache = cache;
-        var $grid = $('#og-grid');
-        var shuffleInstance = new window.Shuffle($grid, {
-            itemSelector: '.portfolio-item'
-        });
-        window.shuffleInstance = shuffleInstance;
+    
+    const cache = new portfolioCache();
+    window.portCache = cache;
+    var $grid = $('#og-grid');
+    var shuffleInstance = new window.Shuffle($grid, {
+        itemSelector: '.portfolio-item'
+    });
+    window.shuffleInstance = shuffleInstance;
 
-        /* Reshuffle when user clicks a filter item */
-        $('#filter a').click(function (e) {
-            e.preventDefault();
+    /* Reshuffle when user clicks a filter item */
+    $('#filter a').click(function (e) {
+        e.preventDefault();
 
-            // set active class
-            $('#filter a').removeClass('active');
-            $(this).addClass('active');
+        // set active class
+        $('#filter a').removeClass('active');
+        $(this).addClass('active');
 
-            // Get group name from clicked item
-            var groupName = $(this).attr('data-group');
+        // Get group name from clicked item
+        var groupName = $(this).attr('data-group');
 
-            // Reshuffle grid
-            shuffleInstance.filter(groupName);
-        });
+        // Reshuffle grid
+        shuffleInstance.filter(groupName);
+    });
 
-        /* Show project details */
-        $('.portfolio-link').click(function(e) {
-            var item = $(this).attr('href').substring(1);
-            var cached = cache.contains(item);
-            if(cached !== false) {
-                // load project details from cache
-                portfolioOverlay(cached);
-            } else {
-                // fetch project details
-                $.ajax({
-                    type: 'GET',
-                    url: 'ajax.php?gpd='+item,
-                    dataType: 'json',
-                    success: function(result) {
-                        if(result.success === true) {
-                            const rd = result.data;
-                            cache.add(rd);
-                            portfolioOverlay(rd);
-                        } else {
-                            console.error('Failed to load project details for '+item);
-                        }
-                    },
-                    error: function(err) {
-                        console.error('ajax error');
+    /* Show project details */
+    function portfolioLinkClick(e) {
+        var item = $(e.currentTarget).attr('href').substring(1);
+        var cached = cache.contains(item);
+        if(cached !== false) {
+            // load project details from cache
+            portfolioOverlay(cached);
+        } else {
+            // fetch project details
+            $.ajax({
+                type: 'GET',
+                url: 'ajax.php?gpd='+item,
+                dataType: 'json',
+                success: function(result) {
+                    if(result.success === true) {
+                        const rd = result.data;
+                        cache.add(rd);
+                        portfolioOverlay(rd);
+                    } else {
+                        console.error('Failed to load project details for '+item);
                     }
-                });
-            }
-        });
+                },
+                error: function(err) {
+                    console.error('ajax error');
+                }
+            });
+        }
+    }
 
-        $('body').on('click', '.closebtn', function() {
-            document.getElementById('overlay').style.display = '';
-            document.children[0].style.overflow = '';
-            slideIndex = 1;
-        });
+    $('body').on('click', '.closebtn', function() {
+        document.getElementById('overlay').style.display = '';
+        document.children[0].style.overflow = '';
+        slideIndex = 1;
+    });
 
-        $('.portfolio-bg').on('click', function(e) {
-            if(!$(e.target).hasClass('portfolio-link') && 
-            !$(e.target).parent().parent().hasClass('links')) {
-                // clicked not on a button; default to Learn More
-                $(e.currentTarget).find('.portfolio-link').click();
-                
-            }
-        });
-    }());
+    $('.portfolio-bg').on('click', function(e) {
+        if(!$(e.target).hasClass('portfolio-link') && 
+        !$(e.target).parent().parent().hasClass('links')) {
+            // clicked not on a button; default to Learn More
+            $(e.currentTarget).find('.portfolio-link').click();
+        }
+    });
+
 
     function lazyLoadPortfolioThumbs() {
         const projectThumbs = [
@@ -389,33 +386,29 @@ window.jQuery(function ($) {
     // ---------------------------------------------------------------------------
     //  Window & Document onReady/onLoad
     // ---------------------------------------------------------------------------
-    (function () {
-        $(window).ready(function () {
-          function moveAboutSkills() {
-            if(window.innerWidth < 992) {
-              $('.about-skills').insertAfter('#askills').css('height', '360px');
-            } else {
-              $('.about-skills').insertAfter('.biography').css('height', '720px');
-            }
-          }
-          $(window).on('resize', moveAboutSkills);
-          moveAboutSkills();
-        });
+    $(window).ready(function () {
+        function moveAboutSkills() {
+        if(window.innerWidth < 992) {
+            $('.about-skills').insertAfter('#askills').css('height', '360px');
+        } else {
+            $('.about-skills').insertAfter('.biography').css('height', '720px');
+        }
+        }
+        $(window).on('resize', moveAboutSkills);
+        moveAboutSkills();
+    });
 
-        $(window).on('load', function() {
-            // init portfolio items
-            lazyLoadPortfolioThumbs();
-            shuffleInstance._onResize();
-            
-        });
-    
-        $(document).ready(function () {
-          // show contact email
-          $('[name="contact-email"]').prop('href', 'mailto:tyler@knoxy.tk').prop('text', 'tyler@knoxy.tk');
-        });
+    $(window).on('load', function() {
+        // init portfolio items
+        lazyLoadPortfolioThumbs();
+        shuffleInstance._onResize();
         
-      }());
+    });
 
+    $(document).ready(function () {
+        // show contact email
+        $('[name="contact-email"]').prop('href', 'mailto:tyler@knoxy.tk').prop('text', 'tyler@knoxy.tk');
+    });
 });
 
 // ---------------------------------------------------------------------------
