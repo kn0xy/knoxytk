@@ -77,7 +77,7 @@ function SceneX(knoxy) {
     knoxy.scene = scene;
 
     // add lights
-    const light = new THREE.AmbientLight( 0xFFFFFF, 0.1);
+    const light = new THREE.AmbientLight( 0xFFFFFF, 0.25);
     const plight = new THREE.PointLight( 0xFFFFFF, 1 );
     plight.position.set(-2, 5, 3);
     scene.add( plight );
@@ -214,8 +214,10 @@ function SceneX(knoxy) {
         const notepad = gltf.scene.children[0];
         notepad.scale.set(1.6, 1.6, 1.6);
         notepad.rotation.set(0, THREE.MathUtils.degToRad(82.41), 0);
-        notepad.position.set(0.803, 1.467, -0.12);
+        //notepad.position.set(0.803, 1.467, -0.12);
+        notepad.position.set(-2.565, 1.413, -0.418);
         scene.add(notepad);
+        notepad.getObjectByName('Scissors').translateY(0.1);
     });
 
     // Load PC Tower
