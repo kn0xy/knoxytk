@@ -234,6 +234,7 @@ window.jQuery(function ($) {
             'ividash', 'ddar', 'cmp', 'adradmin',
             'intime', 'wow', 'rbbot', 'themundies'
         ];
+        //const prefix = 'https://static.knoxy.tk/assets/2D/img/portfolio/';
         const prefix = 'assets/img/portfolio/';
         projectThumbs.forEach((v, i) => {
             // determine source image path
@@ -320,7 +321,7 @@ window.jQuery(function ($) {
         
         if(window.parent.Knoxy) {
             // show overlay on monitor 2
-            portfolioLearnMore(po.name, overlay.innerHTML);
+            portfolioLearnMore(po.name, overlay.innerHTML, window.parent.Knoxy);
         } else {
             // show overlay
             overlay.style.display = 'block';

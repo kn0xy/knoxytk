@@ -164,8 +164,8 @@ if(window.parent.name === 'KnoxyHQ') {
         engine.scene.monitor1.scrolling = false;
 
         // Handle Portfolio Item "Learn More" button click
-        function portfolioLearnMore(pName, content) {
-            engine.scene.monitor2.screenContent.showPortfolioDetails(pName, content);
+        function portfolioLearnMore(pName, content, knoxy) {
+            knoxy.scene.monitor2.screenContent.showPortfolioDetails(pName, content);
         }
 
         // handle document ready
