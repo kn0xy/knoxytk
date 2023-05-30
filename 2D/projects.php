@@ -1102,8 +1102,8 @@ $allProjects[12] = (object) [
 $allProjects[13] = (object) [
     'name' => 'wow',
     'title' => 'Arena History',
-    'desc' => 'Custom add-on for World of Warcraft to track rated arena play. 
-                <br>Created in 2022.',
+    'desc' => 'Custom add-on for World of Warcraft 
+                <br>Created in 2022',
     'data' => minify('
                 <div class="slideshow-container">
                   <div class="slide fade" style="display:block">
@@ -1153,14 +1153,23 @@ $allProjects[13] = (object) [
                     <span class="dot" onclick="showSlide(5)"></span> 
                 </div>
                 <h3>Background</h3>
-                <p>Coming soon!</p>
+                <p>World of Warcraft add-on to track rated arena games and show match history both on the Rated 
+                PvP tooltip and a detailed listing in its own window, as well as provide statistics and UI nameplate 
+                customizations such as enlarged target markers.
+                </p>
                 <br>
                 <h3>Features</h3>
-                <p>Coming soon!</p>
+                <ul>
+                  <li>Tracks rated arena games played (2v2 and 3v3)</li>
+                  <li>Provides past match details and statistics</li>
+                  <li>Enables UI customizations such as enlarged target markers</li>
+
+                </ul>
                 <br>
                 <h3>Languages Used</h3>
                 <p>LUA &nbsp; &bull; &nbsp; XML &nbsp; &bull; &nbsp; WoW AddOn API</p>
-              ')
+              '),
+    'src' => 'https://www.github.com/kn0xy/WoW_TippyGary'
 ];
 
 // RockBand Bot
@@ -1242,7 +1251,8 @@ $allProjects[14] = (object) [
                 <br>
                 <h3>Languages Used</h3>
                 <p>C &nbsp; &bull; &nbsp; Bash &nbsp; &bull; &nbsp; VB.NET</p>
-              ')
+              '),
+    'src' => 'https://www.github.com/kn0xy/rbbot'
 ];
 
 // The Mundies
