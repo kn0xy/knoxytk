@@ -382,3 +382,19 @@ iframe {
     display: none;
 }
 
+@media screen and (max-width: 1024px) {
+
+    #ui-inner.mini {
+        max-height: 78px;
+    }
+
+    #ui-inner p {
+        font-size: 1em;
+    }
+
+    #loadingOverlay {
+        font-size: 0.5em;
+        padding: 5px;
+    }
+
+}
