@@ -7,6 +7,7 @@ import { AcerMonitor } from './class.acerMonitor.js';
 import { OfficeChair } from './class.officeChair.js';
 import { PCTower } from './class.pcTower.js';
 import { Ender3v2 } from './class.ender3v2.js';
+import { TvStand } from './class.tvStand.js';
 
 function initWalls(knoxy, model) {
     knoxy.scene.walls = {
@@ -347,6 +348,22 @@ function SceneX(knoxy) {
         mon2.clickEvents = initClickHandlersM2(knoxy);
     });
 
+    // Initialize TV Stand
+    const tvStand = new TvStand(knoxy, (model) => {
+        model.position.set(-4.6, 0.345, 4.4);
+        model.rotateY(THREE.MathUtils.degToRad(90));
+        scene.add(model);
+        tvStand.onClick = function(obj) {
+            let regx = new RegExp(/Door\dMesh[_1]?/);
+            if(obj.name.match(regx)) {
+                let dn = parseInt(obj.name.substring(4,5));
+                this.toggleDoor(dn);
+            } else {
+                knoxy.ui.zoomTo('tvStand');
+            }
+        }
+    });
+
     initCameraToggles(knoxy);
     return scene;
 }
@@ -402,6 +419,11 @@ function initCameraToggles(knoxy) {
             key: 'aideeDesk',
             cam: new THREE.Vector3(-0.830078269053341, 3.3927758217345576, 2.006321612157443),
             tar: new THREE.Vector3(-2.5447731735959294, 1.3803805100795734, -0.3191077028955683)
+        },
+        {
+            key: 'tvStand',
+            cam: new THREE.Vector3(-0.1261320143311393, 3.161833751700324, 1.3742728019436516),
+            tar: new THREE.Vector3(-2.109434235997117, 2.201143576739339, 2.4649397126379395)
         }
     ];
     let toggled = false;
