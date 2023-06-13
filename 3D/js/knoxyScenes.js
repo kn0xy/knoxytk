@@ -364,6 +364,15 @@ function SceneX(knoxy) {
         }
     });
 
+    // Initialize TV (non-interactable)
+    knoxy.loader.load('models/tv.glb', function(gltf) {
+        const model = gltf.scene.children[0];
+        model.scale.set(2.15, 2.15, 2.15);
+        model.position.set(-4.3, 0.99, 3.73);
+        model.rotateZ(THREE.MathUtils.degToRad(90));
+        scene.add(model);
+    });
+
     initCameraToggles(knoxy);
     return scene;
 }
