@@ -11,10 +11,10 @@ class LGMonitor {
         this.PowerOn = function(b) {
             if(b) {
                 this.power = 'ON';
-                this.screenLight.visible = true;
+                this.screenLight.color.setHex(0x9cacff);
             } else {
                 this.power = 'OFF';
-                this.screenLight.visible = false;
+                this.screenLight.color.setHex(0x000000);
             }
             try {
                 engine.callAnimate();
@@ -304,7 +304,7 @@ class LGMonitor {
             if(this.mousedOver && !engine.mouseDown && engine.camera.position.z < 0) {
                 const tv = new THREE.Vector3();
                 const km = this.model;
-                km.updateWorldMatrix(true, true);
+                km.updateWorldMatrix();
                 km.getWorldPosition(tv);
                 tv.project(engine.camera);
                 const x = (tv.x *  .5 + .5) * engine.canvas.clientWidth;

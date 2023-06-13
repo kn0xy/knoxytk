@@ -11,10 +11,10 @@ class AcerMonitor {
         this.PowerOn = function(b) {
             if(b) {
                 this.power = 'ON';
-                this.screenLight.visible = true;
+                this.screenLight.color.setHex(0x9cacff);
             } else {
                 this.power = 'OFF';
-                this.screenLight.visible = false;
+                this.screenLight.color.setHex(0x000000);
             }
             engine.callAnimate();
         }
@@ -22,7 +22,6 @@ class AcerMonitor {
         // init rect light for screen
         function initRectLight() {
             const rectLight = new THREE.RectAreaLight( 0x9cacff , 20, 1, 0.6 );
-            // rectLight.position.set(0.58, 2.249, -0.45);
             rectLight.position.set(0.244, 1.863, 1.154);
             rectLight.rotation.set(0, 2.70613035, 1.57079633);
             rectLight.visible = false;
@@ -264,7 +263,7 @@ class AcerMonitor {
             if(this.mousedOver && !engine.mouseDown && engine.camera.position.z < 0.3) {
                 const tv = new THREE.Vector3();
                 const km = this.model;
-                km.updateWorldMatrix(true, true);
+                km.updateWorldMatrix();
                 km.getWorldPosition(tv);
                 tv.project(engine.camera);
                 const x = (tv.x *  .5 + .5) * engine.canvas.clientWidth;

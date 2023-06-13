@@ -7,9 +7,8 @@ class Lamp {
         const pub = this;
 
         // initialize lightbulb
-        const light = new THREE.PointLight(0xd6c99a, 2, 5.75, 1);
-        light.position.set(-3.55, 2.25, -0.52)
-        light.visible = false;
+        const light = new THREE.PointLight(0x000000, 2, 5.75, 1);
+        light.position.set(-3.55, 2.25, -0.52);
         light.castShadow = true;
         scene.add(light);
         this.light = light;
@@ -21,13 +20,13 @@ class Lamp {
         this.power = 'OFF';
         this.PowerOn = function(b) {
             if(b) {
-                this.light.visible = true;
+                this.light.color.setHex(0xd6c99a);
                 glassMat.opacity = 0.75;
                 fillyMat.opacity = 1;
                 bulbMat.opacity = 0.5;
                 this.power = 'ON';
             } else {
-                this.light.visible = false;
+                this.light.color.setHex(0x000000);
                 glassMat.opacity = 0.95;
                 fillyMat.opacity = 0.1;
                 bulbMat.opacity = 1;
@@ -247,7 +246,7 @@ class Lamp {
             if(this.mousedOver && !engine.mouseDown) {
                 const tv = new THREE.Vector3();
                 const km = this.model;
-                km.updateWorldMatrix(true, true);
+                km.updateWorldMatrix();
                 km.getWorldPosition(tv);
                 tv.project(engine.camera);
                 const x = (tv.x *  .5 + .5) * engine.canvas.clientWidth;

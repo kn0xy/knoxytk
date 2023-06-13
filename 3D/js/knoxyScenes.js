@@ -283,8 +283,6 @@ function SceneX(knoxy) {
         model.position.set(-3.77, 1.47, -0.79);
         model.rotateY(0.69132492);
         scene.add(model);
-        setTimeout(function() { lamp.PowerOn(true) }, 500);
-        setTimeout(function() { lamp.PowerOn(false) }, 1000);
     });
 
     // Initialize picture frame (non-interactable)

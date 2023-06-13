@@ -134,6 +134,7 @@ function onPointerMove(event) {
 document.addEventListener('mousedown', function(e) {
     setTimeout(()=>{
         knoxy.mouseDown = true;
+        if(!knoxy.preventMoving) knoxy.moving = true;
     }, 250);
     if(e.button === 2) {
         if(e.target.id !== 'knoxy') {
@@ -141,7 +142,6 @@ document.addEventListener('mousedown', function(e) {
             console.log('rc', e);
         } 
     }
-    //console.log(e);
 });
 
 
@@ -338,11 +338,9 @@ function controlsChanged() {
         if(knoxy.animating.indexOf('controls') === -1) {
             let needsRender = (knoxy.animating.length===0 ? true : false);
             knoxy.animating.push('controls');
-            if(!knoxy.preventMoving) knoxy.moving = true;
             if(needsRender) render();
             setTimeout(function() {
                 knoxy.animating.shift();
-                knoxy.moving = false;
             }, 1000);
         }
     }

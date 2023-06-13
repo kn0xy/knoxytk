@@ -204,7 +204,7 @@ class OfficeChair {
             if(this.mousedOver && !engine.mouseDown) {
                 const tv = new THREE.Vector3();
                 const km = this.model;
-                km.updateWorldMatrix(true, true);
+                km.updateWorldMatrix();
                 km.getWorldPosition(tv);
                 tv.project(engine.camera);
                 const x = (tv.x *  .5 + .5) * engine.canvas.clientWidth;
