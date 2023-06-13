@@ -373,6 +373,14 @@ function SceneX(knoxy) {
         scene.add(model);
     });
 
+    // Initialize Trash Can (non-interactable)
+    knoxy.loader.load('models/TrashCan.glb', function(gltf) {
+        const model = gltf.scene.children[0];
+        model.scale.set(0.25, 0.25, 0.25);
+        model.position.set(1.4, 0.0128, 1.78);
+        scene.add(model);
+    });
+
     initCameraToggles(knoxy);
     return scene;
 }
