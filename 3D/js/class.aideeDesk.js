@@ -192,8 +192,29 @@ class AideeDesk extends THREE.EventDispatcher {
                 //pub.onClick(dn);
             });
             label.textContent = 'Drawer '+dn;
+            label.style.display = 'none';
             labels.appendChild(label);
             return label;
+        }
+
+        function showLabel(io, drawer) {
+            if(io.parent.name === drawer) {
+                const dn = parseInt(drawer.substring(6)) - 1;
+                const open = drawerOpen[dn];
+                const active = drawerActive[dn];
+                if(!open && !active) {
+                    return false;
+                } else if(!open && io.name.substring(3) !== 'Box') {
+                    return false;
+                } else if(active && io.name.substring(3) !== 'Box') {
+                    return false;
+                } else if(engine.camera.position.y < 3) {
+                    return false;
+                }
+                return true;
+            } else {
+                return false;
+            }
         }
 
 
@@ -302,46 +323,27 @@ class AideeDesk extends THREE.EventDispatcher {
             amixer.update(delta);
 
             // update labels
-            for(let d=0; d<6; d++) {
-                const drawer = this.drawers[d];
-                const label = drawer.knoxyLabel;
-                const tv = new THREE.Vector3();
-                drawer.updateWorldMatrix(true, false);
-                drawer.getWorldPosition(tv);
-                tv.project(engine.camera);
-                engine.ray.setFromCamera(tv, engine.camera);
-                const io = engine.ray.intersectObjects(pub.model.children);
-                const show = (io.length ? showLabel(io[0].object, drawer.name) : false);
-                if(!show) {
-                    label.style.display = 'none';
-                } else {
-                    const x = (tv.x *  .5 + .5) * engine.canvas.clientWidth;
-                    const y = (tv.y * -.5 + .5) * engine.canvas.clientHeight;
-                    label.style.display = '';
-                    label.style.transform = `translate(-50%, -50%) translate(${x}px,${y}px)`;
-                }
-            }
-
-        }
-
-        function showLabel(io, drawer) {
-            if(io.parent.name === drawer) {
-                const dn = parseInt(drawer.substring(6)) - 1;
-                const open = drawerOpen[dn];
-                const active = drawerActive[dn];
-                if(!open && !active) {
-                    return false;
-                } else if(!open && io.name.substring(3) !== 'Box') {
-                    return false;
-                } else if(active && io.name.substring(3) !== 'Box') {
-                    return false;
-                } else if(engine.camera.position.y < 3) {
-                    return false;
-                }
-                return true;
-            } else {
-                return false;
-            }
+            // for(let d=0; d<6; d++) {
+            //     if(!drawerActive[d] && !drawerOpen[d]) continue;
+            //     const drawer = this.drawers[d];
+            //     console.log(drawer);
+            //     const label = drawer.knoxyLabel;
+            //     const tv = new THREE.Vector3();
+            //     drawer.updateWorldMatrix(true, false);
+            //     drawer.getWorldPosition(tv);
+            //     tv.project(engine.camera);
+            //     engine.ray.setFromCamera(tv, engine.camera);
+            //     const io = engine.ray.intersectObjects(pub.model.children);
+            //     const show = (io.length ? showLabel(io[0].object, drawer.name) : false);
+            //     if(!show) {
+            //         label.style.display = 'none';
+            //     } else {
+            //         const x = (tv.x *  .5 + .5) * engine.canvas.clientWidth;
+            //         const y = (tv.y * -.5 + .5) * engine.canvas.clientHeight;
+            //         label.style.display = '';
+            //         label.style.transform = `translate(-50%, -50%) translate(${x}px,${y}px)`;
+            //     }
+            // }
         }
     }
 }
