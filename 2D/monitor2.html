@@ -12,6 +12,9 @@
 				font-size: 1.5rem;
 				margin: 0;
 				padding: 0;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
 			}
 			h1 {
 				margin: 0;
@@ -448,6 +451,18 @@
 			if(isKnoxy) {
 				const engine = window.parent.Knoxy;
 				let preventDrag = false;
+				let dragging = false;
+
+				// handle mouse move
+				document.addEventListener('mousemove', onPointerMove);
+				function onPointerMove(event) {
+					let m = engine.ui.bubblePointer(event);
+					if(!engine.mouseDown) dragging = false;
+					if(dragging) {
+						let itBe = { clientX: m.x, clientY: m.y };
+						engine.controls.passMove(itBe);
+					}
+				}
 
 				// handle mouse down
 				document.addEventListener('mousedown', function(e) {
@@ -456,28 +471,27 @@
 					setTimeout(() => { if(!engine.mouseDown) engine.mouseDown = true }, 250);
 					setTimeout(() => { 
 						if(engine.mouseDown && !preventDrag) {
-							//console.log('mon2 dragging');
-							//window.addEventListener('pointermove', handleMove);
-							//console.log(engine.scene.monitor2.screenContainer.offsetParent);
+							dragging = true;
+							let m = engine.ui.bubblePointer(e);
+							let pe = { clientX: m.x, clientY: m.y };
+							engine.controls.passDrag(pe);
 						} else {
 							preventDrag = false;
-							//document.removeEventListener('pointermove', handleMove);
 						}
 					}, 275);
 					if(e.button===2 && e.target.id !== 'knoxy') {
 						e.preventDefault();
-						//console.log(e);
 						engine.scene.monitor2.showContextMenu();
 					}
 				});
 
 				// handle mouse up
 				document.addEventListener('mouseup', function(e) {
+					dragging = false;
 					if(e.button === 2) {
 						preventDrag = true;
 					} else {
 						if(!engine.mouseDown && !engine.paused) {
-							//console.log('mon2 clicked');
 							preventDrag = true;
 							setTimeout(function(){preventDrag=false}, 250);
 
@@ -486,8 +500,6 @@
 							if(m2ce) {
 								m2ce();
 							} else {
-								//console.log(e);
-
 								// prevent camera movement on Live Demo / View Source link clicks
 								if(e.target.offsetParent && e.target.offsetParent.id==='btmLinks') return;
 

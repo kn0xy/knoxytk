@@ -4,6 +4,14 @@ import { TWEEN } from './tween.module.min.js';
 class KnoxyUI {
     constructor( engine, callback ) {
 
+        this.bubblePointer = function(evt) {
+            let bx = evt.screenX - evt.view.screenX;
+            let by = evt.screenY - evt.view.screenY - 100;
+            engine.pointer.ax = bx;
+            engine.pointer.ay = by;
+            return { x: bx, y: by }
+        }
+
         this.hideLabels = function(tf) {
             const lw = document.getElementById('labels');
             if(tf) {

@@ -24,28 +24,36 @@ if(window.parent.name === 'KnoxyHQ') {
             }, 1080);
         }
 
+        // handle mouse move
+        document.addEventListener('mousemove', onPointerMove);
+        function onPointerMove(event) {
+            let m = engine.ui.bubblePointer(event);
+            if(!engine.mouseDown) dragging = false;
+            if(dragging) {
+                let itBe = { clientX: m.x, clientY: m.y };
+                engine.controls.passMove(itBe);
+            }
+        }
+
         // handle mouse down
+        let preventMove = false;
         let preventDrag = false;
+        let dragging = false;
         document.addEventListener('mousedown', function(e) {
-            // make non-interactive
-            // const mc = window.parent.document.getElementById('monitorContainer');
-            // mc.style.pointerEvents = 'none';
             
             setTimeout(() => { if(!engine.mouseDown) engine.mouseDown = true }, 250);
             
             if(e.button === 2) {
                 if(e.target.id !== 'knoxy') {
                     e.preventDefault();
-                    //console.log(e);
                     engine.scene.monitor1.showContextMenu();
                 } 
             } else {
                 // left click
-                let movingView = false;
-
                 // Prevent camera move on resumeLink click
                 try {
                     if(e.target.parentElement.id === 'resumeLink') {
+                        preventMove = true;
                         return;
                     }
                 } catch {}
@@ -53,29 +61,30 @@ if(window.parent.name === 'KnoxyHQ') {
                 // Prevent camera move on portfolioLink click
                 try {
                     let plc = e.target.parentElement.classList;
-                    //console.log(plc);
                     if(plc.contains('portfolio-link') || 
                        plc.contains('portfolio-info') ||
                        plc.contains('portfolio')) {
+                        preventMove = true;
                         return;
                     }
                 } catch {}
-                
-                // Toggle camera
-                if(engine.view !== 'mon1zoom') {
-                    // if(engine.view === 'mon2zoom') {
-                    //     engine.ui.zoomTo('mon1zoom');
-                    // } else {
-                    //     engine.ui.zoomTo('mon1');
-                    // }
-                    engine.ui.zoomTo(engine.view === 'mon2zoom' ? 'mon1zoom' : 'mon1')
-                }
+
+                setTimeout(() => { 
+                    if(engine.mouseDown && !preventDrag) {
+                        dragging = true;
+                        let m = engine.ui.bubblePointer(e);
+                        let pe = { clientX: m.x, clientY: m.y };
+                        engine.controls.passDrag(pe);
+                    } else {
+                        preventDrag = false;
+                    }
+                }, 275);
             }
         });
 
         // handle mouse up
         document.addEventListener('mouseup', function(e) {
-
+            dragging = false;
             if(e.button === 2) {
                 preventDrag = true;
             } else {
@@ -83,11 +92,19 @@ if(window.parent.name === 'KnoxyHQ') {
                     //console.log('mon1 clicked');
                     preventDrag = true;
                     setTimeout(function(){preventDrag=false}, 250);
+
+                    // Toggle camera
+                    if(!preventMove) {
+                        if(engine.view !== 'mon1zoom') {
+                            engine.ui.zoomTo(engine.view === 'mon2zoom' ? 'mon1zoom' : 'mon1')
+                        }
+                    } else {
+                        preventMove = false;
+                    }
                 } else {
                     engine.mouseDown = false;
                 }
             }
-
             setTimeout(() => { if(engine.mouseDown) engine.mouseDown = false }, 250);				
         });
 
@@ -107,12 +124,8 @@ if(window.parent.name === 'KnoxyHQ') {
         let isScrolling = false;
         document.addEventListener('wheel', (event) => {
             if(!engine.tweening) {
-                //console.log('wheel', event);
-                //let cPos = engine.camera.position;
-                //let mPos = engine.scene.monitor1.model.position;
-                //let d = cPos.distanceTo(mPos);
-                let d = engine.ui.distanceTo('mon1');
                 // auto zoom in/out
+                let d = engine.ui.distanceTo('mon1');
                 if(d > 2.5) {
                     // move camera to view "mon1" on scroll from further than 2.5 units away
                     engine.ui.zoomTo('mon1');
