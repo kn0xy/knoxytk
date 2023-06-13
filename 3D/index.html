@@ -48,7 +48,10 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                                                                             y:::::y               
                                                                            yyyyyyy
             </pre>
-            <h1 style="margin-bottom:50px">Portfolio/Showcase: May 2023</h1>
+            <h1 style="margin-bottom:50px">
+                Tyler Knox<br>
+                Portfolio/Showcase 2023
+            </h1>
             <h1 id="init">Initializing...</h1>
         </div>
         <div id="wrapper">
@@ -74,7 +77,7 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
             window.loadedM2 = false;
             window.loadedModels = false;
             function loadingSlow() {
-                let lwTxt = 'Loading world';
+                let lwTxt = '<br>Loading world';
                 for(var i=0; i<30; i++) lwTxt += '.';
                 lwTxt += loadingPercent+'%';
                 document.getElementById('initLoader2').innerHTML = lwTxt;
@@ -83,10 +86,10 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                 if(!document.getElementById('init')) {
                     let newInit = document.createElement('h1');
                     newInit.id = 'init';
-                    newInit.innerHTML = 'Loading scene...' + (loaded ? 'OK!' : '');
+                    newInit.innerHTML = '<br>Loading scene...' + (loaded ? '<span style="color:green">OK!</span>' : '');
                     document.getElementById('loadingOverlay').appendChild(newInit);
                 } else {
-                    document.getElementById('init').append('OK!');
+                    document.getElementById('init').innerHTML += '<span style="color:green">OK!</span>';
                 }
             }
             let engine = null;
@@ -111,14 +114,14 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                         
                         // update loading texts
                         let lpt = il2.textContent;
-                        let len = lpt.length - 3;
+                        let len = (lpt.length < 20 ? lpt.length : lpt.length - 3);
                         let lps = lpt.substring(0, len);
-                        il2.innerHTML = lps + 'OK!';
+                        il2.innerHTML = '<br>' + lps + '<span style="color:green">OK!</span>';
                         initScene(true);
                         
                         // show welcome message
                         let loaded = document.createElement('h1');
-                        loaded.innerHTML = 'Welcome to knoxy.tk!<br><br>';
+                        loaded.innerHTML = '<br>Welcome to knoxy.tk!<br><br>';
                         overlay.appendChild(loaded);
                         overlay.scrollTop = overlay.scrollHeight;
                         engine.callAnimate();
@@ -172,24 +175,70 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                 }   
             }, 250);
             function initLoader() {
-                try {
+                const models = [
+                    ['floor2', 'Room Environment'],
+                    ['AideeDesk3m', 'Desk 1'],
+                    ['Ender3v2', '3D Printer'],
+                    ['notepad', 'Notepad'],
+                    ['aideeDeskChair2', 'Desk Chair'],
+                    ['lamp', 'Desk Lamp'],
+                    ['picture', 'Picture Frame'],
+                    ['TippyDesk2', 'Desk 2'],
+                    ['LG-HDR-4K3m', 'LG Monitor'],
+                    ['Monitor2m', 'Acer Monitor'],
+                    ['tower2', 'PC Tower'],
+                    ['keyboard5', 'Keyboard'],
+                    ['speaker2', 'Speakers'],
+                    ['mouse2', 'Mouse'],
+                    ['officeChair2', 'Office Chair'],
+                    ['TrashCan', 'Trash Bin'],
+                    ['tvStand', 'TV Stand'],
+                    ['tv', 'HDTV']
+                ];
+                function getModelName(mf) {
+                    for(let i=0; i<models.length; i++) {
+                        if(models[i][0] === mf) return models[i][1];
+                    }
+                    return mf;
+                }
+                try {    
                     const loader = engine.loader;
-                    loader.manager.onProgress = function(url, loaded, total) {
-                        const overlay = document.getElementById('loadingOverlay');
-                        let loading = 'Loading';
-                        let progElem = document.createElement('h1');
-                        url = url.replace(window.location.origin+'/', '');
-                        if(url.substring(0,4) === 'blob') {
-                            loading = 'Started thread';
-                            url = url.replace('blob:', '');
-                        } else if(loader.filesLoaded.includes(url)) {
-                            url = url.replace('models/', 'knoxy/');
-                            url = url.replace('.glb', '');
-                            loading = 'Loaded';
+                    function displayModelsToLoad() {
+                        for(var m=0; m<models.length; m++) {
+                            if(!document.getElementById(models[m][0])) {
+                                loadModel(models[m][0]);
+                            }
                         }
-                        progElem.innerHTML = loading+' '+url;
+                    }
+                    function loadModel(url) {
+                        if(document.getElementById(url)) return;
+                        const overlay = document.getElementById('loadingOverlay');
+                        let loading = '&nbsp;&nbsp; * ';
+                        let progElem = document.createElement('h1');
+                        progElem.id = url;
+                        progElem.innerHTML = loading+' '+getModelName(url)+'...';
                         overlay.appendChild(progElem);
                         overlay.scrollTop = overlay.scrollHeight;
+                    }
+                    loader.manager.onProgress = function(url, loaded, total) {
+                        url = url.replace(window.location.origin+'/', '');
+                        url = url.replace('models/', '').replace('.glb', '');
+                        if(url.substring(0,4) === 'blob') {
+                            loadingPercent = parseInt(loaded / total * 100);
+                            return;
+                        } else if(url.substring(0,9) === './js/lib/') {
+                            loadingPercent = parseInt(loaded / total * 100);
+                            return;
+                        } else if(loader.filesLoaded.includes(url)) {
+                            try {
+                                document.getElementById(url).innerHTML += '<span style="color:green">OK!</span>';
+                                return;
+                            } catch(e) {
+                                console.error(e);
+                                console.log(url);
+                            }
+                        }
+                        displayModelsToLoad();
                         loader.filesLoaded.push(url);
                         loadingPercent = parseInt(loaded / total * 100);
                     }
@@ -198,11 +247,11 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                 }
             }
             document.body.onload = function() {
-                document.getElementById('init').append('OK!');
+                document.getElementById('init').innerHTML += '<span style="color:green">OK!</span>';
                 document.getElementById('init').id = 'initLoader1';
                 let newInit = document.createElement('h1');
                 newInit.id = 'initLoader2';
-                newInit.innerHTML = 'Loading world...';
+                newInit.innerHTML = '<br>Loading world...';
                 document.getElementById('loadingOverlay').appendChild(newInit);
                 loadedM0 = true;
                 initLoader();
