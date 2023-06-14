@@ -251,36 +251,35 @@ class KnoxyUI {
         this.panel = {
             write: function(msg) {
                 if(!panelWriting) {
-                    let msgParts = msg.split('');
-                    let uiTxt = document.querySelector('.ui-text');
-                    if(!uiTxt) {
-                        uiTxt = document.createElement('p');
-                        uiTxt.classList.add('ui-text');
-                        bCursor.before(uiTxt);
-                    }
-                    if(!panelWriteQueue.includes(msg)) panelWriteQueue.push(msg);
-                    panelWriting = true;
-                    let interval = setInterval(function() {
-                        if(msgParts.length) {
-                            uiTxt.textContent += msgParts[0];
-                            msgParts.shift();
-                        } else {
-                            clearInterval(interval);
-                            uiTxt.textContent = msg;
-                            let br = document.createElement('br');
-                            uiTxt.after(br);
-                            uiTxt.classList.remove('ui-text');
-                            panelWriting = false;
-                            panelWriteQueue.shift();
-                            if(panelWriteQueue.length) {
-                                pub.panel.write(panelWriteQueue[0]);
-                            }
+                    return new Promise((resolve) => {
+                        // write message
+                        let lc = 0;
+                        let uiTxt = document.querySelector('.ui-text');
+                        if(!uiTxt) {
+                            uiTxt = document.createElement('p');
+                            uiTxt.classList.add('ui-text');
+                            bCursor.before(uiTxt);
                         }
-                    }, 50);
+                        panelWriting = true;
+                        let interval = setInterval(function() {
+                            lc++;
+                            if(lc <= msg.length) {
+                                let message = msg.substring(0, lc);
+                                uiTxt.textContent = message;
+                            } else {
+                                clearInterval(interval);
+                                uiTxt.textContent = msg;
+                                let br = document.createElement('br');
+                                uiTxt.after(br);
+                                uiTxt.classList.remove('ui-text');
+                                panelWriting = false;
+                                console.log('resolved');
+                                setTimeout(function() { resolve(true); }, 250);
+                            }
+                        }, 50);
+                    });
                 } else {
-                    if(!panelWriteQueue.includes(msg)) {
-                        panelWriteQueue.push(msg);
-                    }
+                    console.log('whgy');
                 }
             },
             timer: false,
@@ -293,32 +292,17 @@ class KnoxyUI {
                 uiPanel.innerHTML = '';
                 uiPanel.appendChild(bCursor);
                 setTimeout(function() {
-                    pub.panel.write('Tyler Knox');
+                    pub.panel.write('Tyler Knox').then(()=>{
+                        pub.panel.write('Full Stack Web Developer').then(()=>{
+                            let time = pub.getTime();
+                            pub.panel.write('Local Time: '+time).then(()=>{
+                                pub.panel.hideCursor();
+                                setTimeout(initPanelTime, 100);
+                                setTimeout(initPanelInfo, 250);
+                            });
+                        });
+                    });
                 }, 1300);
-                setTimeout(function() {
-                    pub.panel.write('Full Stack Web Developer');
-                }, 2400);
-                setTimeout(function() {
-                    pub.panel.write('Local Time: '+pub.getTime());
-                }, 4000);
-                setTimeout(function() {
-                    pub.panel.hideCursor();
-                    setTimeout(initPanelTime, 100);
-                    setTimeout(initPanelInfo, 250);
-                }, 5200);
-                setTimeout(function() {
-                    // attach UI buttons to panel
-
-                    // add mouseover listeners
-                    uiPanel.addEventListener('mouseover', function() {
-                        uiPanel.classList.replace('mini', 'expanded');
-                        engine.paused = true;
-                    });
-                    uiPanel.addEventListener('mouseout', function() {
-                        uiPanel.classList.replace('expanded', 'mini');
-                        engine.paused = false;
-                    });
-                }, 5700);
             },
             hideCursor: function() {
                 bCursor.parentNode.removeChild(bCursor);
@@ -368,7 +352,16 @@ class KnoxyUI {
             uiPanel.innerHTML += '<br><p><a href="'+ghUrl+'" target="_blank">View Source</a></p>';
             uiPanel.innerHTML += '<br><p><a href="'+psUrl+'" target="_blank">View 2D Site</a></p>';
             uiPanel.innerHTML += '<br><p><a href="'+resUrl+'" target="_blank">View My Resume</a></p>';
-            
+
+            // add mouseover listeners
+            uiPanel.addEventListener('mouseover', function() {
+                uiPanel.classList.replace('mini', 'expanded');
+                engine.paused = true;
+            });
+            uiPanel.addEventListener('mouseout', function() {
+                uiPanel.classList.replace('expanded', 'mini');
+                engine.paused = false;
+            });
         }
 
         this.getTime = function() {
