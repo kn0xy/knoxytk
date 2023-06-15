@@ -238,7 +238,7 @@ function SceneX(knoxy) {
         model.position.set(-0.309, 0.1125, 0.75);
         model.rotation.set(-3.14159265, 0, -3.14159265);
         scene.add(model);
-        officeChair.fixAnims();
+        officeChair.fixAnims();0.750
         officeChair.onClick = function() {
             let isOut = (this.state==='OUT');
             if(!isOut) {
@@ -376,6 +376,15 @@ function SceneX(knoxy) {
         const model = gltf.scene.children[0];
         model.scale.set(0.25, 0.25, 0.25);
         model.position.set(1.4, 0.0128, 1.78);
+        scene.add(model);
+    });
+
+    // Initialize Couch (non-interactable)
+    knoxy.loader.load('models/couch2.glb', function(gltf) {
+        const model = gltf.scene.children[0];
+        model.scale.set(0.035, 0.035, 0.035);
+        model.position.set(0.8, -0.015, 3.95);
+        model.rotateY(THREE.MathUtils.degToRad(-90));
         scene.add(model);
     });
 
