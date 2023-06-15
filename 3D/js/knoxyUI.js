@@ -273,7 +273,6 @@ class KnoxyUI {
                                 uiTxt.after(br);
                                 uiTxt.classList.remove('ui-text');
                                 panelWriting = false;
-                                console.log('resolved');
                                 setTimeout(function() { resolve(true); }, 250);
                             }
                         }, 50);

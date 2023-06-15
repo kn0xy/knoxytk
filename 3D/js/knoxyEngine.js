@@ -6,6 +6,7 @@ import { GLTFLoader } from './GLTFLoader.js';
 import { KnoxyUI } from './knoxyUI.js';
 import { SceneX } from './knoxyScenes.js';
 import { CSS3DRenderer } from './CSS3DRenderer.js';
+import Stats from './stats.module.js';
 
 
 // Define engine globals
@@ -70,13 +71,12 @@ const canvas = document.querySelector('#knoxy');
 const renderer = new THREE.WebGLRenderer({ 
     canvas: canvas, 
     antialias: true,
-    alpha: true
+    alpha: true,
+    powerPreference: "high-performance"
 });
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.outputEncoding = THREE.sRGBEncoding;
-//renderer.toneMapping = THREE.ACESFilmicToneMapping;
-//renderer.outputEncoding = THREE.BasicDepthPacking;
 renderer.setSize( _width, _height );
 renderer.setClearColor(0x000000, 0.0);
 knoxy.canvas = canvas;
@@ -300,14 +300,14 @@ knoxy.updateMouseover = findPointerIntersections;
 // Render the 3D scene
 function render() {
     try {
-        if(knoxy.animating.length > 0 || knoxy.tweening) {
-            requestAnimationFrame( render );
-        }
+        renderer.render( scene, camera );
         updateAnimated();
         controls.update();
         if(knoxy.tweening) TWEEN.update();
         knoxy.renderScenes();
-        renderer.render( scene, camera );
+        if(knoxy.animating.length > 0 || knoxy.tweening) {
+            requestAnimationFrame( render );
+        }
     } catch(e) {
         console.error('render', e);
     }
@@ -331,18 +331,28 @@ function updateAnimated() {
 }
 
 // Make sure to keep rendering while user is in control
+let lastChange = 0;
 function controlsChanged() {
     if(!controlsInitialized) {
         controlsInitialized = true;
     } else {
         if(knoxy.animating.indexOf('controls') === -1) {
             let needsRender = (knoxy.animating.length===0 ? true : false);
-            knoxy.animating.push('controls');
-            if(needsRender) render();
+            if(needsRender) {
+                knoxy.animating.push('controls');
+                var change = new Date().getTime();
+                var elapsed = change - lastChange;
+                if(elapsed > 1250) {
+                    render();
+                } else {
+                    animate();
+                }
+                lastChange = change;
+            }
             setTimeout(function() {
                 knoxy.animating.shift();
             }, 1000);
-        }
+        }   
     }
     knoxy.view = false;
 }
