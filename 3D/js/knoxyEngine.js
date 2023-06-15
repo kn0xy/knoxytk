@@ -72,7 +72,7 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas, 
     antialias: true,
     alpha: true,
-    powerPreference: "high-performance"
+    //powerPreference: "high-performance"
 });
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -300,13 +300,13 @@ knoxy.updateMouseover = findPointerIntersections;
 // Render the 3D scene
 function render() {
     try {
-        renderer.render( scene, camera );
         updateAnimated();
         controls.update();
         if(knoxy.tweening) TWEEN.update();
         knoxy.renderScenes();
+        renderer.render( scene, camera );
         if(knoxy.animating.length > 0 || knoxy.tweening) {
-            requestAnimationFrame( render );
+            requestAnimationFrame( animate );
         }
     } catch(e) {
         console.error('render', e);
@@ -332,6 +332,7 @@ function updateAnimated() {
 
 // Make sure to keep rendering while user is in control
 let lastChange = 0;
+let lastFrame = 0;
 function controlsChanged() {
     if(!controlsInitialized) {
         controlsInitialized = true;
@@ -342,12 +343,13 @@ function controlsChanged() {
                 knoxy.animating.push('controls');
                 var change = new Date().getTime();
                 var elapsed = change - lastChange;
-                if(elapsed > 1250) {
+                if(elapsed > 1250 || lastFrame === renderer.info.render.frame) {
                     render();
                 } else {
                     animate();
                 }
                 lastChange = change;
+                lastFrame = renderer.info.render.frame;
             }
             setTimeout(function() {
                 knoxy.animating.shift();
