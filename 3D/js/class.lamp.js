@@ -81,6 +81,7 @@ class Lamp {
             glassMat.blending = THREE.MultiplyBlending;
             glassMat.metalness = 0.45;
             glassMat.roughness = 0.05;
+            glassMat.opacity = 0.95;
 
             // inner bulb texture
             bulbMat = glassMat.clone();
