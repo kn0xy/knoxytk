@@ -72,6 +72,14 @@ class LightSwitch {
             }
         }
 
+        // initialize label/tooltip
+        const label = document.createElement('div');
+        label.addEventListener('click', showContextMenu);
+        label.textContent = 'Lights';
+        label.style.display = 'none';
+        document.querySelector('#labels').appendChild(label);
+        this.knoxyLabel = label;
+
         // load model into scene
         engine.loader.load('models/lightswitch.glb', function(gltf) {
             const model = gltf.scene.children[0];
@@ -134,40 +142,30 @@ class LightSwitch {
             const delta = clock.getDelta();
             amixer.update(delta);
 
-            // // show label on mouseover
-            // if(this.mousedOver && !engine.mouseDown) {
-            //     const tv = new THREE.Vector3();
-            //     const km = this.model;
-            //     km.updateWorldMatrix();
-            //     km.getWorldPosition(tv);
-            //     tv.project(engine.camera);
-            //     const x = (tv.x *  .5 + .5) * engine.canvas.clientWidth;
-            //     const y = (tv.y * -.5 + .5) * engine.canvas.clientHeight;
-            //     this.knoxyLabel.style.display = '';
-            //     this.knoxyLabel.style.transform = `translate(-50%, -50%) translate(${x}px,${y}px)`;     
-            // } else {
-            //     this.knoxyLabel.style.display = 'none';
-            // }
+            // show label on mouseover
+            if(this.mousedOver && !engine.mouseDown) {
+                const tv = new THREE.Vector3();
+                const km = this.model;
+                km.updateWorldMatrix();
+                km.getWorldPosition(tv);
+                tv.project(engine.camera);
+                const x = (tv.x *  .5 + .5) * engine.canvas.clientWidth;
+                const y = (tv.y * -.5 + .52) * engine.canvas.clientHeight;
+                this.knoxyLabel.style.display = '';
+                this.knoxyLabel.style.transform = `translate(-50%, -50%) translate(${x}px,${y}px)`;     
+            } else {
+                this.knoxyLabel.style.display = 'none';
+            }
         }
         
         // show context menu
         function showContextMenu() {
             let menuItems = [
                 {
-                    content: 'Slide '+(pub.state==='IN' ? 'Out' : 'In'),
+                    content: 'Switch '+(pub.state==='ON' ? 'Off' : 'On'),
                     click: function() {
-                        let ss = (pub.state==='IN' ? true : false);
-                        //pub.toggleSlide();
                         pub.onClick();
-                        engine.callAnimate();
                         engine.ui.contextMenu.close();
-                    }
-                },
-                {
-                    content: 'Show Info',
-                    click: function() {
-                        showInfoWindow();
-                        engine.ui.contextMenu.close()
                     }
                 },
                 {
