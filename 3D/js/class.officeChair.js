@@ -131,11 +131,13 @@ class OfficeChair {
                         anim.play();
                     }
                     anim.paused = false;
-                    engine.animating.push(i);
+                    let desc = 'oc-'+i;
+                    engine.animating.push(desc);
                     isMoving = true;
                     setTimeout(function() {
                         anim.paused = true;
-                        engine.animating.shift();
+                        let ai = engine.animating.indexOf(desc);
+                        engine.animating.splice(ai, 1);
                         isMoving = false;
                         if(isOut) {
                             isOut = false;

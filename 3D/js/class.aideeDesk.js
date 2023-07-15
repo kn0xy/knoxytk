@@ -30,12 +30,17 @@ class AideeDesk extends THREE.EventDispatcher {
             if(!active) {
                 // start the animation
                 clock.start();
-                if(!open) anim.stop();
+                if(!open) {
+                    anim.stop();
+                    anim.timeScale = 1;
+                } else {
+                    anim.timeScale = -1;
+                }
                 anim.play();
                 drawerActive[num] = true;
                 if(anim.paused) anim.paused = false;
-                engine.animating.push(num);
-                engine.callAnimate(true);
+                let desc = 'ad-'+num;
+                engine.animating.push(desc);
 
                 // capture containable contents as children
                 const containables = scene.getObjectsByProperty('containable', true);
@@ -58,9 +63,7 @@ class AideeDesk extends THREE.EventDispatcher {
                     } else {
                         drawerOpen[num] = false;
                     }
-                    drawerAnim[num].paused = true;
                     drawerActive[num] = false;
-                    engine.animating.shift();
                 }, 1250);
             }
         }
@@ -229,12 +232,19 @@ class AideeDesk extends THREE.EventDispatcher {
 
             // animations
             amixer = new THREE.AnimationMixer(model);
+            amixer.addEventListener( 'finished', function( e	) {
+                let action = e.action._clip.name;
+                let dn = parseInt(action.substring(6, 7));
+                let ai = engine.animating.indexOf('ad-'+dn);
+                engine.animating.splice(ai, 1);
+            });
             for(let a=0; a<6; a++) {
                 const aNum = a + 1;
                 const aName = 'Drawer'+aNum+'Action';
                 const clip = THREE.AnimationClip.findByName( model.animations, aName );
                 const anim = amixer.clipAction(clip);
-                anim.loop = THREE.LoopPingPong;
+                anim.loop = THREE.LoopOnce;
+                anim.clampWhenFinished = true;
                 drawerAnim[a] = anim;
             }
             engine.animated.push(pub);

@@ -42,9 +42,14 @@ class TippyDesk {
         let amixer;
         function initAnimations(model) {
             amixer = new THREE.AnimationMixer(model);
+            amixer.addEventListener( 'finished', function( e	) {
+                let ai = engine.animating.indexOf('tippydesk');
+                engine.animating.splice(ai, 1);
+            });
             const clip = THREE.AnimationClip.findByName( model.animations, 'KBTrayAction' );
             anim = amixer.clipAction(clip);
-            anim.loop = THREE.LoopPingPong;
+            anim.loop = THREE.LoopOnce;
+            anim.clampWhenFinished = true;
             pub.animaction = anim;
         }
 
@@ -53,16 +58,15 @@ class TippyDesk {
         this.toggleTray = function() {
             clock.start();
             if(trayOut) {
+                anim.timeScale = -1;
                 anim.play();
             } else {
+                anim.timeScale = 1;
                 anim.stop().play();
             }
             anim.paused = false;
-            engine.animating.push(1);
-            engine.callAnimate(true);
+            engine.animating.push('tippydesk');
             setTimeout(function() {
-                anim.paused = true;
-                engine.animating.shift();
                 trayOut = (trayOut ? false : true);
             }, 1250);
         }

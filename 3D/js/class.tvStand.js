@@ -47,12 +47,19 @@ class TvStand {
         let amixer, anims;
         function initAnimations(model) {
             amixer = new THREE.AnimationMixer(model);
+            amixer.addEventListener( 'finished', function( e	) {
+                let action = e.action._clip.name;
+                let dn = parseInt(action.substring(4, 5));
+                let ai = engine.animating.indexOf('tvs-'+dn);
+                engine.animating.splice(ai, 1);
+            });
             anims = [];
             for(let i=1; i<=3; i++) {
                 let action = 'Door'+i+'Action';
                 const clip = THREE.AnimationClip.findByName(model.animations, action);
                 const anim = amixer.clipAction(clip);
-                anim.loop = THREE.LoopPingPong;
+                anim.loop = THREE.LoopOnce;
+                anim.clampWhenFinished = true;
                 anims.push(anim);
             }
             pub.anims = anims;
@@ -66,15 +73,16 @@ class TvStand {
             let anim = this.anims[di];
             let open = doorOpen[di];
             let active = doorActive[di];
+            let desc = 'tvs-'+di;
             if(!active) {
                 // start the animation
                 clock.start();
                 if(!open) anim.stop();
+                anim.timeScale = (doorOpen[di] ? -1 : 1);
                 anim.play();
                 doorActive[di] = true;
                 if(anim.paused) anim.paused = false;
-                engine.animating.push(di);
-                engine.callAnimate(true);
+                engine.animating.push(desc);
 
                 // update door status after animation complete (0.625s)
                 setTimeout(function() {
@@ -83,9 +91,10 @@ class TvStand {
                     } else {
                         doorOpen[di] = false;
                     }
-                    anims[di].paused = true;
+                    //anims[di].paused = true;
                     doorActive[di] = false;
-                    engine.animating.shift();
+                    let ai = engine.animating.indexOf(desc);
+                    engine.animating.splice(ai, 1);
                 }, 625);
             }
         }
