@@ -105,7 +105,27 @@ controls.enableDamping = true;
 controls.maxPolarAngle = 1.5;
 //controls.minDistance = 2;
 controls.maxDistance = 8;
-controls.addEventListener('change', controlsChanged);
+controls.addEventListener('start', function() {
+    if(!knoxy.animating.length && !knoxy.tweening) {
+        knoxy.animating.push('controls');
+        render();
+    } else {
+        animate();
+    }   
+});
+controls.addEventListener('change', function() {
+    if(knoxy.animating.indexOf('controls') === -1 && !knoxy.tweening) {
+        knoxy.animating.push('controls');
+    }
+});
+controls.addEventListener('end', function() {
+    let ctrls = knoxy.animating.lastIndexOf('controls');
+    if(ctrls > -1) {
+        setTimeout(function() {
+            knoxy.animating.splice(ctrls, 1);
+        }, 1000);
+    }
+});
 knoxy.controls = controls;
 
 
@@ -330,34 +350,6 @@ function updateAnimated() {
     }
 }
 
-// Make sure to keep rendering while user is in control
-let lastChange = 0;
-let lastFrame = 0;
-function controlsChanged() {
-    if(!controlsInitialized) {
-        controlsInitialized = true;
-    } else {
-        if(knoxy.animating.indexOf('controls') === -1) {
-            let needsRender = (knoxy.animating.length===0 ? true : false);
-            if(needsRender) {
-                knoxy.animating.push('controls');
-                var change = new Date().getTime();
-                var elapsed = change - lastChange;
-                if(elapsed > 1250 || lastFrame === renderer.info.render.frame) {
-                    render();
-                } else {
-                    animate();
-                }
-                lastChange = change;
-                lastFrame = renderer.info.render.frame;
-            }
-            setTimeout(function() {
-                knoxy.animating.shift();
-            }, 1000);
-        }   
-    }
-    knoxy.view = false;
-}
 
 // Fire up the engine
 try {
