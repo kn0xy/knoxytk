@@ -75,6 +75,8 @@ if(window.parent.name === 'KnoxyHQ') {
                         let m = engine.ui.bubblePointer(e);
                         let pe = { clientX: m.x, clientY: m.y };
                         engine.controls.passDrag(pe);
+                        engine.animating.push('controls');
+                        engine.callAnimate(true);
                     } else {
                         preventDrag = false;
                     }
@@ -84,6 +86,10 @@ if(window.parent.name === 'KnoxyHQ') {
 
         // handle mouse up
         document.addEventListener('mouseup', function(e) {
+            if(dragging) {
+                let ci = engine.animating.lastIndexOf('controls');
+                engine.animating.splice(ci, 1);
+            }
             dragging = false;
             if(e.button === 2) {
                 preventDrag = true;

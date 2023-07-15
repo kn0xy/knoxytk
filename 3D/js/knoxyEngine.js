@@ -114,7 +114,7 @@ controls.addEventListener('start', function() {
     }   
 });
 controls.addEventListener('change', function() {
-    if(knoxy.animating.indexOf('controls') === -1 && !knoxy.tweening) {
+    if(knoxy.animating.indexOf('controls') === -1 && !knoxy.tweening && knoxy.mouseDown) {
         knoxy.animating.push('controls');
     }
 });
