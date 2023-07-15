@@ -137,6 +137,7 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                                 // move camera to tippyDesk
                                 setTimeout(function() {
                                     engine.ui.moveCameraTo('tippyDesk', null, null, () => {
+                                        engine.animating.shift();
                                         // initialize UI panel overlay
                                         engine.ui.panel.init();
                                         // slide out the desk tray
@@ -194,7 +195,8 @@ KKKKKKKKK    KKKKKKK  nnnnnn    nnnnnn   ooooooooooo xxxxxxx      xxxxxxx       
                     ['TrashCan', 'Trash Bin'],
                     ['tvStand', 'TV Stand'],
                     ['tv', 'HDTV'],
-                    ['couch2', 'Couch']
+                    ['couch2', 'Couch'],
+                    ['lightswitch', 'Lights']
                 ];
                 function getModelName(mf) {
                     for(let i=0; i<models.length; i++) {

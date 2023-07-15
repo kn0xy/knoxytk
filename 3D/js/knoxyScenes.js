@@ -8,6 +8,7 @@ import { OfficeChair } from './class.officeChair.js';
 import { PCTower } from './class.pcTower.js';
 import { Ender3v2 } from './class.ender3v2.js';
 import { TvStand } from './class.tvStand.js';
+import { LightSwitch } from './class.lightSwitch.js';
 
 function initWalls(knoxy, model) {
     knoxy.scene.walls = {
@@ -360,6 +361,17 @@ function SceneX(knoxy) {
                 knoxy.ui.zoomTo('tvStand');
             }
         }
+    });
+
+    // Initialize Light Switch
+    const lightSwitch = new LightSwitch(knoxy, (model) => {
+        model.position.set(-4.6, 2.35, 1.5);
+        model.scale.set(0.05, 0.05, 0.05);
+        model.rotateZ(THREE.MathUtils.degToRad(90));
+        scene.add(model);
+        lightSwitch.attachToWall();
+        lightSwitch.setLight(plight);
+        lightSwitch.toggle();
     });
 
     // Initialize TV (non-interactable)
