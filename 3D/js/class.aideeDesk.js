@@ -236,7 +236,7 @@ class AideeDesk extends THREE.EventDispatcher {
                 let action = e.action._clip.name;
                 let dn = parseInt(action.substring(6, 7)) - 1;
                 let ai = engine.animating.indexOf('ad-'+dn);
-                engine.animating.splice(ai, 1);
+                if(ai > -1) engine.animating.splice(ai, 1);
             });
             for(let a=0; a<6; a++) {
                 const aNum = a + 1;

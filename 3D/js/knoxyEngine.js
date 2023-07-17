@@ -123,14 +123,15 @@ controls.addEventListener('change', function(e) {
     }
 });
 controls.addEventListener('end', function(e) {
-    if(knoxy.animating.lastIndexOf('controls') > -1) delayPauseRender();
+    if(knoxy.animating.indexOf('controls') > -1) delayPauseRender();
 });
 knoxy.controls = controls;
 
 function delayPauseRender() {
     setTimeout(function() {
         if(!knoxy.mouseDown) {
-            knoxy.animating.splice(knoxy.animating.lastIndexOf('controls'), 1);
+            let ai = knoxy.animating.indexOf('controls');
+            if(ai > -1) knoxy.animating.splice(ai, 1);
         } else {
             setTimeout(delayPauseRender, 1000);
         }
@@ -332,7 +333,7 @@ function render() {
         knoxy.renderScenes();
         renderer.render( scene, camera );
         if(knoxy.animating.length > 0 || knoxy.tweening || knoxy.moving) {
-            requestAnimationFrame( animate );
+            requestAnimationFrame( render );
         }
     } catch(e) {
         console.error('render', e);
