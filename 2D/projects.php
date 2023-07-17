@@ -962,7 +962,9 @@ $allProjects[10] = (object) [
                 <li>Plesk</li>
                 <li>cPanel</li>
               </ul>
-              ')
+              '),
+    'demo' => 'https://www.knoxy.tk/portfolio/cmp/',
+    'src' => 'https://www.github.com/kn0xy/cmp'
 ];
 
 // Auto Dealer Results Admin Dashboards
