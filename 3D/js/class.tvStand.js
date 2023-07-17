@@ -49,9 +49,9 @@ class TvStand {
             amixer = new THREE.AnimationMixer(model);
             amixer.addEventListener( 'finished', function( e	) {
                 let action = e.action._clip.name;
-                let dn = parseInt(action.substring(4, 5));
+                let dn = parseInt(action.substring(4, 5)) - 1;
                 let ai = engine.animating.indexOf('tvs-'+dn);
-                engine.animating.splice(ai, 1);
+                if(ai > -1) engine.animating.splice(ai, 1);
             });
             anims = [];
             for(let i=1; i<=3; i++) {
@@ -91,10 +91,9 @@ class TvStand {
                     } else {
                         doorOpen[di] = false;
                     }
-                    //anims[di].paused = true;
                     doorActive[di] = false;
-                    let ai = engine.animating.indexOf(desc);
-                    engine.animating.splice(ai, 1);
+                    // let ai = engine.animating.indexOf(desc);
+                    // engine.animating.splice(ai, 1);
                 }, 625);
             }
         }

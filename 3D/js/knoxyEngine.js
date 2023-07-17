@@ -160,10 +160,8 @@ function onPointerMove(event) {
 
 // -- MouseDown
 document.addEventListener('mousedown', function(e) {
-    setTimeout(()=>{
-        knoxy.mouseDown = true;
-        if(!knoxy.preventMoving) knoxy.moving = true;
-    }, 250);
+    if(!knoxy.preventMoving) knoxy.moving = true;
+    setTimeout(()=>{knoxy.mouseDown = true}, 250);
     if(e.button === 2) {
         if(e.target.id !== 'knoxy') {
             e.preventDefault();
@@ -333,7 +331,7 @@ function render() {
         if(knoxy.tweening) TWEEN.update();
         knoxy.renderScenes();
         renderer.render( scene, camera );
-        if(knoxy.animating.length > 0 || knoxy.tweening) {
+        if(knoxy.animating.length > 0 || knoxy.tweening || knoxy.moving) {
             requestAnimationFrame( animate );
         }
     } catch(e) {

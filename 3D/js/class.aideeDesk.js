@@ -234,7 +234,7 @@ class AideeDesk extends THREE.EventDispatcher {
             amixer = new THREE.AnimationMixer(model);
             amixer.addEventListener( 'finished', function( e	) {
                 let action = e.action._clip.name;
-                let dn = parseInt(action.substring(6, 7));
+                let dn = parseInt(action.substring(6, 7)) - 1;
                 let ai = engine.animating.indexOf('ad-'+dn);
                 engine.animating.splice(ai, 1);
             });

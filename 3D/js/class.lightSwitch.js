@@ -91,7 +91,6 @@ class LightSwitch {
             if(callback) callback(model);
             engine.objects.push(pub);
             engine.animated.push(pub);
-            console.log(model);
         });
 
         // attach to south wall
