@@ -105,7 +105,7 @@ controls.enableDamping = true;
 controls.maxPolarAngle = 1.5;
 //controls.minDistance = 2;
 controls.maxDistance = 8;
-controls.addEventListener('start', function() {
+controls.addEventListener('start', function(e) {
     if(!knoxy.animating.length && !knoxy.tweening) {
         knoxy.animating.push('controls');
         render();
@@ -113,21 +113,29 @@ controls.addEventListener('start', function() {
         animate();
     }   
 });
-controls.addEventListener('change', function() {
-    if(knoxy.animating.indexOf('controls') === -1 && !knoxy.tweening && knoxy.mouseDown) {
-        knoxy.animating.push('controls');
+controls.addEventListener('change', function(e) {
+    if(knoxy.animating.indexOf('controls') === -1 && !knoxy.tweening) {
+        if(controlsInitialized) {
+            knoxy.animating.push('controls');
+        } else {
+            controlsInitialized = true;
+        }
     }
 });
-controls.addEventListener('end', function() {
-    let ctrls = knoxy.animating.lastIndexOf('controls');
-    if(ctrls > -1) {
-        setTimeout(function() {
-            knoxy.animating.splice(ctrls, 1);
-        }, 1000);
-    }
+controls.addEventListener('end', function(e) {
+    if(knoxy.animating.lastIndexOf('controls') > -1) delayPauseRender();
 });
 knoxy.controls = controls;
 
+function delayPauseRender() {
+    setTimeout(function() {
+        if(!knoxy.mouseDown) {
+            knoxy.animating.splice(knoxy.animating.lastIndexOf('controls'), 1);
+        } else {
+            setTimeout(delayPauseRender, 1000);
+        }
+    }, 1000);
+}
 
 // Initialize scene
 knoxy.ui = new KnoxyUI(knoxy);
